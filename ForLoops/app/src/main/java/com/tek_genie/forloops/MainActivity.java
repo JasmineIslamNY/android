@@ -1,4 +1,4 @@
-package com.tek_genie.helloworld;
+package com.tek_genie.forloops;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,17 +17,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int myAge = 15;
-        double myGPA = 3.2;
-        String TAG = "MyData";
-        Log.i(TAG,"myAge = " + myAge);
-        Log.i(TAG,"myGPA = " + myGPA);
-        Log.e(TAG, "myAge = " + myAge);
-        Log.e(TAG, "myGPA = " + myGPA);
-        Log.w(TAG,"myAge = " + myAge);
-        Log.w(TAG,"myGPA = " + myGPA);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        String TAG = "MyData";
+        for (int c=1; c<= 100; c++) {
+            Log.i(TAG, "Number = " + c);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
