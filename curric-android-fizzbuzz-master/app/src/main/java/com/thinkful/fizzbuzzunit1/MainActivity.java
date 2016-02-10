@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
+import android.util.Log;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -22,6 +23,11 @@ public class MainActivity extends Activity {
     String buzzString = "Buzz";
     String fizzBuzzString = "FizzBuzz";
     String valueString;
+    int [] fizzArray = new int[10];
+    int fizzIndex = 0;
+    int [] buzzArray = new int[10];
+    int buzzIndex = 0;
+    String TAG = "MyData";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -78,6 +84,12 @@ public class MainActivity extends Activity {
             valueString = checkValue(i);
             textView.append(valueString + "\n"); // display in the textView
         }
+        for (int i = 0; i < fizzArray.length; i++) {
+            Log.i("MyData", "fizzArray[" + i + "] = " + fizzArray[i]);
+        }
+        for (int i = 0; i < buzzArray.length; i++) {
+            Log.i("MyData", "buzzArray[" + i + "] = " + buzzArray[i]);
+        }
 
     }
 
@@ -87,8 +99,12 @@ public class MainActivity extends Activity {
             checkResult = fizzBuzzString;
         } else if (valueToCheck % 3 == 0) {
             checkResult = fizzString;
+            fizzArray[fizzIndex] = valueToCheck;
+            fizzIndex++;
         } else if (valueToCheck % 5 == 0) {
             checkResult = buzzString;
+            buzzArray[buzzIndex] = valueToCheck;
+            buzzIndex++;
         } else {
             checkResult = String.valueOf(valueToCheck);
         }
