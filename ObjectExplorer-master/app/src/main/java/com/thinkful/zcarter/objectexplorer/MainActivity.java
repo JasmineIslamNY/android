@@ -57,12 +57,41 @@ class Referee implements Observer {
 }
 
 abstract class Baseball extends Ball {
-    public abstract void pitch();
-    public int speed;
+    float speed = 1f;
+    String direction = "To the Catcher";
+
+    // A no-argument constructor
+    Baseball(){}
+
+    public void pitching(float speed, String direction) {
+        Screen.log("This ball is thrown at " + speed + " miles per hour in a direction: " + direction);
+    }
+}
+
+class Curveball extends Baseball {
+    int curveAmount;
+
+    Curveball(int curveAmount) {
+        super();
+        this.curveAmount = curveAmount;
+    }
+
+    @Override
+    public void pitching(float speed, String direction) {
+        super.pitching(speed, direction);
+        Screen.log(" ...and it has a curve of " + curveAmount);
+    }
+
+    @Override
+    public void roll() {
+        Screen.log("This hard ball is rolling");
+        this.setChanged();
+        this.notifyObservers();
+    }
 }
 
 class Softball extends Baseball {
-    @Override
+    // @Override
     public void pitch(){
         Log.i("Softball", "A soft ball is pitched underhand");
     }
@@ -97,7 +126,7 @@ class Hardball extends Baseball {
         this.speed = speed;
     }
 
-    @Override
+    //@Override
     public void pitch() {
         Screen.log("A hard ball is pitched overhand with speed" + this.speed);
         this.setChanged();
@@ -148,6 +177,8 @@ public class MainActivity extends Activity {
         firstGame.pitch();
         SuperBall superBall = new SuperBall();
         superBall.bounce();
+        Curveball x = new Curveball(3);
+        x.pitching(2, "hit the ground");
 
     }
 
