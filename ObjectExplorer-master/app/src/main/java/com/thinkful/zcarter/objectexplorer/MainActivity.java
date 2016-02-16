@@ -57,13 +57,13 @@ class Referee implements Observer {
 }
 
 abstract class Baseball extends Ball {
-    float speed = 1f;
-    String direction = "To the Catcher";
+    float speed;
+    String direction;
 
     // A no-argument constructor
     Baseball(){}
 
-    public void pitching(float speed, String direction) {
+    public void throwBall(float speed, String direction) {
         Screen.log("This ball is thrown at " + speed + " miles per hour in a direction: " + direction);
     }
 }
@@ -77,8 +77,8 @@ class Curveball extends Baseball {
     }
 
     @Override
-    public void pitching(float speed, String direction) {
-        super.pitching(speed, direction);
+    public void throwBall(float speed, String direction) {
+        super.throwBall(speed, direction);
         Screen.log(" ...and it has a curve of " + curveAmount);
     }
 
@@ -107,6 +107,7 @@ class Softball extends Baseball {
 class BouncyBall {
 
     public void bounce() {
+
         Screen.log("The BouncyBall object bounces.");
     }
 }
@@ -115,6 +116,7 @@ class SuperBall extends BouncyBall {
 
     @Override
     public void bounce() {
+
         Screen.log("The SuperBall object bounces super high.");
     }
 }
@@ -178,7 +180,7 @@ public class MainActivity extends Activity {
         SuperBall superBall = new SuperBall();
         superBall.bounce();
         Curveball x = new Curveball(3);
-        x.pitching(2, "hit the ground");
+        x.throwBall(2, "hit the ground");
 
     }
 
