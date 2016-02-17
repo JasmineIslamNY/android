@@ -28,8 +28,16 @@ class Screen {
     }
 }
 
-abstract class Ball extends Observable {
+interface Pitchable {
+    public void pitch(int speed);
+}
+
+abstract class Ball extends Observable implements Pitchable {
     public abstract void roll();
+
+    public void pitch(int speed) {
+        Screen.log("Here is code to pitch a ball " + speed + " miles per hour.");
+    }
 }
 
 class Football extends Ball {
