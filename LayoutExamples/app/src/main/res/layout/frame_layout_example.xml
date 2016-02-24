@@ -5,13 +5,15 @@
     android:orientation="vertical">
 
     <View
+        android:layout_width="100px"
+        android:layout_height="200px"
+        android:background="#FF0000"/>
+
+    <View
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:background="#FFFF00"/>
 
-    <View
-        android:layout_width="100px"
-        android:layout_height="100px"
-        android:background="#FF0000"/>
+
 
 </FrameLayout>
