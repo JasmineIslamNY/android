@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private NoteListItemAdapter mAdapter;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,20 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new NoteListItemAdapter(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+
+        mButton = (Button) findViewById(R.id.button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteListItem newNote = new NoteListItem(R.id.edit_text.toString());
+                mAdapter.addItem(newNote);
+                R.id.edit_text = "";
+                // Get the text in the EditText
+                // Create a new NoteListItem with the text
+                // Add the item to the adapter
+                // Set the EditText to an empty string
+            }
+        });
     }
 
     @Override

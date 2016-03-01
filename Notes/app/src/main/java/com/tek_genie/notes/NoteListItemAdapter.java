@@ -55,4 +55,9 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
             this.text.setText(text);
         };
     };
+
+    public void addItem(NoteListItem item) {
+        mNoteListItems.add(0, item);
+        notifyItemInserted(0);
+    }
 };
