@@ -21,7 +21,7 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     public NoteListItemAdapter(Context context, RecyclerView recyclerView) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
-        this.mNoteListItems.add(new NoteListItem("This is your first note."));
+        //this.mNoteListItems.add(new NoteListItem("This is your first note."));
     };
 
     @Override
