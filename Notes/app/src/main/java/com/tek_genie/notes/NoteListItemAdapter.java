@@ -5,6 +5,7 @@ package com.tek_genie.notes;
  */
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,16 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     @Override
     public NoteListItemAdapter.ViewHolder onCreateViewHolder (ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.note_list_item, viewGroup, false);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String TAG = "MyData";
+                    Log.i(TAG, "Removing: " + mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v)).getText());
+                    removeItem(mRecyclerView.getChildLayoutPosition(v));
+            }
+        });
+
             return new ViewHolder(v);
         };
 
@@ -59,5 +70,10 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     public void addItem(NoteListItem item) {
         mNoteListItems.add(0, item);
         notifyItemInserted(0);
+    }
+
+    public void removeItem(int position) {
+        mNoteListItems.remove(position);
+        notifyItemRemoved(position);
     }
 };

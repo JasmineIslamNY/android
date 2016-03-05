@@ -52,10 +52,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText noteText = (EditText) findViewById(R.id.edit_text);
-                Log.i(TAG, noteText.getText().toString());
+                Log.i(TAG, "Adding: " + noteText.getText().toString());
                 NoteListItem newNote = new NoteListItem(noteText.getText().toString());
                 mAdapter.addItem(newNote);
                 noteText.setText("");
+                mLayoutManager.scrollToPosition(0);
             }
         });
     }
