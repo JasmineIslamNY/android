@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 NoteListItem newNote = new NoteListItem(noteText.getText().toString());
                 mAdapter.addItem(newNote);
                 noteText.setText("");
-                mLayoutManager.scrollToPosition(0);
-                // Get the text in the EditText
-                // Create a new NoteListItem with the text
-                // Add the item to the adapter
-                // Set the EditText to an empty string
             }
         });
     }
