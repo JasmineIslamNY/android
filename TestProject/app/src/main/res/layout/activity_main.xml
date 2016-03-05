@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.tek_genie.toast.MainActivity">
+    tools:context="com.tek_genie.testproject.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,31 +31,4 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_email" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="match_parent">
-
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/searchText"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="83dp"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/searchButton"
-            android:autoText="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:id="@+id/searchButton"
-            android:layout_marginRight="5dp"
-            android:layout_alignTop="@+id/searchText"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
 </android.support.design.widget.CoordinatorLayout>
-

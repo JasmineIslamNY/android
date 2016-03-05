@@ -1,4 +1,4 @@
-package com.tek_genie.toast;
+package com.tek_genie.testproject;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,10 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Button;
-import android.view.Gravity;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,26 +26,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        final EditText searchText = (EditText) findViewById(R.id.searchText);
-        Button searchButton = (Button) findViewById(R.id.searchButton);
-        searchText.setHint("Type your text...");
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(), searchText.getText().toString(), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-                searchText.setText(" ");
-                //searchText.setHint("Type your text...");
-                //R.id.searchText.
-            };
-
-        });
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
