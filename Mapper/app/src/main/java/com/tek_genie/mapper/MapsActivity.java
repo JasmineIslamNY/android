@@ -3,8 +3,10 @@ package com.tek_genie.mapper;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,9 +19,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.logging.Handler;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.*;
+import com.google.android.gms.location.LocationListener;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,ConnectionCallbacks, OnConnectionFailedListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -34,7 +37,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnected(Bundle connectionHint) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-                showLocation(mCurrentLocation);
+        showLocation(mCurrentLocation);
+        startLocationUpdates();
     }
     protected void showLocation(Location mCurrentLocation) {
         if (mCurrentLocation != null) {
@@ -42,11 +46,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 15));
         }
     }
+
+    protected void startLocationUpdates() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        showLocation(location);
+        Log.i("Where am I?", "Latitude: " + mCurrentLocation.getLatitude() + ", Longitude:" + mCurrentLocation.getLongitude());
+    }
+
     @Override
     public void onConnectionSuspended(int i) {
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //stop location updates
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mGoogleApiClient.isConnected()) {
+            //setUpMapIfNeeded();    // <-from previous tutorial
+            startLocationUpdates();
+        }
     }
 
     @Override
