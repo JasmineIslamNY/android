@@ -20,6 +20,8 @@ import java.util.logging.Handler;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.*;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
@@ -27,6 +29,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mCurrentLocation;
+    double latitude = 40.666954;
+    double longitude = -73.715123;
+    double lastLatitude;
+    double lastLongitude;
+    PolylineOptions newLines = new PolylineOptions();
 
     @Override
     protected void onStart() {
@@ -56,10 +63,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mGoogleApiClient, mLocationRequest, this);
     }
 
+    public void drawLines(double lat, double lon) {
+            LatLng temp = new LatLng(lat, lon);
+            newLines.add(temp);
+            Polyline polyline = mMap.addPolyline(newLines);
+        }
+
     @Override
     public void onLocationChanged(Location location) {
         showLocation(location);
         Log.i("Where am I?", "Latitude: " + mCurrentLocation.getLatitude() + ", Longitude:" + mCurrentLocation.getLongitude());
+        if (mCurrentLocation.getLatitude() == lastLatitude) {
+            latitude += 0.001;
+            Log.i("Latitude didn't change, ", "still " + lastLatitude);
+        }
+        else {
+            lastLatitude = mCurrentLocation.getLatitude();
+            latitude = lastLatitude;
+        }
+        if (mCurrentLocation.getLongitude() == lastLongitude) {
+            longitude += 0.001;
+            Log.i("Longitude didn't change, ", "still " + lastLongitude);
+        }
+        else {
+            lastLongitude = mCurrentLocation.getLongitude();
+            longitude = lastLongitude;
+        }
+        drawLines(latitude, longitude);
     }
 
     @Override
