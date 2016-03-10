@@ -166,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thinkful, 10));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
-        *//**
+
         Handler handler;
         handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -175,7 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
             }
         }, 2000);
-         */
+        */
 
     }
 }
