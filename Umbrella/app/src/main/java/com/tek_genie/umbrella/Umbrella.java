@@ -123,40 +123,39 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
     }
 
     protected String getJSONKeyPairValue (StringBuilder stringBuilder, String returnKey) {
+        String textToReturn = null;
         if (returnKey == "city" || returnKey == "state"){
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(stringBuilder.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            JSONObject location = null;
-            try {
-                location = jsonObject.getJSONObject("location");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             String cityState = null;
             try {
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                JSONObject location = jsonObject.getJSONObject("location");
                 cityState = location.getString(returnKey);
+                textToReturn = cityState;
+                return cityState;
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return cityState;
+
         }
         else {
-            JSONObject jsonObject = null;
             try {
-                jsonObject = new JSONObject(stringBuilder.toString());
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                if (jsonObject.has("rain") || jsonObject.has("snow")) {
+                    textToReturn = "Yes";
+                    return("Yes");
+                } else {
+                    textToReturn = "No";
+                    return("No");
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if (jsonObject.has("rain") || jsonObject.has("snow")) {
-                return("Yes");
-            } else {
-                return("No");
-            }
+
+
         }
+        return textToReturn;
     }
 
     protected InputStream getJSONResult (String urlString){
