@@ -27,7 +27,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
+        <meta-data
+            android:name="com.weather.API_KEY"
+            android:value="5a0befd8a35cbb56" />
 
         <activity
             android:name=".Umbrella"
