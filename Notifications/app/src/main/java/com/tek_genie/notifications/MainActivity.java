@@ -1,11 +1,13 @@
 package com.tek_genie.notifications;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +49,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
+        Button alarmButton = (Button) findViewById(R.id.btnAlarm);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAlarm();
+            }
+        });
+        Button cancelAlarmButton = (Button) findViewById(R.id.btnCancelAlarm);
+        cancelAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelAlarm();
+            }
+        });
     }
 
     protected void displayNotification() {
@@ -75,6 +91,37 @@ public class MainActivity extends AppCompatActivity {
 
         return(pendingIntent);
     }
+
+    protected void setAlarm() {
+        AlarmManager alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        /*
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 10 * 1000,
+                getMainActivityPendingIntent());
+
+        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 10 * 1000,
+                10 * 1000,
+                getMainActivityPendingIntent());
+         */
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 22);
+        long milliseconds = calendar.getTimeInMillis();
+
+        alarmMgr.setInexactRepeating(AlarmManager.RTC,
+                milliseconds,
+                AlarmManager.INTERVAL_DAY,
+                getMainActivityPendingIntent());
+    }
+
+    protected void cancelAlarm() {
+        AlarmManager alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.cancel(getMainActivityPendingIntent());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
