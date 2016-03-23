@@ -84,42 +84,14 @@ public class MainActivity extends AppCompatActivity {
         mNotificationManager.notify(notificationID, nBuilder.build());
     }
 
-    protected PendingIntent getMainActivityPendingIntent(){
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        return(pendingIntent);
+    protected void setAlarm(){
+        Alarm alarm = new Alarm();
+        alarm.setAlarm(this);
     }
 
-    protected void setAlarm() {
-        AlarmManager alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        /*
-        alarmMgr.set(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 10 * 1000,
-                getMainActivityPendingIntent());
-
-        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 10 * 1000,
-                10 * 1000,
-                getMainActivityPendingIntent());
-         */
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 20);
-        calendar.set(Calendar.MINUTE, 22);
-        long milliseconds = calendar.getTimeInMillis();
-
-        alarmMgr.setInexactRepeating(AlarmManager.RTC,
-                milliseconds,
-                AlarmManager.INTERVAL_DAY,
-                getMainActivityPendingIntent());
-    }
-
-    protected void cancelAlarm() {
-        AlarmManager alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.cancel(getMainActivityPendingIntent());
+    protected void cancelAlarm(){
+        Alarm alarm = new Alarm();
+        alarm.cancelAlarm(this);
     }
 
     @Override
