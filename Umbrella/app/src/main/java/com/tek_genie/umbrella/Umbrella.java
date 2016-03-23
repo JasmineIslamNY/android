@@ -200,6 +200,17 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
             longitude = -73.715123;
         }
         Log.i("Where am I?", "Latitude: " + latitude + ", Longitude:" + longitude);
+
+        TextView textview = (TextView) findViewById(R.id.hello);
+        textview.setText("Finding out if you need an umbrella...");
+
+        String latitudeString = String.valueOf(latitude);
+        String longitudeString = String.valueOf(longitude);
+        String [] location = {latitudeString, longitudeString};
+
+        WebServiceTask webserviceTask = new WebServiceTask();
+        webserviceTask.execute(location);
+
         String cityAndState = determineCityState(latitude, longitude);
         String umbrellaToday = doINeedAnUmbrella(cityAndState);
         Log.i("Do I need an umbrella today", "? " + umbrellaToday);
@@ -302,7 +313,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
 
     private class WebServiceTask extends AsyncTask<String, String, InputStream> {
 
-        
+
         @Override
         protected void onPostExecute(InputStream s) {
             super.onPostExecute(s);
