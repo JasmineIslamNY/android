@@ -41,6 +41,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
     protected Location mCurrentLocation;
     double latitude;
     double longitude;
+    InputStream returnFromBackground;
 
     @Override
     protected void onStart() {
@@ -48,6 +49,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         mGoogleApiClient.connect();
         onLocationChanged(mCurrentLocation);
     }
+
     @Override
     public void onConnected(Bundle connectionHint) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -68,8 +70,18 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         String urlString = urlStringStart + urlStringLocation + urlStringEnd;
         InputStream umbrellaJSON;
 
-        umbrellaJSON = getJSONResult(urlString); //this will return an InputStream
-        String umbrellaYesNo = getResultFromJSON(umbrellaJSON, "umbrella"); //this will return "Yes" if there is rain or snow
+        WebServiceTask webserviceTask = new WebServiceTask();
+        webserviceTask.execute(urlString); //this will return an InputStream as returnFromBackground
+
+        if (returnFromBackground == null) {
+            Log.i("ReturnFromonPostExecute", "Error - return from webserviceTask is null");
+        }
+        else {
+            Log.i("ReturnFromonPostExecute", "Success - return from webserviceTask  is not null");
+        }
+
+        umbrellaJSON = returnFromBackground;  //renaming as umbrellaJSON to make it more readable
+        String umbrellaYesNo = getResultFromJSON(returnFromBackground, "umbrella"); //this will return "Yes" if there is rain or snow
         return umbrellaYesNo;
     }
 
@@ -82,15 +94,30 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         String urlString = urlStringStart + latitudeString + urlStringMiddle + longitudeString + urlStringEnd;
         InputStream cityStateJSON;
 
-        cityStateJSON = getJSONResult(urlString); //this will return an InputStream
-        String cityAndState = getResultFromJSON(cityStateJSON, "cityState"); //this will return State/City as a string, i.e. CA/San Francisco
+        WebServiceTask webserviceTask = new WebServiceTask();
+        webserviceTask.execute(urlString); //this will return an InputStream as returnFromBackground
+
+        if (returnFromBackground == null) {
+            Log.i("ReturnFromonPostExecute", "Error - return from webserviceTask is null");
+        }
+        else {
+            Log.i("ReturnFromonPostExecute", "Success - return from webserviceTask  is not null");
+        }
+
+        cityStateJSON = returnFromBackground;  //renaming as cityStateJSON to make it more readable
+        String cityAndState = getResultFromJSON(returnFromBackground, "cityState"); //this will return State/City as a string, i.e. CA/San Francisco
         return cityAndState;
     }
 
     protected String getResultFromJSON (InputStream inputJSON, String type) {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
+
+        if (inputJSON == null) {
+            Log.i("Error", "inputJSON is null");
+        }
         try {
+
             bufferedReader = new BufferedReader(new InputStreamReader(inputJSON));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -158,24 +185,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         return textToReturn;
     }
 
-    protected InputStream getJSONResult (String urlString){
-        HttpURLConnection urlConnection = null;
-        InputStream jsonFile = null;
 
-        try {
-            URL url = new URL(urlString);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            jsonFile = urlConnection.getInputStream();
-            return jsonFile;
-        } catch (IOException e) {
-            Log.e("MainActivity", "Error ", e);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-        return jsonFile;
-    }
     @Override
     public void onLocationChanged(Location location) {
         //showLocation(location);
@@ -289,17 +299,42 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         return super.onOptionsItemSelected(item);
     }
 
-    private class WebServiceTask extends AsyncTask<String, String, String> {
+
+    private class WebServiceTask extends AsyncTask<String, String, InputStream> {
 
         @Override
-        protected String doInBackground(String... params) {
-            return "Hello "+params[0];
+        protected void onPostExecute(InputStream s) {
+            super.onPostExecute(s);
+            /*
+            if (s == null) {
+                Log.i("onPostExecute", "Error - return from doInBackground is null");
+            }
+            else {
+                    Log.i("onPostExecute", "Success - return from doInBackground  is not null");
+                }
+              */
+            return s;
+
         }
 
-        protected void onPostExecute(Long result) {
-            //super.onPostExecute();
-            TextView textview = (TextView) findViewById(R.id.hello_world);
-            //textview.setText(s);
-             }
+        @Override
+        protected InputStream doInBackground(String... params) {
+                HttpURLConnection urlConnection = null;
+                InputStream jsonFile = null;
+
+                try {
+                    URL url = new URL(params[0]);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    jsonFile = urlConnection.getInputStream();
+                    return jsonFile;
+                } catch (IOException e) {
+                    Log.e("MainActivity", "Error ", e);
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                }
+                return jsonFile;
+            }
     }
 }
