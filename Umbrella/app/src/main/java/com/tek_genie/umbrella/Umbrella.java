@@ -302,6 +302,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
 
     private class WebServiceTask extends AsyncTask<String, String, InputStream> {
 
+        
         @Override
         protected void onPostExecute(InputStream s) {
             super.onPostExecute(s);
