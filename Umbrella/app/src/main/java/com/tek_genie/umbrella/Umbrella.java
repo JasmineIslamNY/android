@@ -63,129 +63,6 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
 
-    protected String doINeedAnUmbrella(String location){
-        String urlStringStart = "http://api.wunderground.com/api/5a0befd8a35cbb56/conditions/q/";
-        String urlStringEnd = ".json";
-        String urlStringLocation = location;
-        String urlString = urlStringStart + urlStringLocation + urlStringEnd;
-        InputStream umbrellaJSON;
-
-        WebServiceTask webserviceTask = new WebServiceTask();
-        webserviceTask.execute(urlString); //this will return an InputStream as returnFromBackground
-
-        if (returnFromBackground == null) {
-            Log.i("ReturnFromonPostExecute", "Error - return from webserviceTask is null");
-        }
-        else {
-            Log.i("ReturnFromonPostExecute", "Success - return from webserviceTask  is not null");
-        }
-
-        umbrellaJSON = returnFromBackground;  //renaming as umbrellaJSON to make it more readable
-        String umbrellaYesNo = getResultFromJSON(returnFromBackground, "umbrella"); //this will return "Yes" if there is rain or snow
-        return umbrellaYesNo;
-    }
-
-    protected String determineCityState (double latitude, double longitude) {
-        String urlStringStart = "http://api.wunderground.com/api/5a0befd8a35cbb56/geolookup/q/";
-        String urlStringMiddle = ",";
-        String urlStringEnd = ".json";
-        String latitudeString = String.valueOf(latitude);
-        String longitudeString = String.valueOf(longitude);
-        String urlString = urlStringStart + latitudeString + urlStringMiddle + longitudeString + urlStringEnd;
-        InputStream cityStateJSON;
-
-        WebServiceTask webserviceTask = new WebServiceTask();
-        webserviceTask.execute(urlString); //this will return an InputStream as returnFromBackground
-
-        if (returnFromBackground == null) {
-            Log.i("ReturnFromonPostExecute", "Error - return from webserviceTask is null");
-        }
-        else {
-            Log.i("ReturnFromonPostExecute", "Success - return from webserviceTask  is not null");
-        }
-
-        cityStateJSON = returnFromBackground;  //renaming as cityStateJSON to make it more readable
-        String cityAndState = getResultFromJSON(returnFromBackground, "cityState"); //this will return State/City as a string, i.e. CA/San Francisco
-        return cityAndState;
-    }
-
-    protected String getResultFromJSON (InputStream inputJSON, String type) {
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-
-        if (inputJSON == null) {
-            Log.i("Error", "inputJSON is null");
-        }
-        try {
-
-            bufferedReader = new BufferedReader(new InputStreamReader(inputJSON));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line + "\n");
-            }
-            if (type == "cityState") {
-            String returnedCity = getJSONKeyPairValue(stringBuilder, "city");
-            String returnedState = getJSONKeyPairValue(stringBuilder, "state");
-            String cityAndState = returnedCity + "/" + returnedState;
-            return cityAndState;
-            }
-            else {
-                String umbrella = getJSONKeyPairValue(stringBuilder, "weather");
-                return umbrella;
-            }
-
-            //Log.i("Returned data", stringBuilder.toString());
-        } catch (Exception e) {
-            Log.e("MainActivity", "Error", e);
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (final IOException e) {
-                    Log.e("PlaceholderFragment", "Error closing stream", e);
-                }
-            }
-        }
-        return "Error!";
-    }
-
-    protected String getJSONKeyPairValue (StringBuilder stringBuilder, String returnKey) {
-        String textToReturn = null;
-        if (returnKey == "city" || returnKey == "state"){
-            String cityState = null;
-            try {
-                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-                JSONObject location = jsonObject.getJSONObject("location");
-                cityState = location.getString(returnKey);
-                textToReturn = cityState;
-                return cityState;
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        else {
-            try {
-                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-                if (jsonObject.has("rain") || jsonObject.has("snow")) {
-                    textToReturn = "Yes";
-                    return("Yes");
-                } else {
-                    textToReturn = "No";
-                    return("No");
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-        return textToReturn;
-    }
-
-
     @Override
     public void onLocationChanged(Location location) {
         //showLocation(location);
@@ -196,24 +73,26 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
             longitude = mCurrentLocation.getLongitude();
         }
         else {
-            latitude = 40.666954;
-            longitude = -73.715123;
+            latitude = 47.6063716;
+            longitude = -122.3322141;  //Seattle, WA
+            //latitude = 40.666954;
+            //longitude = -73.715123;  //Valley Stream, NY
+            //latitude = 40.778246;
+            //longitude = -73.9677407; //Near Central Park
         }
         Log.i("Where am I?", "Latitude: " + latitude + ", Longitude:" + longitude);
 
         TextView textview = (TextView) findViewById(R.id.hello);
         textview.setText("Finding out if you need an umbrella...");
 
+        //wait(10000);
+
         String latitudeString = String.valueOf(latitude);
         String longitudeString = String.valueOf(longitude);
-        String [] location = {latitudeString, longitudeString};
+        String [] latlongArray = {latitudeString, longitudeString};
 
         WebServiceTask webserviceTask = new WebServiceTask();
-        webserviceTask.execute(location);
-
-        String cityAndState = determineCityState(latitude, longitude);
-        String umbrellaToday = doINeedAnUmbrella(cityAndState);
-        Log.i("Do I need an umbrella today", "? " + umbrellaToday);
+        webserviceTask.execute(latlongArray);
     }
 
     @Override
@@ -311,34 +190,26 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
     }
 
 
-    private class WebServiceTask extends AsyncTask<String, String, InputStream> {
-
+    private class WebServiceTask extends AsyncTask<String, String, String> {
 
         @Override
-        protected void onPostExecute(InputStream s) {
+        protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            /*
-            if (s == null) {
-                Log.i("onPostExecute", "Error - return from doInBackground is null");
-            }
-            else {
-                    Log.i("onPostExecute", "Success - return from doInBackground  is not null");
-                }
-              */
-            return s;
+            TextView textview = (TextView) findViewById(R.id.hello);
+            textview.setText(s);
 
         }
 
         @Override
-        protected InputStream doInBackground(String... params) {
-                HttpURLConnection urlConnection = null;
-                InputStream jsonFile = null;
+        protected String doInBackground(String... params) {
+            String urlForCityState = determineCityStateURL(params[0], params[1]);
 
-                try {
-                    URL url = new URL(params[0]);
+            HttpURLConnection urlConnection = null;
+            InputStream jsonFileInputStream = null;
+            try {
+                    URL url = new URL(urlForCityState);
                     urlConnection = (HttpURLConnection) url.openConnection();
-                    jsonFile = urlConnection.getInputStream();
-                    return jsonFile;
+                    jsonFileInputStream = urlConnection.getInputStream();
                 } catch (IOException e) {
                     Log.e("MainActivity", "Error ", e);
                 } finally {
@@ -346,7 +217,131 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
                         urlConnection.disconnect();
                     }
                 }
-                return jsonFile;
+
+            String cityAndState = determineCityState(jsonFileInputStream);
+            String urlForUmbrella = doINeedAnUmbrellaURL(cityAndState);
+
+            urlConnection = null;
+            jsonFileInputStream = null;
+            try {
+                URL url2 = new URL(urlForUmbrella);
+                urlConnection = (HttpURLConnection) url2.openConnection();
+                jsonFileInputStream = urlConnection.getInputStream();
+            } catch (IOException e) {
+                Log.e("MainActivity", "Error ", e);
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
             }
+
+            String doINeedAnUmbrella = determineDoINeedAndUmbrella(jsonFileInputStream);
+            return doINeedAnUmbrella;
+            }
+
+        protected String determineCityStateURL (String latitude, String longitude) {
+            String urlStringStart = "http://api.wunderground.com/api/5a0befd8a35cbb56/geolookup/q/";
+            String urlStringMiddle = ",";
+            String urlStringEnd = ".json";
+            String urlString = urlStringStart + latitude + urlStringMiddle + longitude + urlStringEnd;
+            return urlString;
+        }
+        protected String determineCityState (InputStream input) {
+            String cityAndState = getResultFromJSON(input, "cityState"); //this will return State/City as a string, i.e. CA/San Francisco
+            Log.i("cityAndState before replacement", cityAndState);
+            cityAndState = cityAndState.replaceAll(" ", "%20");  //changes blank spaces to %20 as cities like 'New York' were not working
+            Log.i("cityAndState after replacement", cityAndState);
+            return cityAndState;
+        }
+        protected String doINeedAnUmbrellaURL(String location) {
+            String urlStringStart = "http://api.wunderground.com/api/5a0befd8a35cbb56/conditions/q/";
+            String urlStringEnd = ".json";
+            String urlString = urlStringStart + location + urlStringEnd;
+            return urlString;
+        }
+        protected String determineDoINeedAndUmbrella(InputStream input) {
+            String umbrellaYesNo = getResultFromJSON(input, "umbrella"); //this will return "Yes" if there is rain or snow
+            return umbrellaYesNo;
+        }
+
+        protected String getResultFromJSON (InputStream inputJSON, String type) {
+            StringBuilder stringBuilder = new StringBuilder();
+            BufferedReader bufferedReader = null;
+
+            if (inputJSON == null) {
+                Log.i("Error", "inputJSON is null");
+            }
+            try {
+
+                bufferedReader = new BufferedReader(new InputStreamReader(inputJSON));
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+                if (type == "cityState") {
+                    String returnedCity = getJSONKeyPairValue(stringBuilder, "city");
+                    String returnedState = getJSONKeyPairValue(stringBuilder, "state");
+                    String cityAndState = returnedState + "/" + returnedCity;
+                    Log.i("Result of cityAndState", cityAndState);
+                    return cityAndState;
+                }
+                else {
+                    String umbrella = getJSONKeyPairValue(stringBuilder, "weather");
+                    return umbrella;
+                }
+
+                //Log.i("Returned data", stringBuilder.toString());
+            } catch (Exception e) {
+                Log.e("MainActivity", "Error", e);
+            } finally {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (final IOException e) {
+                        Log.e("PlaceholderFragment", "Error closing stream", e);
+                    }
+                }
+            }
+            return "Error!";
+        }
+
+        protected String getJSONKeyPairValue (StringBuilder stringBuilder, String returnKey) {
+            String textToReturn = null;
+            if (returnKey == "city" || returnKey == "state"){
+                String cityState = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                    JSONObject location = jsonObject.getJSONObject("location");
+                    cityState = location.getString(returnKey);
+                    textToReturn = cityState;
+                    return cityState;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            else {
+                try {
+                    JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                    JSONObject weather = jsonObject.getJSONObject("current_observation");
+                    String weatherKeyValue = weather.getString("weather");
+                    Log.i("Weather value", weatherKeyValue);
+                    if (weatherKeyValue.toLowerCase().contains("rain") || weatherKeyValue.toLowerCase().contains("snow") || weatherKeyValue.toLowerCase().contains("cloud")) {
+                        textToReturn = "Take an umbrella if you want to stay dry";
+                        return(textToReturn);
+                    } else {
+                        textToReturn = "No need for an umbrella";
+                        return(textToReturn);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            return textToReturn;
+        }
     }
 }
