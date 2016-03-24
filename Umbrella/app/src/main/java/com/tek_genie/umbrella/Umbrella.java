@@ -73,10 +73,10 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
             longitude = mCurrentLocation.getLongitude();
         }
         else {
-            latitude = 47.6063716;
-            longitude = -122.3322141;  //Seattle, WA
-            //latitude = 40.666954;
-            //longitude = -73.715123;  //Valley Stream, NY
+            //latitude = 47.6063716;
+            //longitude = -122.3322141;  //Seattle, WA
+            latitude = 40.666954;
+            longitude = -73.715123;  //Valley Stream, NY
             //latitude = 40.778246;
             //longitude = -73.9677407; //Near Central Park
         }
@@ -314,6 +314,7 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
                     JSONObject location = jsonObject.getJSONObject("location");
                     cityState = location.getString(returnKey);
                     textToReturn = cityState;
+                    Log.i("Print City or State Found", textToReturn);
                     return cityState;
 
                 } catch (JSONException e) {
