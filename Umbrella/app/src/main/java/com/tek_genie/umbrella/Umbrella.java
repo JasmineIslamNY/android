@@ -34,49 +34,54 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class Umbrella extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    protected GoogleMap mMap;
     protected GoogleApiClient mGoogleApiClient;
-    protected Location mCurrentLocation;
+    //protected Location mCurrentLocation;
     double latitude;
     double longitude;
-    InputStream returnFromBackground;
 
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
-        onLocationChanged(mCurrentLocation);
+        updateUmbrella();
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
+        /* mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         updateLocation();
+        */
     }
 
-    protected void updateLocation() {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        //showLocation(location);
-        mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
+    public void updateUmbrella() {
+        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
+
+        if (mGoogleApiClient == null) {
+            Log.i("Is mGoogleApiClient null: ", "Yes!");
+        }
+        else {
+            Log.i("Is mGoogleApiClient null: ", "No!");
+        }
+        if (mCurrentLocation == null) {
+            Log.i("Is mCurrentLocation null: ", "Yes!");
+        }
+        else {
+            Log.i("What is the value of mCurrentLocation", mCurrentLocation.toString());
+        }
+
         if (mCurrentLocation != null) {
             latitude = mCurrentLocation.getLatitude();
             longitude = mCurrentLocation.getLongitude();
         }
         else {
-            //latitude = 47.6063716;
-            //longitude = -122.3322141;  //Seattle, WA
-            latitude = 40.666954;
-            longitude = -73.715123;  //Valley Stream, NY
+            latitude = 47.6063716;
+            longitude = -122.3322141;  //Seattle, WA
+            //latitude = 40.666954;
+            //longitude = -73.715123;  //Valley Stream, NY
             //latitude = 40.778246;
             //longitude = -73.9677407; //Near Central Park
         }
@@ -102,42 +107,14 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
     public void onConnectionFailed(ConnectionResult connectionResult) {
     }
 
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String s,int i, Bundle bundle) {
-
-    }
-
-
     @Override
     protected void onPause() {
         super.onPause();
-        //stop location updates
-        //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
     @Override
     public void onResume() {
         super.onResume();
-        if (mGoogleApiClient.isConnected()) {
-            updateLocation();
-        }
-        onLocationChanged(mCurrentLocation);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
+        updateUmbrella();
     }
 
     @Override
@@ -147,24 +124,11 @@ public class Umbrella extends AppCompatActivity implements OnMapReadyCallback, G
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-           // SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-               // .findFragmentById(R.id.map);
-        //mapFragment.getMapAsync(this);
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
