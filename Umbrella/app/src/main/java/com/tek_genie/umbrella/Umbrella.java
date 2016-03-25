@@ -78,10 +78,10 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
             longitude = mCurrentLocation.getLongitude();
         }
         else {
-            latitude = 47.6063716;
-            longitude = -122.3322141;  //Seattle, WA
-            //latitude = 40.666954;
-            //longitude = -73.715123;  //Valley Stream, NY
+            //latitude = 47.6063716;
+            //longitude = -122.3322141;  //Seattle, WA
+            latitude = 40.666954;
+            longitude = -73.715123;  //Valley Stream, NY
             //latitude = 40.778246;
             //longitude = -73.9677407; //Near Central Park
         }
@@ -170,10 +170,12 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
 
             HttpURLConnection urlConnection = null;
             InputStream jsonFileInputStream = null;
+            String cityAndState = "";
             try {
                     URL url = new URL(urlForCityState);
                     urlConnection = (HttpURLConnection) url.openConnection();
                     jsonFileInputStream = urlConnection.getInputStream();
+                    cityAndState = determineCityState(jsonFileInputStream);
                 } catch (IOException e) {
                     Log.e("MainActivity", "Error ", e);
                 } finally {
@@ -182,15 +184,17 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
                     }
                 }
 
-            String cityAndState = determineCityState(jsonFileInputStream);
+            //String cityAndState = determineCityState(jsonFileInputStream);
             String urlForUmbrella = doINeedAnUmbrellaURL(cityAndState);
 
             urlConnection = null;
             jsonFileInputStream = null;
+            String doINeedAnUmbrella = "";
             try {
                 URL url2 = new URL(urlForUmbrella);
                 urlConnection = (HttpURLConnection) url2.openConnection();
                 jsonFileInputStream = urlConnection.getInputStream();
+                doINeedAnUmbrella = determineDoINeedAndUmbrella(jsonFileInputStream);
             } catch (IOException e) {
                 Log.e("MainActivity", "Error ", e);
             } finally {
@@ -199,7 +203,7 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
                 }
             }
 
-            String doINeedAnUmbrella = determineDoINeedAndUmbrella(jsonFileInputStream);
+            //String doINeedAnUmbrella = determineDoINeedAndUmbrella(jsonFileInputStream);
             return doINeedAnUmbrella;
             }
 
