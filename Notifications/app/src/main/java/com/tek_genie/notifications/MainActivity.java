@@ -76,12 +76,18 @@ public class MainActivity extends AppCompatActivity {
         nBuilder.setContentIntent(getMainActivityPendingIntent());
         nBuilder.setAutoCancel(true);
 
-        Notification notification = nBuilder.build();  //what is this for?????
+        Notification notification = nBuilder.build();
 
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(notificationID, nBuilder.build());
+        mNotificationManager.notify(notificationID, notification);
+    }
+
+    private PendingIntent getMainActivityPendingIntent() {
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return(pendingIntent);
     }
 
     protected void setAlarm(){
