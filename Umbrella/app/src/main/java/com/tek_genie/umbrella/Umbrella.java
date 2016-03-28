@@ -1,7 +1,6 @@
 package com.tek_genie.umbrella;
 
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.location.LocationListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,18 +34,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Umbrella extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Umbrella extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     protected GoogleApiClient mGoogleApiClient;
-    //protected Location mCurrentLocation;
+    protected Location mCurrentLocation;
     double latitude;
     double longitude;
+    //protected boolean locationUpdatesStarted = false;
 
     @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+        /*
+        TextView textview = (TextView) findViewById(R.id.hello);
+        while (locationUpdatesStarted == false) {
+            textview.setText("Finding out if you need an umbrella.");
+            textview.setText("Finding out if you need an umbrella..");
+            textview.setText("Finding out if you need an umbrella...");
+        }
         updateUmbrella();
+        */
     }
 
     @Override
@@ -54,11 +63,13 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
                 mGoogleApiClient);
         updateLocation();
         */
+        startLocationUpdates();
+        updateUmbrella();
+
     }
 
     public void updateUmbrella() {
-        Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (mGoogleApiClient == null) {
             Log.i("Is mGoogleApiClient null: ", "Yes!");
@@ -70,7 +81,7 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
             Log.i("Is mCurrentLocation null: ", "Yes!");
         }
         else {
-            Log.i("What is the value of mCurrentLocation", mCurrentLocation.toString());
+            Log.i("mCurrentLocation is not null, it's", mCurrentLocation.toString());
         }
 
         if (mCurrentLocation != null) {
@@ -78,10 +89,10 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
             longitude = mCurrentLocation.getLongitude();
         }
         else {
-            //latitude = 47.6063716;
-            //longitude = -122.3322141;  //Seattle, WA
-            latitude = 40.666954;
-            longitude = -73.715123;  //Valley Stream, NY
+            latitude = 47.6063716;
+            longitude = -122.3322141;  //Seattle, WA
+            //latitude = 40.666954;
+            //longitude = -73.715123;  //Valley Stream, NY
             //latitude = 40.778246;
             //longitude = -73.9677407; //Near Central Park
         }
@@ -110,11 +121,23 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
     @Override
     protected void onPause() {
         super.onPause();
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        //locationUpdatesStarted = false;
     }
     @Override
     public void onResume() {
         super.onResume();
-        updateUmbrella();
+        TextView textview = (TextView) findViewById(R.id.hello);
+        textview.setText("Finding out if you need an umbrella...");
+        if (mGoogleApiClient.isConnected()) {
+            //setUpMapIfNeeded();    // <-from previous tutorial
+            startLocationUpdates();
+            updateUmbrella();
+        }
+        else{
+            mGoogleApiClient.connect();
+        }
+
     }
 
     @Override
@@ -129,6 +152,19 @@ public class Umbrella extends AppCompatActivity implements GoogleApiClient.Conne
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
+
+    protected void startLocationUpdates() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        //locationUpdatesStarted = true;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
     }
 
     @Override
