@@ -23,8 +23,6 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int notificationID = 100;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         alarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Pressed ", "ALARM button");
                 setAlarm();
             }
         });
@@ -60,35 +59,18 @@ public class MainActivity extends AppCompatActivity {
         cancelAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("Pressed ", "CANCEL ALARM button");
                 cancelAlarm();
             }
         });
     }
 
-    protected void displayNotification() {
-        Log.i("Notify", "Displaying Notification");
-        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(
-                this);
-        nBuilder.setContentTitle("Notification");
-        nBuilder.setContentText("This is a Notification");
-        nBuilder.setSmallIcon(R.drawable.ic_thinkful);
+    protected void displayNotification(){
+        Notifier notifier = new Notifier();
+        notifier.createNotification(this);
 
-        nBuilder.setContentIntent(getMainActivityPendingIntent());
-        nBuilder.setAutoCancel(true);
-
-        Notification notification = nBuilder.build();
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        mNotificationManager.notify(notificationID, notification);
     }
 
-    private PendingIntent getMainActivityPendingIntent() {
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1234, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return(pendingIntent);
-    }
 
     protected void setAlarm(){
         Alarm alarm = new Alarm();
