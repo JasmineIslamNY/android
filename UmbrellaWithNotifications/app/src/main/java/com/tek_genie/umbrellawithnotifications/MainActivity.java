@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -146,7 +147,46 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
         .build();
-        }
+
+        Button alarmButton = (Button) findViewById(R.id.btnSetAlarm);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Pressed ", "ALARM button");
+                setAlarm();
+            }
+        });
+        Button cancelAlarmButton = (Button) findViewById(R.id.btnCancelAlarm);
+        cancelAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Pressed ", "CANCEL ALARM button");
+                cancelAlarm();
+            }
+        });
+    }
+
+    protected void setAlarm(){
+        Alarm alarm = new Alarm();
+        alarm.setAlarm(this);
+    }
+
+    protected void cancelAlarm(){
+        Alarm alarm = new Alarm();
+        alarm.cancelAlarm(this);
+    }
+
+    protected void displayNotification() {
+        Notifier notifier = new Notifier();
+        notifier.createNotification(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     protected void startLocationUpdates() {
         LocationRequest mLocationRequest = new LocationRequest();
