@@ -11,6 +11,7 @@ public class AlarmBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent service = new Intent(context, NotifyService.class);
+        service.putExtra("LatLongArrayService", intent.getStringArrayExtra("LatLongArray"));
         startWakefulService(context, service);
     }
 }

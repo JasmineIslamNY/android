@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UmbrellaWithNotifications</string>
+    <string name="app_name">Umbrella With Notifications</string>
     <string name="action_settings">Settings</string>
     <string name="cancelAlarmString">Cancel Alarm</string>
     <string name="setAlarmString">Set Alarm</string>

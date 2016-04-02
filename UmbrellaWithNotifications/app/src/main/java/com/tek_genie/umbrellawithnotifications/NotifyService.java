@@ -19,8 +19,12 @@ public class NotifyService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        String [] latlong = intent.getStringArrayExtra("LatLongArrayService");
+        UmbrellaNeeded umbrella = new UmbrellaNeeded();
+        String doINeedAnUmbrella = umbrella.doINeedAnUmbrella(latlong[0], latlong[1]);
+
         Notifier notifier = new Notifier();
-        notifier.createNotification(this);
+        notifier.createNotification(this, doINeedAnUmbrella);
         AlarmBroadcastReceiver.completeWakefulIntent(intent);
 
     }

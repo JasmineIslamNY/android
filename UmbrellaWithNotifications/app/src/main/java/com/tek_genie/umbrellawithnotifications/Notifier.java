@@ -19,12 +19,12 @@ public class Notifier {
 
     private int notificationID = 100;
 
-    protected void createNotification(Context context) {
+    protected void createNotification(Context context, String display) {
         Log.i("Notify", "Displaying Notification");
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context);
-        nBuilder.setContentTitle("Notification");
-        nBuilder.setContentText("This is a Notification");
-        nBuilder.setSmallIcon(R.drawable.ic_thinkful);
+        nBuilder.setContentTitle(context.getString(R.string.app_name));
+        nBuilder.setContentText(display);
+        nBuilder.setSmallIcon(R.drawable.umbrella512);
 
         nBuilder.setContentIntent(getMainActivityPendingIntent(context));
         nBuilder.setAutoCancel(true);

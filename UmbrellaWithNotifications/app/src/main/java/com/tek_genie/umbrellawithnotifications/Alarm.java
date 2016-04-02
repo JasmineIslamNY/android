@@ -25,14 +25,15 @@ public class Alarm {
         return(pendingIntent);
     }
 
-    protected PendingIntent getBroadcastActivityPendingIntent(Context context) {
+    protected PendingIntent getBroadcastActivityPendingIntent(Context context, String [] latlongArrayIntent) {
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+        intent.putExtra("LatLongArray", latlongArrayIntent);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         return(pendingIntent);
     }
 
-    protected void setAlarm(Context context) {
+    protected void setAlarm(Context context, String [] latlongArray) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         /*
         alarmMgr.set(AlarmManager.ELAPSED_REALTIME,
@@ -60,21 +61,22 @@ public class Alarm {
         alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
                 SystemClock.elapsedRealtime() + 10 * 1000,
                 10 * 1000,
-                getBroadcastActivityPendingIntent(context));
+                getBroadcastActivityPendingIntent(context, latlongArray));
 
         Log.i("Alarm ", "is set");
 
     }
 
-    protected void cancelAlarm(Context context) {
+    protected void cancelAlarm(Context context, String [] latlongArray) {
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.cancel(getBroadcastActivityPendingIntent(context));
+        alarmMgr.cancel(getBroadcastActivityPendingIntent(context, latlongArray));
 
         ComponentName receiver = new ComponentName(context, BootReceiver.class);
         PackageManager pm = context.getPackageManager();
 
         pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
 
         Log.i("Alarm ", "is canceled");
     }
