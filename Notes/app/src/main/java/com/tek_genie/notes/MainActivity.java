@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        NotesDBHelper.getInstance(this).getReadableDatabase();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.addItem(newNote);
                 noteText.setText("");
                 mLayoutManager.scrollToPosition(0);
+                NoteDAO dao = new NoteDAO(MainActivity.this);
+                dao.save(newNote);
             }
         });
     }
