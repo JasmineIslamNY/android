@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,15 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
                     removeItem(mRecyclerView.getChildLayoutPosition(v));
             }
         });
+
+            v.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    NoteListItem noteListItem = mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v));
+                    Toast.makeText(mContext, "Selected: " + noteListItem.getText(), Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            });
 
             return new ViewHolder(v);
         };

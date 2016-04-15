@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class NoteDAO {
         NotesDBHelper helper = NotesDBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
         String[] projection = {
+                NotesDBContract.Note.COLUMN_NAME_ID,
                 NotesDBContract.Note.COLUMN_NAME_NOTE_TEXT,
                 NotesDBContract.Note.COLUMN_NAME_STATUS,
                 NotesDBContract.Note.COLUMN_NAME_NOTE_DATE};
@@ -55,6 +57,7 @@ public class NoteDAO {
         List<NoteListItem> notes = new ArrayList<NoteListItem>();
 
         while(c.moveToNext()){
+            long id = c.getLong(c.getColumnIndex(NotesDBContract.Note.COLUMN_NAME_ID));
             String text = c.getString(
                     c.getColumnIndex(NotesDBContract.Note.COLUMN_NAME_NOTE_TEXT));
             String status = c.getString(c.getColumnIndex(
@@ -63,8 +66,9 @@ public class NoteDAO {
             date.setTimeInMillis(c.getLong(c.getColumnIndex(
                     NotesDBContract.Note.COLUMN_NAME_NOTE_DATE)) * 1000);
 
-            notes.add(new NoteListItem(text, status, date));
+            notes.add(new NoteListItem(id, text, status, date));
         }
+        Log.i("NOTES", notes.size() + " notes loaded");
         return notes;
     }
 }

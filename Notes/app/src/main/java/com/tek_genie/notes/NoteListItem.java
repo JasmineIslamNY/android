@@ -7,19 +7,20 @@ import java.util.Calendar;
  * Created by jasmineislam on 2/24/16.
  */
 public class NoteListItem implements Serializable {
-    private long id;
+    private Long id;
     private String text;
     private String status;
     private Calendar date;
 
     public NoteListItem(String text) {
-        this(text, "Open", Calendar.getInstance());
+        this(null, text, "Open", Calendar.getInstance());
     }
 
-    public NoteListItem(String text, String status, Calendar date){
-        this.text = text;
-        this.status = status;
-        this.date = date;
+    public NoteListItem(Long id, String text, String status, Calendar date){
+        setId(id);
+        setText(text);
+        setStatus(status);
+        setDate(date);
     }
 
     public String getText() {
@@ -30,7 +31,7 @@ public class NoteListItem implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
