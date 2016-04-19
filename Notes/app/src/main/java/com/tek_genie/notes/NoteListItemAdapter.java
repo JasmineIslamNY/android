@@ -3,7 +3,9 @@ package com.tek_genie.notes;
 /**
  * Created by jasmineislam on 2/24/16.
  */
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +47,13 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
                 @Override
                 public boolean onLongClick(View v) {
                     NoteListItem noteListItem = mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v));
-                    Toast.makeText(mContext, "Selected: " + noteListItem.getText(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext, "Selected: " + noteListItem.getText(), Toast.LENGTH_LONG).show();
+                    removeItem(mRecyclerView.getChildLayoutPosition(v));
+                    Intent intent = new Intent(mContext, EditNoteActivity.class);
+                    intent.putExtra("Note", noteListItem);
+
+                    ((Activity)mContext).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
+
                     return true;
                 }
             });

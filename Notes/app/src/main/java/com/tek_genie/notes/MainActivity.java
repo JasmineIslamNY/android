@@ -1,5 +1,6 @@
 package com.tek_genie.notes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -66,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            if (data.hasExtra("Note")) {
+                NoteListItem note = (NoteListItem)data.getSerializableExtra("Note");
+                Toast.makeText(this, "Note Updated to: \n" + note.getText(),
+                        Toast.LENGTH_LONG).show();
+                mAdapter.addItem(note);
+                mLayoutManager.scrollToPosition(0);
+            }
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

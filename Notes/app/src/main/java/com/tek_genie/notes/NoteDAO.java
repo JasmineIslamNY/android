@@ -34,6 +34,22 @@ public class NoteDAO {
         db.insert(NotesDBContract.Note.TABLE_NAME, null, values);
     }
 
+    public void update(NoteListItem noteListItem){
+        NotesDBHelper helper = NotesDBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(NotesDBContract.Note.COLUMN_NAME_NOTE_TEXT, noteListItem.getText());
+
+        String selection = NotesDBContract.Note.COLUMN_NAME_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(noteListItem.getId())};
+
+        int count = db.update(
+                NotesDBContract.Note.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
     public List<NoteListItem> list(){
         NotesDBHelper helper = NotesDBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
