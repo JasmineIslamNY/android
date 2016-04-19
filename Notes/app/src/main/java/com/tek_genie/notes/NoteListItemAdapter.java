@@ -26,7 +26,6 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     private Context mContext;
     private RecyclerView mRecyclerView;
     private ArrayList<NoteListItem> mNoteListItems = new ArrayList<NoteListItem>();
-    private boolean dialogResult;
 
     public NoteListItemAdapter(Context context, RecyclerView recyclerView) {
         this.mContext = context;
@@ -89,8 +88,6 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
         viewHolder.setText(noteListItem.getText());
     };
 
-
-
     @Override
     public int getItemCount() {
         return mNoteListItems.size();
@@ -119,42 +116,5 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
         notifyItemRemoved(position);
     }
 
-    public class DialogBox extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(R.string.delete_dialog_box_message)
-                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialogResult = true;
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialogResult = false;
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            return builder.create();
-        }
-    }
-
-    public boolean dialBox() {
-        final boolean[] dialBool = new boolean[1];
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialBool[0] = true;
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialBool[0] = false;
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        return dialBool[0];
-    }
 
 };
