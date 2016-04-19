@@ -87,4 +87,14 @@ public class NoteDAO {
         Log.i("NOTES", notes.size() + " notes loaded");
         return notes;
     }
+
+    public void delete(NoteListItem noteListItem){
+        String selection = NotesDBContract.Note.COLUMN_NAME_ID + " = ?"; //The question mark is a placeholder that will be given a value later.
+        String[] selectionArgs = { String.valueOf(noteListItem.getId()) };
+
+        NotesDBHelper helper = NotesDBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        db.delete(NotesDBContract.Note.TABLE_NAME, selection, selectionArgs);
+    }
 }

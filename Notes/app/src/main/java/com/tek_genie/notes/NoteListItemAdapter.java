@@ -4,8 +4,13 @@ package com.tek_genie.notes;
  * Created by jasmineislam on 2/24/16.
  */
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +26,7 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     private Context mContext;
     private RecyclerView mRecyclerView;
     private ArrayList<NoteListItem> mNoteListItems = new ArrayList<NoteListItem>();
+    private boolean dialogResult;
 
     public NoteListItemAdapter(Context context, RecyclerView recyclerView) {
         this.mContext = context;
@@ -33,14 +39,30 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
     @Override
     public NoteListItemAdapter.ViewHolder onCreateViewHolder (ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(mContext).inflate(R.layout.note_list_item, viewGroup, false);
+            //final int pos = mRecyclerView.getChildLayoutPosition(v);
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final String TAG = "MyData";
-                    Log.i(TAG, "Removing: " + mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v)).getText());
-                    removeItem(mRecyclerView.getChildLayoutPosition(v));
-            }
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage(R.string.delete_dialog_box_message);
+                builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        NoteListItem noteListItem = mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v));
+                        NoteDAO dao = new NoteDAO(mContext);
+                        dao.delete(noteListItem);
+                        Toast.makeText(mContext, "Deleted: \n" + noteListItem.getText(), Toast.LENGTH_LONG).show();
+                        removeItem(mRecyclerView.getChildLayoutPosition(v));
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(mContext, "Canceled the Delete", Toast.LENGTH_LONG).show();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                }
         });
 
             v.setOnLongClickListener(new View.OnLongClickListener() {
@@ -96,4 +118,43 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
         mNoteListItems.remove(position);
         notifyItemRemoved(position);
     }
+
+    public class DialogBox extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.delete_dialog_box_message)
+                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialogResult = true;
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialogResult = false;
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
+    }
+
+    public boolean dialBox() {
+        final boolean[] dialBool = new boolean[1];
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialBool[0] = true;
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialBool[0] = false;
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return dialBool[0];
+    }
+
 };
