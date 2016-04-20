@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 dao.save(newNote);
             }
         });
+        setColor();
     }
 
     @Override
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("NOTE_COLOR", value);
                         editor.commit();
+                        setColor();
                     }
                 })
                 .setNegativeButton(R.string.negative_button_label, new DialogInterface.OnClickListener() {
@@ -140,5 +143,17 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .show();
 
+    }
+
+    public void setColor(){
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        String color = prefs.getString("NOTE_COLOR", "W");
+        if(color.toUpperCase().contains("G")){
+            mRecyclerView.setBackgroundColor(Color.GREEN);
+        }else if(color.toUpperCase().contains("R")){
+            mRecyclerView.setBackgroundColor(Color.RED);
+        }else{
+            mRecyclerView.setBackgroundColor(Color.WHITE);
+        }
     }
 }
