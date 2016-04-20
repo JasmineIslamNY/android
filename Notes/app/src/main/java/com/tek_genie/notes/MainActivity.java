@@ -1,6 +1,10 @@
 package com.tek_genie.notes;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -95,9 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast toast = Toast.makeText(getApplicationContext(), "You Clicked Settings!!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
+            //Toast toast = Toast.makeText(getApplicationContext(), "You Clicked Settings!!", Toast.LENGTH_SHORT);
+            //toast.setGravity(Gravity.CENTER,0,0);
+            //toast.show();
+            openColorDialog();
             return true;
         }
 
@@ -110,5 +115,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openColorDialog() {
+        final EditText input = new EditText(this);
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.setting_color_title)
+                .setMessage(R.string.setting_color_message)
+                .setView(input)
+                .setPositiveButton(R.string.positive_button_label, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String value = input.getText().toString();
+                        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("NOTE_COLOR", value);
+                        editor.commit();
+                    }
+                })
+                .setNegativeButton(R.string.negative_button_label, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //no need to do anything
+                    }
+                })
+                .show();
+
     }
 }

@@ -11,4 +11,8 @@
     <string name="delete_dialog_box_message">Do you want to delete the note?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="setting_color_title">Note Color Setting</string>
+    <string name="setting_color_message">R - Red; G - Green; W - White</string>
+    <string name="positive_button_label">OK</string>
+    <string name="negative_button_label">CANCEL</string>
 </resources>
