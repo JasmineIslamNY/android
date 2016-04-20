@@ -15,4 +15,15 @@
     <string name="setting_color_message">R - Red; G - Green; W - White</string>
     <string name="positive_button_label">OK</string>
     <string name="negative_button_label">CANCEL</string>
+    <string name="title_activity_note_color">NoteColorActivity</string>
+    <string name="settings_background_color_label">Background Color</string>
+    <string name="settings_foreground_color_label">Foreground Color</string>
+    <string name="radio_button_background_color_one">Red</string>
+    <string name="radio_button_background_color_two">Green</string>
+    <string name="radio_button_background_color_three">White</string>
+    <string name="radio_button_foreground_color_one">Yellow</string>
+    <string name="radio_button_foreground_color_two">Purple</string>
+    <string name="radio_button_foreground_color_three">Grey</string>
+    <string name="radio_button_foreground_color_four">Black</string>
+    <string name="button_color_selector_save">Save</string>
 </resources>

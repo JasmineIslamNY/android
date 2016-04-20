@@ -27,6 +27,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tek_genie.notes.MainActivity" />
         </activity>
+        <activity android:name=".NoteColorActivity"></activity>
     </application>
 
 </manifest>

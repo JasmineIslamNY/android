@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.tek_genie.notes.NoteColorActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+string/settings_background_color_label"
+        android:id="@+id/backgroundColorLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:height="30dp"
+        android:fontFamily="@string/setting_color_title" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backgroundColorLabel"
+        android:layout_alignLeft="@+id/backgroundColorLabel"
+        android:layout_alignEnd="@+id/backgroundColorLabel"
+        android:id="@+id/radioGroupOne">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_background_color_one"
+            android:layout_alignLeft="@+id/backgroundColorLabel"
+            android:id="@+id/radioButtonBackgroundColorOne" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_background_color_two"
+            android:id="@+id/radioButtonBackgroundColorTwo"
+            android:layout_alignLeft="@+id/backgroundColorLabel"
+            android:layout_below="@+id/radioButtonBackgroundColorOne"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_background_color_three"
+            android:id="@+id/radioButtonBackgroundColorThree"
+            android:layout_alignLeft="@+id/backgroundColorLabel"
+            android:layout_below="@+id/radioButtonBackgroundColorTwo"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+string/settings_foreground_color_label"
+        android:id="@+id/foreGroundColorLabel"
+        android:height="30dp"
+        android:fontFamily="@string/setting_color_title"
+        android:layout_below="@+id/radioGroupOne"
+        android:layout_alignRight="@+id/radioGroupOne"
+        android:layout_alignEnd="@+id/radioGroupOne"
+        android:layout_marginTop="26dp" />/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/foreGroundColorLabel"
+        android:layout_alignLeft="@+id/foreGroundColorLabel"
+        android:layout_alignEnd="@+id/foreGroundColorLabel"
+        android:id="@+id/radioGroupTwo">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_foreground_color_one"
+            android:layout_alignLeft="@+id/foreGroundColorLabel"
+            android:id="@+id/radioButtonForegroundColorOne" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_foreground_color_two"
+            android:id="@+id/radioButtonForegroundColorTwo"
+            android:layout_alignLeft="@+id/foreGroundColorLabel"
+            android:layout_below="@+id/radioButtonForegroundColorOne"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_foreground_color_three"
+            android:id="@+id/radioButtonForegroundColorThree"
+            android:layout_alignLeft="@+id/foreGroundColorLabel"
+            android:layout_below="@+id/radioButtonForegroundColorTwo"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/radio_button_foreground_color_four"
+            android:id="@+id/radioButtonForegroundColorFour"
+            android:layout_alignLeft="@+id/foreGroundColorLabel"
+            android:layout_below="@+id/radioButtonForegroundColorThree"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_color_selector_save"
+        android:id="@+id/buttonColorSelector"
+        android:layout_below="@+id/radioGroupTwo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp" />
+
+</RelativeLayout>
