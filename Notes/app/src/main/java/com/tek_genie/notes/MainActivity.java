@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setColor(){
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+
         String backGroundColor = prefs.getString("BackGroundColor", "W");
         if(backGroundColor.toUpperCase().contains("G")){
             mRecyclerView.setBackgroundColor(Color.GREEN);
@@ -175,5 +176,19 @@ public class MainActivity extends AppCompatActivity {
         }else{
             mRecyclerView.setBackgroundColor(Color.WHITE);
         }
+
+        String foreGroundColor = prefs.getString("ForeGroundColor", "Grey");
+        if(foreGroundColor.toUpperCase().contains("YELLOW")){
+            //mRecyclerView.setBackgroundColor(Color.YELLOW);
+        }else if(foreGroundColor.toUpperCase().contains("PURPLE")){
+            //mRecyclerView.setBackgroundColor(Color.PURPLE);
+        }else if(foreGroundColor.toUpperCase().contains("BLACK")){
+            //mRecyclerView.setBackgroundColor(Color.BLACK);
+        }else{
+            //mRecyclerView.setBackgroundColor(Color.GREY);
+        }
+
+        //TextView text = (TextView) findViewById(R.id.text);
+        //text.setBackgroundColor(Color.RED);
     }
 }
