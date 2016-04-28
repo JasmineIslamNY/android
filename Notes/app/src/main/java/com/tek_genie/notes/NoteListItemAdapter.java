@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,12 +96,29 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
         return mNoteListItems.size();
     };
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    //public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView text;
 
         public ViewHolder(View itemView) {
             super(itemView);
             text = (TextView) itemView.findViewById(R.id.text);
+
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            String foreGroundColor = prefs.getString("ForeGroundColor", "Grey");
+            if(foreGroundColor.toUpperCase().contains("YELLOW")){
+                text.setBackgroundColor(Color.YELLOW);
+            }else if(foreGroundColor.toUpperCase().contains("PURPLE")){
+                text.setBackgroundColor(Color.BLUE);
+            }else if(foreGroundColor.toUpperCase().contains("BLACK")){
+                text.setBackgroundColor(Color.BLACK);
+            }else{
+                text.setBackgroundColor(Color.WHITE);
+            }
+
+            //TextView text = (TextView) findViewById(R.id.text);
+            //text.setBackgroundColor(Color.RED);
+
         };
 
         public void setText(String text) {

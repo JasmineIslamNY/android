@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 Toast.makeText(this, "Background Color: \n" + backGroundColor,
                         Toast.LENGTH_LONG).show();
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("ForeGroundColor", foreGroundColor);
             editor.putString("BackGroundColor", backGroundColor);
@@ -166,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setColor(){
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String backGroundColor = prefs.getString("BackGroundColor", "W");
         if(backGroundColor.toUpperCase().contains("G")){
