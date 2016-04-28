@@ -1,5 +1,6 @@
 package com.tek_genie.notes;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -84,6 +86,21 @@ public class MainActivity extends AppCompatActivity {
                 mLayoutManager.scrollToPosition(0);
             }
         }
+
+        if (resultCode == RESULT_OK && requestCode == 2) {
+            String foreGroundColor = data.getStringExtra("ForeGroundColor");
+            String backGroundColor = data.getStringExtra("BackGroundColor");
+                Toast.makeText(this, "Foreground Color: \n" + foreGroundColor,
+                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Background Color: \n" + backGroundColor,
+                        Toast.LENGTH_LONG).show();
+            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("ForeGroundColor", foreGroundColor);
+            editor.putString("BackGroundColor", backGroundColor);
+            editor.commit();
+            setColor();
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +121,10 @@ public class MainActivity extends AppCompatActivity {
             //Toast toast = Toast.makeText(getApplicationContext(), "You Clicked Settings!!", Toast.LENGTH_SHORT);
             //toast.setGravity(Gravity.CENTER,0,0);
             //toast.show();
-            openColorDialog();
+            //openColorDialog();
+
+            Intent intent = new Intent(this, NoteColorActivity.class);
+            ((Activity)this).startActivityForResult(intent, 2);// 2 is the request code. The request code tells the activity who called it, etc MainActivity
             return true;
         }
 
@@ -147,10 +167,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setColor(){
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-        String color = prefs.getString("NOTE_COLOR", "W");
-        if(color.toUpperCase().contains("G")){
+        String backGroundColor = prefs.getString("BackGroundColor", "W");
+        if(backGroundColor.toUpperCase().contains("G")){
             mRecyclerView.setBackgroundColor(Color.GREEN);
-        }else if(color.toUpperCase().contains("R")){
+        }else if(backGroundColor.toUpperCase().contains("R")){
             mRecyclerView.setBackgroundColor(Color.RED);
         }else{
             mRecyclerView.setBackgroundColor(Color.WHITE);

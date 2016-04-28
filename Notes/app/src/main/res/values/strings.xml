@@ -18,12 +18,12 @@
     <string name="title_activity_note_color">Color Settings</string>
     <string name="settings_background_color_label">Background Color</string>
     <string name="settings_foreground_color_label">Foreground Color</string>
-    <string name="radio_button_background_color_one">Red</string>
-    <string name="radio_button_background_color_two">Green</string>
-    <string name="radio_button_background_color_three">White</string>
-    <string name="radio_button_foreground_color_one">Yellow</string>
-    <string name="radio_button_foreground_color_two">Purple</string>
-    <string name="radio_button_foreground_color_three">Grey</string>
-    <string name="radio_button_foreground_color_four">Black</string>
+    <string name="radio_button_background_color_red">Red</string>
+    <string name="radio_button_background_color_green">Green</string>
+    <string name="radio_button_background_color_white">White</string>
+    <string name="radio_button_foreground_color_yellow">Yellow</string>
+    <string name="radio_button_foreground_color_purple">Purple</string>
+    <string name="radio_button_foreground_color_grey">Grey</string>
+    <string name="radio_button_foreground_color_black">Black</string>
     <string name="button_color_selector_save">Save</string>
 </resources>

@@ -31,25 +31,28 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_background_color_one"
+            android:text="@+string/radio_button_background_color_red"
             android:layout_alignLeft="@+id/backgroundColorLabel"
-            android:id="@+id/radioButtonBackgroundColorOne" />
+            android:id="@+id/radioButtonBackgroundColorRed"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_background_color_two"
-            android:id="@+id/radioButtonBackgroundColorTwo"
+            android:text="@+string/radio_button_background_color_green"
+            android:id="@+id/radioButtonBackgroundColorGreen"
             android:layout_alignLeft="@+id/backgroundColorLabel"
-            android:layout_below="@+id/radioButtonBackgroundColorOne"/>
+            android:layout_below="@+id/radioButtonBackgroundColorRed"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_background_color_three"
-            android:id="@+id/radioButtonBackgroundColorThree"
+            android:text="@+string/radio_button_background_color_white"
+            android:id="@+id/radioButtonBackgroundColorWhite"
             android:layout_alignLeft="@+id/backgroundColorLabel"
-            android:layout_below="@+id/radioButtonBackgroundColorTwo"/>
+            android:layout_below="@+id/radioButtonBackgroundColorGreen"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
     <TextView
@@ -75,33 +78,37 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_foreground_color_one"
+            android:text="@+string/radio_button_foreground_color_yellow"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
-            android:id="@+id/radioButtonForegroundColorOne" />
+            android:id="@+id/radioButtonForegroundColorYellow"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_foreground_color_two"
-            android:id="@+id/radioButtonForegroundColorTwo"
+            android:text="@+string/radio_button_foreground_color_purple"
+            android:id="@+id/radioButtonForegroundColorPurple"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
-            android:layout_below="@+id/radioButtonForegroundColorOne"/>
+            android:layout_below="@+id/radioButtonForegroundColorYellow"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_foreground_color_three"
-            android:id="@+id/radioButtonForegroundColorThree"
+            android:text="@+string/radio_button_foreground_color_grey"
+            android:id="@+id/radioButtonForegroundColorGrey"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
-            android:layout_below="@+id/radioButtonForegroundColorTwo"/>
+            android:layout_below="@+id/radioButtonForegroundColorPurple"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_foreground_color_four"
-            android:id="@+id/radioButtonForegroundColorFour"
+            android:text="@+string/radio_button_foreground_color_black"
+            android:id="@+id/radioButtonForegroundColorBlack"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
-            android:layout_below="@+id/radioButtonForegroundColorThree"/>
+            android:layout_below="@+id/radioButtonForegroundColorGrey"
+            android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 
     <Button

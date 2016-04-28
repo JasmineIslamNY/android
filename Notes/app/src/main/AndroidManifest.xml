@@ -29,7 +29,12 @@
         </activity>
         <activity
             android:name=".NoteColorActivity"
-            android:label="@string/title_activity_note_color"/>
+            android:label="@string/title_activity_note_color"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tek_genie.notes.MainActivity" />
         </activity>
 
 
