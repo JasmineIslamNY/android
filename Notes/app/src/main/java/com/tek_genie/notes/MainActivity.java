@@ -96,11 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Background Color: \n" + backGroundColor,
                         Toast.LENGTH_LONG).show();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            //SharedPreferences prefs = getPreferences("Notes", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("ForeGroundColor", foreGroundColor);
             editor.putString("BackGroundColor", backGroundColor);
             editor.commit();
             setColor();
+
+            //repaint the screen somehow???
         }
     }
     @Override
