@@ -40,8 +40,8 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
 
     @Override
     public NoteListItemAdapter.ViewHolder onCreateViewHolder (ViewGroup viewGroup, int i) {
-            View v = LayoutInflater.from(mContext).inflate(R.layout.note_list_item, viewGroup, false);
-            //final int pos = mRecyclerView.getChildLayoutPosition(v);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.note_list_item, viewGroup, false);
+        //final int pos = mRecyclerView.getChildLayoutPosition(v);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,26 +64,26 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                }
+            }
         });
 
-            v.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    NoteListItem noteListItem = mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v));
-                    //Toast.makeText(mContext, "Selected: " + noteListItem.getText(), Toast.LENGTH_LONG).show();
-                    removeItem(mRecyclerView.getChildLayoutPosition(v));
-                    Intent intent = new Intent(mContext, EditNoteActivity.class);
-                    intent.putExtra("Note", noteListItem);
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                NoteListItem noteListItem = mNoteListItems.get(mRecyclerView.getChildLayoutPosition(v));
+                //Toast.makeText(mContext, "Selected: " + noteListItem.getText(), Toast.LENGTH_LONG).show();
+                removeItem(mRecyclerView.getChildLayoutPosition(v));
+                Intent intent = new Intent(mContext, EditNoteActivity.class);
+                intent.putExtra("Note", noteListItem);
 
-                    ((Activity)mContext).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
+                ((Activity)mContext).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
 
-                    return true;
-                }
-            });
+                return true;
+            }
+        });
 
-            return new ViewHolder(v);
-        };
+        return new ViewHolder(v);
+    };
 
     @Override
     public void onBindViewHolder(NoteListItemAdapter.ViewHolder viewHolder, int i) {
@@ -108,12 +108,16 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
             String foreGroundColor = prefs.getString("ForeGroundColor", "Grey");
             if(foreGroundColor.toUpperCase().contains("YELLOW")){
                 text.setBackgroundColor(Color.YELLOW);
+                text.setTextColor(Color.BLACK);
             }else if(foreGroundColor.toUpperCase().contains("PURPLE")){
                 text.setBackgroundColor(Color.BLUE);
+                text.setTextColor(Color.WHITE);
             }else if(foreGroundColor.toUpperCase().contains("BLACK")){
                 text.setBackgroundColor(Color.BLACK);
+                text.setTextColor(Color.WHITE);
             }else{
-                text.setBackgroundColor(Color.WHITE);
+                text.setBackgroundColor(Color.GRAY);
+                text.setTextColor(Color.BLACK);
             }
 
             //TextView text = (TextView) findViewById(R.id.text);

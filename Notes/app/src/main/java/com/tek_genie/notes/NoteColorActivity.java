@@ -55,15 +55,15 @@ public class NoteColorActivity extends AppCompatActivity {
             case R.id.radioButtonBackgroundColorRed:
                 if (checked)
                     backGroundColor = "Red";
-                    break;
+                break;
             case R.id.radioButtonBackgroundColorGreen:
                 if (checked)
                     backGroundColor = "Green";
-                    break;
+                break;
             case R.id.radioButtonBackgroundColorWhite:
                 if (checked)
                     backGroundColor = "White";
-                    break;
+                break;
         }
 
         switch(view.getId()) {
