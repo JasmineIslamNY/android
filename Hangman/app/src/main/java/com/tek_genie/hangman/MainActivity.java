@@ -1,15 +1,26 @@
 package com.tek_genie.hangman;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+    private Button submitLetter;
+    private Button newGame;
+    final String TAG = "MyData";
+    public Integer totalGames;
+    public Integer totalWonGames;
+    private EditText tries;
+    private EditText letters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +29,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
+        submitLetter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                EditText nextLetter = (EditText) findViewById(R.id.enterNextLetter);
+                Log.i(TAG, "Entered: " + nextLetter.getText().toString());
+                nextLetter.setText("");
             }
         });
+
+        newGame = (Button) findViewById(R.id.buttonNewGame);
+        newGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Clicked New Game Button");
+                tries = (EditText) findViewById(R.id.labelNumberOfTries);
+                tries.setText("0 Tries");
+                letters = (EditText) findViewById(R.id.labelLettersTried);
+                letters.setText("No Letters Tried Yet");
+            }
+        });
+
     }
 
     @Override
