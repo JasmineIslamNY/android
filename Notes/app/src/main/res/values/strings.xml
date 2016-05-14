@@ -23,7 +23,7 @@
     <string name="radio_button_background_color_white">White</string>
     <string name="radio_button_foreground_color_yellow">Yellow</string>
     <string name="radio_button_foreground_color_purple">Purple</string>
-    <string name="radio_button_foreground_color_grey">Grey</string>
+    <string name="radio_button_foreground_color_gray">Gray</string>
     <string name="radio_button_foreground_color_black">Black</string>
     <string name="button_color_selector_save">Save</string>
 </resources>

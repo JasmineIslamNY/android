@@ -75,9 +75,9 @@ public class NoteColorActivity extends AppCompatActivity {
                 if (checked)
                     foreGroundColor = "Purple";
                 break;
-            case R.id.radioButtonForegroundColorGrey:
+            case R.id.radioButtonForegroundColorGray:
                 if (checked)
-                    foreGroundColor = "Grey";
+                    foreGroundColor = "Gray";
                 break;
             case R.id.radioButtonForegroundColorBlack:
                 if (checked)

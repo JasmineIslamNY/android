@@ -95,8 +95,8 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@+string/radio_button_foreground_color_grey"
-            android:id="@+id/radioButtonForegroundColorGrey"
+            android:text="@+string/radio_button_foreground_color_gray"
+            android:id="@+id/radioButtonForegroundColorGray"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
             android:layout_below="@+id/radioButtonForegroundColorPurple"
             android:onClick="onRadioButtonClicked"/>
@@ -107,7 +107,7 @@
             android:text="@+string/radio_button_foreground_color_black"
             android:id="@+id/radioButtonForegroundColorBlack"
             android:layout_alignLeft="@+id/foreGroundColorLabel"
-            android:layout_below="@+id/radioButtonForegroundColorGrey"
+            android:layout_below="@+id/radioButtonForegroundColorGray"
             android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
 

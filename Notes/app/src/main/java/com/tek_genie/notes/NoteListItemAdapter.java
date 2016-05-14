@@ -105,7 +105,7 @@ public class NoteListItemAdapter extends RecyclerView.Adapter<NoteListItemAdapte
             text = (TextView) itemView.findViewById(R.id.text);
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            String foreGroundColor = prefs.getString("ForeGroundColor", "Grey");
+            String foreGroundColor = prefs.getString("ForeGroundColor", "Gray");
             if(foreGroundColor.toUpperCase().contains("YELLOW")){
                 text.setBackgroundColor(Color.YELLOW);
                 text.setTextColor(Color.BLACK);
