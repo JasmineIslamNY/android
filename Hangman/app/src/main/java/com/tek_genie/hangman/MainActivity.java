@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final HangmanDAO nameObject = new HangmanDAO();
 
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
         submitLetter.setOnClickListener(new View.OnClickListener() {
@@ -44,12 +45,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Clicked New Game Button");
-                tries = (EditText) findViewById(R.id.labelNumberOfTries);
-                tries.setText("0 Tries");
-                letters = (EditText) findViewById(R.id.labelLettersTried);
-                letters.setText("No Letters Tried Yet");
+                //tries = (EditText) findViewById(R.id.labelNumberOfTries);
+                //tries.setText("0 Tries");
+                //letters = (EditText) findViewById(R.id.labelLettersTried);
+                //letters.setText("No Letters Tried Yet");
+                String[] name = nameObject.nextName();
+                Log.i(TAG, name[0] +" "+ name[1]);
             }
         });
+
+
+
 
     }
 
