@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private Button submitLetter;
@@ -19,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     final String TAG = "MyData";
     public Integer totalGames;
     public Integer totalWonGames;
-    private EditText tries;
-    private EditText letters;
+    public TextView tries;
+    public TextView letters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         submitLetter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText nextLetter = (EditText) findViewById(R.id.enterNextLetter);
+                EditText nextLetter = (EditText) findViewById(R.id.edittextEnterNextLetter);
                 Log.i(TAG, "Entered: " + nextLetter.getText().toString());
                 nextLetter.setText("");
             }
@@ -45,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Clicked New Game Button");
-                //tries = (EditText) findViewById(R.id.labelNumberOfTries);
-                //tries.setText("0 Tries");
-                //letters = (EditText) findViewById(R.id.labelLettersTried);
-                //letters.setText("No Letters Tried Yet");
+                tries = (TextView) findViewById(R.id.labelNumberOfTries);
+                tries.setText("0 Tries");
+                letters = (TextView) findViewById(R.id.labelLettersTried);
+                letters.setText("No Letters Tried Yet");
                 String[] name = nameObject.nextName();
                 Log.i(TAG, name[0] +" "+ name[1]);
             }
