@@ -5,8 +5,8 @@ package com.tek_genie.hangman;
  */
 public class HangmanDAO {
     private String [][] names;
-    private Integer gamesWon;
-    private Integer gamesPlayed;
+    private Integer gamesWon = 0;
+    private Integer gamesPlayed = 0;
 
     public HangmanDAO() {
         //first name, last name, displayed (0/1), link to wikipedia, link to image, description, clue
@@ -33,5 +33,18 @@ public class HangmanDAO {
             name = names[0];
         }
         return name;
+    }
+
+    public void gameCompleted (int didYouWin) {
+        this.gamesPlayed++;
+        if (didYouWin == 1) {
+            this.gamesWon++;
+        }
+
+    }
+
+    public String gamesWonTotal () {
+        String returnWonTotal =  this.gamesWon + " / " + this.gamesPlayed;
+        return returnWonTotal;
     }
 }
