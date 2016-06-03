@@ -1,5 +1,7 @@
 package com.tek_genie.hangman;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,19 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private Button submitLetter;
-    private Button newGame;
-    final String TAG = "MyData";
-    public Integer totalGames;
-    public Integer totalWonGames;
-    public TextView tries;
-    public TextView letters;
+    Button newGameMain;
     public TextView countWonTotal;
-    public TextView labelLettersTried;
-    public TextView labelNumberOfTries;
+    private HangmanDAO gameObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,50 +30,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final HangmanDAO gameObject = new HangmanDAO();
 
-        submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
-        submitLetter.setOnClickListener(new View.OnClickListener() {
+        gameObject = new HangmanDAO();
+
+        newGameMain = (Button) findViewById(R.id.buttonNewGameMain);
+        newGameMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText nextLetter = (EditText) findViewById(R.id.edittextEnterNextLetter);
-                Log.i(TAG, "Entered: " + nextLetter.getText().toString());
+                Intent intent = new Intent(this, Hangman.class);
+                intent.putExtra("gmObject", gameObject);
 
-                updateLettersTried(nextLetter.getText().toString());
-                nextLetter.setText("");
-            }
-        });
-
-        newGame = (Button) findViewById(R.id.buttonNewGame);
-        newGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "Clicked New Game Button");
-                tries = (TextView) findViewById(R.id.labelNumberOfTries);
-                tries.setText("0 Tries");
-                letters = (TextView) findViewById(R.id.labelLettersTried);
-                letters.setText("No Letters Tried Yet");
-                String[] name = gameObject.nextName();
-                Log.i(TAG, name[0] +" "+ name[1]);
-
-                Random r = new Random();
-                int number = r.nextInt(2);
-
-                gameObject.gameCompleted(number);
-                String gmWonTotal = gameObject.gamesWonTotal();
-
-                countWonTotal = (TextView) findViewById(R.id.countWonTotal);
-                countWonTotal.setText(gmWonTotal);
-
-
-
+                ((Activity)this).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
+                return true;
 
             }
         });
 
+    }
 
-
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            String gmWonTotal = gameObject.gamesWonTotal();
+            countWonTotal = (TextView) findViewById(R.id.countWonTotalMain);
+            countWonTotal.setText(gmWonTotal);
+        }
     }
 
     @Override
@@ -102,13 +78,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateLettersTried (String nextLetter) {
-        labelLettersTried = (TextView) findViewById(R.id.labelLettersTried);
-        if (labelLettersTried.getText().toString() == "" || labelLettersTried.getText().toString() == "No Letters Tried Yet") {
-            labelLettersTried.setText(nextLetter);
-        }
-        else{
-            labelLettersTried.setText(labelLettersTried.getText().toString() + ", " + nextLetter);
-        }
-    }
 }

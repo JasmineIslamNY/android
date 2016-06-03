@@ -12,13 +12,29 @@
     tools:context="com.tek_genie.hangman.MainActivity"
     tools:showIn="@layout/activity_main">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/labelNumberOfTries"
-        android:hint="0 tries"
+        android:text="HANGMAN"
+        android:id="@+id/labelMain"
+        android:layout_marginTop="84dp"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/buttonNewGameMain"
+        android:layout_alignEnd="@+id/buttonNewGameMain" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Games"
+        android:id="@+id/labelGamesMain"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/labelMain"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -27,103 +43,35 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Won / Total"
-        android:id="@+id/labelWonGames"
-        android:layout_below="@+id/labelNumberOfTries"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/labelWonGamesMain"
+        android:layout_below="@+id/labelGamesMain"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 / 0"
-        android:id="@+id/countWonTotal"
-        android:layout_below="@+id/labelWonGames"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/labelWonGames"
-        android:layout_alignStart="@+id/labelWonGames"
-        android:textAlignment="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Games"
-        android:id="@+id/labelGames"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/labelWonGames"
-        android:layout_alignEnd="@+id/labelWonGames"
-        android:singleLine="true"
-        android:layout_alignLeft="@+id/labelWonGames"
-        android:layout_alignStart="@+id/labelWonGames"
-        android:textAlignment="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Time"
-        android:id="@+id/labelTime"
-        android:layout_below="@+id/countWonTotal"
-        android:layout_alignRight="@+id/countWonTotal"
-        android:layout_alignEnd="@+id/countWonTotal"
-        android:layout_marginTop="29dp"
+        android:id="@+id/countWonTotalMain"
         android:textAlignment="center"
-        android:layout_alignLeft="@+id/countWonTotal"
-        android:layout_alignStart="@+id/countWonTotal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0:00"
-        android:id="@+id/countTime"
-        android:layout_below="@+id/labelTime"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="center"
-        android:layout_alignLeft="@+id/labelTime"
-        android:layout_alignStart="@+id/labelTime" />
+        android:layout_alignRight="@+id/labelMain"
+        android:layout_alignEnd="@+id/labelMain"
+        android:layout_below="@+id/labelWonGamesMain"
+        android:layout_alignLeft="@+id/labelMain"
+        android:layout_alignStart="@+id/labelMain" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Game"
-        android:id="@+id/buttonNewGame"
-        android:layout_below="@+id/countTime"
-        android:layout_alignRight="@+id/countTime"
-        android:layout_alignEnd="@+id/countTime"
-        android:layout_marginTop="29dp"
-        android:layout_alignLeft="@+id/countTime"
-        android:layout_alignStart="@+id/countTime" />
+        android:text="@string/new_game"
+        android:id="@+id/buttonNewGameMain"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/labelLettersTried"
-        android:layout_below="@+id/labelWonGames"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="No Letters Tried Yet" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittextEnterNextLetter"
-        android:hint="Enter Next Letter"
-        android:layout_alignTop="@+id/labelTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/buttonSubmitLetter"
-        android:layout_below="@+id/countTime"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
+
+
 
 </RelativeLayout>

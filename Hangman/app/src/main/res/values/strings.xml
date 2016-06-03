@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Hangman</string>
     <string name="action_settings">Settings</string>
+    <string name="submit">Submit</string>
+    <string name="new_game">New Game</string>
+    <string name="title_activity_hangman">Hangman</string>
+    <string name="game_complete">Game Complete</string>
+
 </resources>
