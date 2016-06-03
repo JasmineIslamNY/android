@@ -1,9 +1,11 @@
 package com.tek_genie.hangman;
 
+import java.io.Serializable;
+
 /**
  * Created by jasmineislam on 5/18/16.
  */
-public class HangmanDAO {
+public class HangmanDAO implements Serializable {
     private String [][] names;
     private Integer gamesWon = 0;
     private Integer gamesPlayed = 0;

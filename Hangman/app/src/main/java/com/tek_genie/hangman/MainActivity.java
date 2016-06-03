@@ -1,6 +1,7 @@
 package com.tek_genie.hangman;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         gameObject = new HangmanDAO();
 
@@ -37,17 +38,19 @@ public class MainActivity extends AppCompatActivity {
         newGameMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(this, Hangman.class);
-                intent.putExtra("gmObject", gameObject);
-
-                ((Activity)this).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
-                return true;
-
+                newGame(v);
             }
         });
 
     }
 
+    public void newGame (View view) {
+        Intent intent = new Intent(this, Hangman.class);
+        intent.putExtra("gmObject", gameObject);
+
+        ((Activity) this).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
+
+    }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gmWonTotal = gameObject.gamesWonTotal();
