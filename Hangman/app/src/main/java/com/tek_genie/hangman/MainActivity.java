@@ -59,12 +59,13 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gameResult = data.getStringExtra("gameResultIntentExtra");
             Log.i("MainActivity", "gameResult returned as: " + gameResult);
-            int gameResultInt = Integer.getInteger(gameResult);
+            int gameResultInt = Integer.valueOf(gameResult);
             gameObject.gameCompleted(gameResultInt);
             gmWonTotal = gameObject.gamesWonTotal();
             Log.i("MainActivity", "Games Completed in MainActivity: " + gmWonTotal);
             countWonTotal = (TextView) findViewById(R.id.countWonTotalMain);
             countWonTotal.setText(gmWonTotal);
+
         }
     }
 
