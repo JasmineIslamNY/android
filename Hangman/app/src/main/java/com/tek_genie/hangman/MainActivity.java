@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button newGameMain;
     public TextView countWonTotal;
     private HangmanDAO gameObject;
+    private String gmWonTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +46,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame (View view) {
+        String[] name = gameObject.nextName();
+        String gmWonTotal = gameObject.gamesWonTotal();
         Intent intent = new Intent(this, Hangman.class);
-        intent.putExtra("gmObject", gameObject);
+        intent.putExtra("nameIntentExtra", name);
+        intent.putExtra("gamesWonTotalIntentExtra", gmWonTotal);
 
         ((Activity) this).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
-            String gmWonTotal = gameObject.gamesWonTotal();
+            String gameResult = data.getStringExtra("gameResultIntentExtra");
+            Log.i("MainActivity", "gameResult returned as: " + gameResult);
+            int gameResultInt = Integer.getInteger(gameResult);
+            gameObject.gameCompleted(gameResultInt);
+            gmWonTotal = gameObject.gamesWonTotal();
+            Log.i("MainActivity", "Games Completed in MainActivity: " + gmWonTotal);
             countWonTotal = (TextView) findViewById(R.id.countWonTotalMain);
             countWonTotal.setText(gmWonTotal);
         }
