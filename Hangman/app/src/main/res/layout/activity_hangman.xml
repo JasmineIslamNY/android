@@ -16,13 +16,14 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.tek_genie.hangman.Hangman"
-        tools:showIn="@layout/activity_hangman">
+        tools:showIn="@layout/activity_hangman"
+        android:layout_gravity="left|center_vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/labelNumberOfTries"
+        android:id="@+id/labelNumberOfFailedTries"
         android:hint="0 tries"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -34,7 +35,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Won / Total"
         android:id="@+id/labelWonGames"
-        android:layout_below="@+id/labelNumberOfTries"
+        android:layout_below="@+id/labelNumberOfFailedTries"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -131,6 +132,30 @@
         android:layout_below="@+id/countTime"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="_ _"
+            android:id="@+id/labelGameName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/buttonGameComplete"
+            android:layout_alignRight="@+id/buttonGameComplete"
+            android:layout_alignEnd="@+id/buttonGameComplete"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="No Clue for This Person"
+            android:id="@+id/labelClue"
+            android:layout_below="@+id/labelGameName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false"
+            android:layout_toEndOf="@+id/labelGameName" />
 
     </RelativeLayout>
 </FrameLayout>
