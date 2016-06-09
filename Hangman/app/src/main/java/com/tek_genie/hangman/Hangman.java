@@ -26,17 +26,16 @@ public class Hangman extends AppCompatActivity {
     public Integer totalGames;
     public Integer totalWonGames;
     private int numberOfFailedTries = 0;
-    public TextView tries;
     public TextView letters;
     public TextView countWonTotal;
     public TextView labelLettersTried;
-    public TextView labelNumberOfFailedTries;
     private String[] nameAndInfo;
     private String gmWonTotal;
     private String secretName;
     private StringBuilder gameName;
     private TextView gameNameLabel;
     private TextView gameClue;
+    private int maxFailedTries;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,8 @@ public class Hangman extends AppCompatActivity {
         Intent intent = getIntent();
         nameAndInfo = intent.getStringArrayExtra("nameIntentExtra");
         gmWonTotal = intent.getStringExtra("gamesWonTotalIntentExtra");
+        maxFailedTries = intent.getIntExtra("maxFailedTriesIntentExtra", 6);
+
         Log.i(TAG, "nameAndInfo 0 and 1: " + nameAndInfo[0] + " " + nameAndInfo[1]);
         Log.i(TAG, "gmWonTotal: " + gmWonTotal);
         secretName = nameAndInfo[0] + " " + nameAndInfo[1];
@@ -69,12 +70,14 @@ public class Hangman extends AppCompatActivity {
             public void onClick(View v) {
                 EditText nextLetter = (EditText) findViewById(R.id.edittextEnterNextLetter);
                 Log.i(TAG, "Entered: " + nextLetter.getText().toString());
-                
+
                 int isLetterFound = checkNameForLetter(nextLetter.getText().toString());
                 if (isLetterFound == 0){
                     numberOfFailedTries += 1;
                     updateNumberOfFailedTries();
                 }
+
+                testForWinOrLoss();
 
                 updateLettersTried(nextLetter.getText().toString());
                 nextLetter.setText("");
@@ -139,7 +142,29 @@ public class Hangman extends AppCompatActivity {
     }
 
     private void updateNumberOfFailedTries () {
-        tries = (TextView) findViewById(R.id.labelNumberOfFailedTries);
-        tries.setText(numberOfFailedTries + "Failed Tries");
+        TextView tries = (TextView) findViewById(R.id.labelNumberOfFailedTries);
+        tries.setText(numberOfFailedTries + " Failed Tries");
+    }
+
+    private void testForWinOrLoss(){
+        String gameWonLostText = "";
+        int gameCompleted = 0;
+
+        if (secretName.equals(gameName)) {
+            gameWonLostText = "1";
+            gameCompleted = 1;
+        }
+
+        if (!(secretName.equals(gameName)) & numberOfFailedTries > maxFailedTries) {
+            gameWonLostText = "0";
+            gameCompleted = 1;
+        }
+
+        if (gameCompleted == 1) {
+            Intent intent = new Intent();
+            intent.putExtra("gameResultIntentExtra", gameWonLostText);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 }
