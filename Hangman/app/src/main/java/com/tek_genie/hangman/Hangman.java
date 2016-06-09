@@ -149,13 +149,14 @@ public class Hangman extends AppCompatActivity {
     private void testForWinOrLoss(){
         String gameWonLostText = "";
         int gameCompleted = 0;
+        Log.i(TAG, "secretName " + secretName.toUpperCase());
+        Log.i(TAG, "gameName " + gameName.toString());
 
-        if (secretName.equals(gameName)) {
+        if ((secretName.toUpperCase()).equals(gameName.toString())) {
             gameWonLostText = "1";
             gameCompleted = 1;
         }
-
-        if (!(secretName.equals(gameName)) & numberOfFailedTries > maxFailedTries) {
+        else if (!((secretName.toUpperCase()).equals(gameName)) && (numberOfFailedTries > maxFailedTries)) {
             gameWonLostText = "0";
             gameCompleted = 1;
         }
