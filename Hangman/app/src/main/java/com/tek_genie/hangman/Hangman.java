@@ -2,6 +2,7 @@ package com.tek_genie.hangman;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -78,7 +80,7 @@ public class Hangman extends AppCompatActivity {
                 }
 
                 testForWinOrLoss();
-
+                updateNumberOfFailedTriesImage();
                 updateLettersTried(nextLetter.getText().toString());
                 nextLetter.setText("");
             }
@@ -144,6 +146,11 @@ public class Hangman extends AppCompatActivity {
     private void updateNumberOfFailedTries () {
         TextView tries = (TextView) findViewById(R.id.labelNumberOfFailedTries);
         tries.setText(numberOfFailedTries + " Failed Tries");
+    }
+
+    private void updateNumberOfFailedTriesImage () {
+        ImageView triesImage = (ImageView) findViewById(R.id.imageTryNumber);
+        triesImage.setImageDrawable(R.drawable.stick1);
     }
 
     private void testForWinOrLoss(){
