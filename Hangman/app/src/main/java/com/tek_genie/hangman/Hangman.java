@@ -150,7 +150,7 @@ public class Hangman extends AppCompatActivity {
 
     private void updateNumberOfFailedTriesImage () {
         ImageView triesImage = (ImageView) findViewById(R.id.imageTryNumber);
-        triesImage.setImageDrawable(R.drawable.stick1);
+        triesImage.setImageResource(R.drawable.stick1);
     }
 
     private void testForWinOrLoss(){
