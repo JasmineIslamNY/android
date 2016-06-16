@@ -2,6 +2,7 @@ package com.tek_genie.hangman;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -61,11 +62,12 @@ public class Hangman extends AppCompatActivity {
 
         //letters = (TextView) findViewById(R.id.labelLettersTried);
         //letters.setText("No Letters Tried Yet");
-        countWonTotal = (TextView) findViewById(R.id.countWonTotal);
-        countWonTotal.setText(gmWonTotal);
+        //countWonTotal = (TextView) findViewById(R.id.countWonTotal);
+        //countWonTotal.setText(gmWonTotal);
         gameClue = (TextView) findViewById(R.id.labelClue);
         gameClue.setText(nameAndInfo[6]);
 
+        /*
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
         submitLetter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,22 +87,269 @@ public class Hangman extends AppCompatActivity {
                 nextLetter.setText("");
             }
         });
+        */
 
         newGame = (Button) findViewById(R.id.buttonGameComplete);
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Random r = new Random();
-                int number = r.nextInt(2);
-                Log.i(TAG, "Game Won or Lost: " + number);
-                String gameWonLostText = Integer.toString(number);
-
-                Intent intent = new Intent();
-                intent.putExtra("gameResultIntentExtra", gameWonLostText);
-                setResult(RESULT_OK, intent);
-                finish();
+                numberOfFailedTries = maxFailedTries + 1;
+                testForWinOrLoss();
             }
         });
+
+        final Button letterA = (Button) findViewById(R.id.buttonA);
+        letterA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("A");
+                letterA.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterB = (Button) findViewById(R.id.buttonB);
+        letterB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("B");
+                letterB.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterC = (Button) findViewById(R.id.buttonC);
+        letterC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("C");
+                letterC.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterD = (Button) findViewById(R.id.buttonD);
+        letterD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("D");
+                letterD.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterE = (Button) findViewById(R.id.buttonE);
+        letterE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("E");
+                letterE.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterF = (Button) findViewById(R.id.buttonF);
+        letterF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("F");
+                letterF.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterG = (Button) findViewById(R.id.buttonG);
+        letterG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("G");
+                letterG.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterH = (Button) findViewById(R.id.buttonH);
+        letterH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("H");
+                letterH.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterI = (Button) findViewById(R.id.buttonI);
+        letterI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("I");
+                letterI.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterJ = (Button) findViewById(R.id.buttonJ);
+        letterJ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("J");
+                letterJ.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterK = (Button) findViewById(R.id.buttonK);
+        letterK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("K");
+                letterK.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterL = (Button) findViewById(R.id.buttonL);
+        letterL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("L");
+                letterL.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterM = (Button) findViewById(R.id.buttonM);
+        letterM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("M");
+                letterM.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterN = (Button) findViewById(R.id.buttonN);
+        letterN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("N");
+                letterN.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterO = (Button) findViewById(R.id.buttonO);
+        letterO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("O");
+                letterO.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterP = (Button) findViewById(R.id.buttonP);
+        letterP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("P");
+                letterP.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterQ = (Button) findViewById(R.id.buttonQ);
+        letterQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("Q");
+                letterQ.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterR = (Button) findViewById(R.id.buttonR);
+        letterR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("R");
+                letterR.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterS = (Button) findViewById(R.id.buttonS);
+        letterS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("S");
+                letterS.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterT = (Button) findViewById(R.id.buttonT);
+        letterT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("T");
+                letterT.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterU = (Button) findViewById(R.id.buttonU);
+        letterU.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("U");
+                letterU.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterV = (Button) findViewById(R.id.buttonV);
+        letterV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("V");
+                letterV.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterW = (Button) findViewById(R.id.buttonW);
+        letterW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("W");
+                letterW.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterX = (Button) findViewById(R.id.buttonX);
+        letterX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("X");
+                letterX.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterY = (Button) findViewById(R.id.buttonY);
+        letterY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("Y");
+                letterY.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterZ = (Button) findViewById(R.id.buttonZ);
+        letterZ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("Z");
+                letterZ.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterDASH = (Button) findViewById(R.id.buttonDASH);
+        letterDASH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("-");
+                letterDASH.setBackgroundColor(Color.RED);
+            }
+        });
+
+        final Button letterQUOTE = (Button) findViewById(R.id.buttonQUOTE);
+        letterQUOTE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processClickedLetter("'");
+                letterQUOTE.setBackgroundColor(Color.RED);
+            }
+        });
+
     }
 
     /*
@@ -113,6 +362,15 @@ public class Hangman extends AppCompatActivity {
         }
     }
     */
+
+    private void processClickedLetter (String s) {
+        int isLetterFound = checkNameForLetter(s);
+        if (isLetterFound == 0){
+            numberOfFailedTries += 1;
+        }
+        testForWinOrLoss();
+        updateNumberOfFailedTriesImage();
+    }
 
     private String underscoreName() {
         String name = "";
