@@ -57,10 +57,10 @@ public class Hangman extends AppCompatActivity {
         gameName = new StringBuilder(underscoreName());
         updateGameNameDisplay();
         Log.i(TAG, "gameName in onCreate: " + gameName);
-        updateNumberOfFailedTries();
+        //updateNumberOfFailedTries();
 
-        letters = (TextView) findViewById(R.id.labelLettersTried);
-        letters.setText("No Letters Tried Yet");
+        //letters = (TextView) findViewById(R.id.labelLettersTried);
+        //letters.setText("No Letters Tried Yet");
         countWonTotal = (TextView) findViewById(R.id.countWonTotal);
         countWonTotal.setText(gmWonTotal);
         gameClue = (TextView) findViewById(R.id.labelClue);
@@ -76,12 +76,12 @@ public class Hangman extends AppCompatActivity {
                 int isLetterFound = checkNameForLetter(nextLetter.getText().toString());
                 if (isLetterFound == 0){
                     numberOfFailedTries += 1;
-                    updateNumberOfFailedTries();
+                    //updateNumberOfFailedTries();
                 }
 
                 testForWinOrLoss();
                 updateNumberOfFailedTriesImage();
-                updateLettersTried(nextLetter.getText().toString());
+                //updateLettersTried(nextLetter.getText().toString());
                 nextLetter.setText("");
             }
         });
@@ -103,6 +103,7 @@ public class Hangman extends AppCompatActivity {
         });
     }
 
+    /*
     private void updateLettersTried(String nextLetter) {
         labelLettersTried = (TextView) findViewById(R.id.labelLettersTried);
         if (labelLettersTried.getText().toString() == "" || labelLettersTried.getText().toString() == "No Letters Tried Yet") {
@@ -111,6 +112,7 @@ public class Hangman extends AppCompatActivity {
             labelLettersTried.setText(labelLettersTried.getText().toString() + ", " + nextLetter);
         }
     }
+    */
 
     private String underscoreName() {
         String name = "";
@@ -143,14 +145,35 @@ public class Hangman extends AppCompatActivity {
         gameNameLabel.setText(gameName);
     }
 
+    /*
     private void updateNumberOfFailedTries () {
         TextView tries = (TextView) findViewById(R.id.labelNumberOfFailedTries);
         tries.setText(numberOfFailedTries + " Failed Tries");
     }
+    */
 
     private void updateNumberOfFailedTriesImage () {
+        // String temp = "R.drawable.stick" + numberOfFailedTries;
+        // int stickPersonNumber = Integer.valueOf(temp);
         ImageView triesImage = (ImageView) findViewById(R.id.imageTryNumber);
-        triesImage.setImageResource(R.drawable.stick1);
+        if (numberOfFailedTries == 1) {
+            triesImage.setImageResource(R.drawable.stick1);
+        }
+        else if (numberOfFailedTries == 2) {
+            triesImage.setImageResource(R.drawable.stick2);
+        }
+        else if (numberOfFailedTries == 3) {
+            triesImage.setImageResource(R.drawable.stick3);
+        }
+        else if (numberOfFailedTries == 4) {
+            triesImage.setImageResource(R.drawable.stick4);
+        }
+        else if (numberOfFailedTries == 5) {
+            triesImage.setImageResource(R.drawable.stick5);
+        }
+        else if (numberOfFailedTries == 6) {
+            triesImage.setImageResource(R.drawable.stick6);
+        }
     }
 
     private void testForWinOrLoss(){
