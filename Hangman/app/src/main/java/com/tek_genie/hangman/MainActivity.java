@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView countWonTotal;
     private HangmanDAO gameObject;
     private String gmWonTotal;
+    private String[] name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +47,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame (View view) {
-        String[] name = gameObject.nextName();
+        name = gameObject.nextName();
         String gmWonTotal = gameObject.gamesWonTotal();
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);
         intent.putExtra("gamesWonTotalIntentExtra", gmWonTotal);
 
         ((Activity) this).startActivityForResult(intent, 1);// 1 is the request code. The request code tells the activity who called it, etc MainActivity
+
+    }
+
+    private void showGameResult(String didYouWin) {
+        Intent intent = new Intent(this, HangmanResult.class);
+        intent.putExtra("nameIntentExtra", name);
+        intent.putExtra("didYouWinIntentExtra", didYouWin);
+
+        ((Activity) this).startActivity(intent);
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.gameCompleted(gameResultInt);
             gmWonTotal = gameObject.gamesWonTotal();
             Log.i("MainActivity", "Games Completed in MainActivity: " + gmWonTotal);
+            showGameResult(gameResult);
             countWonTotal = (TextView) findViewById(R.id.countWonTotalMain);
             countWonTotal.setText(gmWonTotal);
 

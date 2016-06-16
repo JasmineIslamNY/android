@@ -22,7 +22,8 @@
             android:name=".Hangman"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_hangman"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".HangmanResult"></activity>
     </application>
 
 </manifest>
