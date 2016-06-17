@@ -14,47 +14,46 @@ public class HangmanDBContract {
 
     /*CREATE TABLE Statements*/
     public static final String SQL_CREATE_NAMES = String.format(
-            "CREATE TABLE %s ( %s TEXT, %s TEXT, %s DATETIME)",
-            Note.TABLE_NAME, Note.COLUMN_NAME_NOTE_TEXT, Note.COLUMN_NAME_STATUS, Note.COLUMN_NAME_NOTE_DATE);
+            "CREATE TABLE %s ( %s TEXT, %s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT )",
+            Names.TABLE_NAME, Names.COLUMN_NAME_FIRST_NAME, Names.COLUMN_NAME_LAST_NAME, Names.COLUMN_NAME_DISPLAYED, Names.COLUMN_NAME_LINK_TO_WIKI, Names.COLUMN_NAME_LINK_TO_IMAGE, Names.COLUMN_NAME_DESCRIPTION, Names.COLUMN_NAME_CLUE);
 
-    public static final String SQL_CREATE_TAG = String.format(
-            "CREATE TABLE %s ( %s TEXT)",
-            Tag.TABLE_NAME, Tag.COLUMN_NAME_TAG_NAME);
-
-    public static final String SQL_CREATE_NOTE_TAG = String.format(
-            "CREATE TABLE %s ( %s INTEGER, %s INTEGER)",
-            NoteTag.TABLE_NAME, NoteTag.COLUMN_NAME_NOTE_ID, NoteTag.COLUMN_NAME_TAG_ID);
+    public static final String SQL_CREATE_GAMEINFO = String.format(
+            "CREATE TABLE %s ( %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER)",
+            GameInfo.TABLE_NAME, GameInfo.COLUMN_NAME_GAMES_WON, GameInfo.COLUMN_NAME_GAMES_PLAYED, GameInfo.COLUMN_NAME_DB_VERSION, GameInfo.COLUMN_NAME_AVERAGE_TIME, GameInfo.COLUMN_NAME_SHORTEST_TIME, GameInfo.COLUMN_NAME_LONGEST_TIME);
 
     /*DROP TABLE Statements*/
-    public static final String SQL_DELETE_NOTE =
-            String.format("DROP TABLE IF EXISTS %s", Note.TABLE_NAME);
+    public static final String SQL_DELETE_NAMES =
+            String.format("DROP TABLE IF EXISTS %s", Names.TABLE_NAME);
 
-    public static final String SQL_DELETE_TAG =
-            String.format("DROP TABLE IF EXISTS %s", Tag.TABLE_NAME);
+    public static final String SQL_DELETE_GAMEINFO =
+            String.format("DROP TABLE IF EXISTS %s", GameInfo.TABLE_NAME);
 
-    public static final String SQL_DELETE_NOTE_TAG =
-            String.format("DROP TABLE IF EXISTS %s", NoteTag.TABLE_NAME);
-
-
-    /* Inner class that defines the note table */
-    public static abstract class Note implements BaseColumns {
-        public static final String TABLE_NAME = "note";
+    //first name, last name, displayed (0/1), link to wikipedia, link to image, description, clue
+    /* Inner class that defines the Names table */
+    public static abstract class Names implements BaseColumns {
+        public static final String TABLE_NAME = "names";
         public static final String COLUMN_NAME_ID = "rowid";
-        public static final String COLUMN_NAME_NOTE_TEXT = "note_text";
-        public static final String COLUMN_NAME_STATUS = "status";
-        public static final String COLUMN_NAME_NOTE_DATE = "note_date";
+        public static final String COLUMN_NAME_FIRST_NAME = "first_name";
+        public static final String COLUMN_NAME_LAST_NAME = "last_name";
+        public static final String COLUMN_NAME_DISPLAYED = "displayed";
+        public static final String COLUMN_NAME_LINK_TO_WIKI = "link_to_wiki";
+        public static final String COLUMN_NAME_LINK_TO_IMAGE = "link_to_image";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_CLUE = "clue";
+
     }
 
-    /* Inner class that defines the tag table */
-    public static abstract class Tag implements BaseColumns {
-        public static final String TABLE_NAME = "tag";
-        public static final String COLUMN_NAME_TAG_NAME = "tag_name";
+    /* Inner class that defines the GameInfo table */
+    public static abstract class GameInfo implements BaseColumns {
+        public static final String TABLE_NAME = "gameinfo";
+        public static final String COLUMN_NAME_ID = "rowid";
+        public static final String COLUMN_NAME_GAMES_WON = "games_won";
+        public static final String COLUMN_NAME_GAMES_PLAYED = "games_played";
+        public static final String COLUMN_NAME_DB_VERSION = "db_version";
+        public static final String COLUMN_NAME_AVERAGE_TIME = "average_time";
+        public static final String COLUMN_NAME_SHORTEST_TIME = "shortest_time";
+        public static final String COLUMN_NAME_LONGEST_TIME = "longest_time";
+
     }
 
-    /* Inner class that defines the note_tag table*/
-    public static abstract class NoteTag implements BaseColumns {
-        public static final String TABLE_NAME = "note_tag";
-        public static final String COLUMN_NAME_NOTE_ID = "note_id";
-        public static final String COLUMN_NAME_TAG_ID = "tag_id";
-    }
 }
