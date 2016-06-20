@@ -1,6 +1,16 @@
 package com.tek_genie.hangman;
 
 import java.io.Serializable;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by jasmineislam on 5/18/16.
@@ -9,6 +19,11 @@ public class HangmanDAO implements Serializable {
     private String [][] names;
     private Integer gamesWon = 0;
     private Integer gamesPlayed = 0;
+    private Context context;
+
+    public HangmanDAO (Context context){
+        this.context = context;
+    }
 
     public HangmanDAO() {
         //first name, last name, displayed (0/1), link to wikipedia, link to image, description, clue

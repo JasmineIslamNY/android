@@ -22,14 +22,12 @@ public class HangmanDBHelper {
         super(context, HangmanDBContract.DATABASE_NAME, null, HangmanDBContract.DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(HangmanDBContract.SQL_CREATE_NOTE);
-        db.execSQL(HangmanDBContract.SQL_CREATE_TAG);
-        db.execSQL(HangmanDBContract.SQL_CREATE_NOTE_TAG);
+        db.execSQL(HangmanDBContract.SQL_CREATE_NAMES);
+        db.execSQL(HangmanDBContract.SQL_CREATE_GAMEINFO);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(HangmanDBContract.SQL_DELETE_NOTE_TAG);
-        db.execSQL(HangmanDBContract.SQL_DELETE_NOTE);
-        db.execSQL(HangmanDBContract.SQL_DELETE_TAG);
+        db.execSQL(HangmanDBContract.SQL_DELETE_NAMES);
+        db.execSQL(HangmanDBContract.SQL_DELETE_GAMEINFO);
         onCreate(db);
     }
 }
