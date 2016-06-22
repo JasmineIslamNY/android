@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Chronometer;
+
 
 import java.util.Random;
 
@@ -39,6 +42,7 @@ public class Hangman extends AppCompatActivity {
     private TextView gameNameLabel;
     private TextView gameClue;
     private int maxFailedTries;
+    private Chronometer chronometer;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,10 @@ public class Hangman extends AppCompatActivity {
         //countWonTotal.setText(gmWonTotal);
         gameClue = (TextView) findViewById(R.id.labelClue);
         gameClue.setText(nameAndInfo[6]);
+
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
 
         /*
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
@@ -450,6 +458,9 @@ public class Hangman extends AppCompatActivity {
         }
 
         if (gameCompleted == 1) {
+            chronometer.stop();
+            CharSequence timeEnd = chronometer.getText();
+            Log.i(TAG, "Timer End: " + timeEnd.toString());
             Intent intent = new Intent();
             intent.putExtra("gameResultIntentExtra", gameWonLostText);
             setResult(RESULT_OK, intent);
