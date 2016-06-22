@@ -43,16 +43,28 @@ public class Hangman extends AppCompatActivity {
     private TextView gameClue;
     private int maxFailedTries;
     private Chronometer chronometer;
+    private View decorView;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        //hideSystemUI();
 
         setContentView(R.layout.activity_hangman);
         Intent intent = getIntent();
         nameAndInfo = intent.getStringArrayExtra("nameIntentExtra");
         gmWonTotal = intent.getStringExtra("gamesWonTotalIntentExtra");
         maxFailedTries = intent.getIntExtra("maxFailedTriesIntentExtra", 6);
+
+
 
         Log.i(TAG, "nameAndInfo 0 and 1: " + nameAndInfo[0] + " " + nameAndInfo[1]);
         Log.i(TAG, "gmWonTotal: " + gmWonTotal);
@@ -440,6 +452,19 @@ public class Hangman extends AppCompatActivity {
         else if (numberOfFailedTries == 6) {
             triesImage.setImageResource(R.drawable.stick6);
         }
+    }
+
+    private void hideSystemUI() {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     private void testForWinOrLoss(){

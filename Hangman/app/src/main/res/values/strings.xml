@@ -12,5 +12,9 @@
     <string name="labelTime_text">Time</string>
     <string name="countTime_text">0:00</string>
 
+    <string name="title_activity_test">test</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 
 </resources>
