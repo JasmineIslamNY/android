@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by jasmineislam on 6/16/16.
  */
 public class HangmanDBHelper {
+    /*
     private static HangmanDBHelper instance = null;
 
     public static HangmanDBHelper getInstance(Context context){
@@ -30,4 +31,5 @@ public class HangmanDBHelper {
         db.execSQL(HangmanDBContract.SQL_DELETE_GAMEINFO);
         onCreate(db);
     }
+    */
 }

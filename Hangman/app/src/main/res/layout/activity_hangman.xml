@@ -19,17 +19,6 @@
         tools:showIn="@layout/activity_hangman"
         android:layout_gravity="left|center_vertical">
 
-    <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/labelNumberOfFailedTries"
-        android:hint="0 tries"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-        -->
 
         <ImageView
             android:layout_width="200dp"
@@ -40,121 +29,48 @@
             android:layout_alignParentStart="true"
             android:outlineProvider="bounds" />
 
-    <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Won / Total"
-        android:id="@+id/labelWonGames"
-        android:layout_below="@+id/labelGames"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/labelTime_text"
+            android:id="@+id/labelTime"
+            android:textAlignment="center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/buttonE"
+            android:layout_toEndOf="@+id/buttonE" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 / 0"
-        android:id="@+id/countWonTotal"
-        android:layout_below="@+id/labelWonGames"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/labelWonGames"
-        android:layout_alignStart="@+id/labelWonGames"
-        android:textAlignment="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/countTime_text"
+            android:id="@+id/countTime"
+            android:layout_below="@+id/labelTime"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textAlignment="center"
+            android:layout_alignLeft="@+id/labelTime"
+            android:layout_alignStart="@+id/labelTime" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Games"
-        android:id="@+id/labelGames"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/labelWonGames"
-        android:layout_alignEnd="@+id/labelWonGames"
-        android:singleLine="true"
-        android:layout_alignLeft="@+id/labelWonGames"
-        android:layout_alignStart="@+id/labelWonGames"
-        android:textAlignment="center" />
-        -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Time"
-        android:id="@+id/labelTime"
-        android:textAlignment="center"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/buttonE"
-        android:layout_toEndOf="@+id/buttonE" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0:00"
-        android:id="@+id/countTime"
-        android:layout_below="@+id/labelTime"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="center"
-        android:layout_alignLeft="@+id/labelTime"
-        android:layout_alignStart="@+id/labelTime" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_complete"
-        android:id="@+id/buttonGameComplete"
-        android:layout_below="@+id/countTime"
-        android:layout_alignRight="@+id/countTime"
-        android:layout_alignEnd="@+id/countTime"
-        android:layout_marginTop="29dp"
-        android:layout_alignLeft="@+id/countTime"
-        android:layout_alignStart="@+id/countTime" />
-
-        <!--
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/labelLettersTried"
-        android:layout_below="@+id/labelWonGames"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="No Letters Tried Yet" />
-        -->
-
-        <!--
-        <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittextEnterNextLetter"
-        android:hint="Enter Next Letter"
-        android:layout_below="@+id/imageTryNumber"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-        -->
-
-        <!--
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit"
-        android:id="@+id/buttonSubmitLetter"
-        android:layout_below="@+id/edittextEnterNextLetter"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-        -->
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_complete"
+            android:id="@+id/buttonGameComplete"
+            android:layout_below="@+id/countTime"
+            android:layout_alignRight="@+id/countTime"
+            android:layout_alignEnd="@+id/countTime"
+            android:layout_marginTop="29dp"
+            android:layout_alignLeft="@+id/countTime"
+            android:layout_alignStart="@+id/countTime" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="_ _"
+            android:text="@string/labelGameName_placeholder"
             android:id="@+id/labelGameName"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -167,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="No Clue for This Person"
+            android:text="@string/labelClue_placeholder"
             android:id="@+id/labelClue"
             android:layout_below="@+id/labelGameName"
             android:layout_alignParentLeft="true"
@@ -181,7 +97,7 @@
             android:text="A"
             android:id="@+id/buttonA"
             android:layout_above="@+id/buttonH"
-            android:layout_alignParentLeft="true" />
+            android:layout_toLeftOf="@+id/buttonB" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -190,7 +106,7 @@
             android:text="B"
             android:id="@+id/buttonB"
             android:layout_above="@+id/buttonI"
-            android:layout_toRightOf="@+id/buttonA" />
+            android:layout_toLeftOf="@+id/buttonC" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -199,7 +115,7 @@
             android:text="C"
             android:id="@+id/buttonC"
             android:layout_above="@+id/buttonJ"
-            android:layout_toRightOf="@+id/buttonB" />
+            android:layout_toLeftOf="@+id/buttonD" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -208,7 +124,7 @@
             android:text="D"
             android:id="@+id/buttonD"
             android:layout_above="@+id/buttonK"
-            android:layout_toRightOf="@+id/buttonC"/>
+            android:layout_centerInParent="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -244,7 +160,7 @@
             android:text="H"
             android:id="@+id/buttonH"
             android:layout_above="@+id/buttonO"
-            android:layout_alignParentLeft="true"/>
+            android:layout_toLeftOf="@+id/buttonI"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -253,7 +169,7 @@
             android:text="I"
             android:id="@+id/buttonI"
             android:layout_above="@+id/buttonP"
-            android:layout_toRightOf="@+id/buttonH" />
+            android:layout_toLeftOf="@+id/buttonJ" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -262,7 +178,7 @@
             android:text="J"
             android:id="@+id/buttonJ"
             android:layout_above="@+id/buttonQ"
-            android:layout_toRightOf="@+id/buttonI" />
+            android:layout_toLeftOf="@+id/buttonK" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -271,7 +187,7 @@
             android:text="K"
             android:id="@+id/buttonK"
             android:layout_above="@+id/buttonR"
-            android:layout_toRightOf="@+id/buttonJ" />
+            android:layout_centerInParent="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -307,7 +223,7 @@
             android:text="O"
             android:id="@+id/buttonO"
             android:layout_above="@+id/buttonV"
-            android:layout_alignParentLeft="true" />
+            android:layout_toLeftOf="@+id/buttonP" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -316,7 +232,7 @@
             android:text="P"
             android:id="@+id/buttonP"
             android:layout_above="@+id/buttonW"
-            android:layout_toRightOf="@+id/buttonO"/>
+            android:layout_toLeftOf="@+id/buttonQ"/>
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -325,7 +241,7 @@
             android:text="Q"
             android:id="@+id/buttonQ"
             android:layout_above="@+id/buttonX"
-            android:layout_toRightOf="@+id/buttonP" />
+            android:layout_toLeftOf="@+id/buttonR" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -334,7 +250,7 @@
             android:text="R"
             android:id="@+id/buttonR"
             android:layout_above="@+id/buttonY"
-            android:layout_toRightOf="@+id/buttonQ" />
+            android:layout_centerInParent="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -370,7 +286,7 @@
             android:text="V"
             android:id="@+id/buttonV"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true" />
+            android:layout_toLeftOf="@+id/buttonW" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -378,7 +294,7 @@
             android:layout_height="wrap_content"
             android:text="W"
             android:id="@+id/buttonW"
-            android:layout_toRightOf="@+id/buttonV"
+            android:layout_toLeftOf="@+id/buttonX"
             android:layout_alignParentBottom="true"/>
 
         <Button
@@ -387,7 +303,7 @@
             android:layout_height="wrap_content"
             android:text="X"
             android:id="@+id/buttonX"
-            android:layout_toRightOf="@+id/buttonW"
+            android:layout_toLeftOf="@+id/buttonY"
             android:layout_alignParentBottom="true"/>
 
         <Button
@@ -396,7 +312,7 @@
             android:layout_height="wrap_content"
             android:text="Y"
             android:id="@+id/buttonY"
-            android:layout_toRightOf="@+id/buttonX"
+            android:layout_centerInParent="true"
             android:layout_alignParentBottom="true" />
 
         <Button
