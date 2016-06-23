@@ -46,9 +46,14 @@ public class HangmanResult extends AppCompatActivity {
         TextView personInformation = (TextView) findViewById(R.id.labelPersonInformation);
         personInformation.setText(nameAndInfo[5]);
 
+        new DownloadImageTask((ImageView) findViewById(R.id.imageOfPerson))
+                .execute(nameAndInfo[4]);
+
+        /*
         ImageView personPicture = (ImageView) findViewById(R.id.imageOfPerson);
         Uri url = Uri.parse(nameAndInfo[4]);
         personPicture.setImageURI(url);
+        */
 
         Button close = (Button) findViewById(R.id.buttonClose);
         close.setOnClickListener(new View.OnClickListener() {
@@ -69,3 +74,7 @@ public class HangmanResult extends AppCompatActivity {
         });
     }
 }
+
+
+
+
