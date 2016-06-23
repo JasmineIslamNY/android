@@ -28,11 +28,6 @@
             android:label="@string/title_activity_hangman"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".HangmanResult" />
-        <activity
-            android:name=".test"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_test"
-            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

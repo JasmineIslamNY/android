@@ -20,6 +20,9 @@ public class HangmanDAO implements Serializable {
     private Integer gamesWon = 0;
     private Integer gamesPlayed = 0;
     private Context context;
+    private int fastestTime = 0;
+    private int averageTime = 0;
+    private int slowestTime = 0;
 
     public HangmanDAO (Context context){
         this.context = context;
@@ -60,8 +63,25 @@ public class HangmanDAO implements Serializable {
 
     }
 
-    public String gamesWonTotal () {
-        String returnWonTotal =  this.gamesWon + " / " + this.gamesPlayed;
-        return returnWonTotal;
+    public String statsGamesWon() {
+        return String.valueOf(this.gamesWon);
     }
+
+    public String statsGamesPlayed() {
+        return String.valueOf(this.gamesPlayed);
+    }
+
+    public String statsFastestTime() {
+        return String.valueOf(this.fastestTime);
+    }
+
+    public String statsAverageTime() {
+        return String.valueOf(this.averageTime);
+    }
+
+    public String statsSlowestTime() {
+        return String.valueOf(this.slowestTime);
+    }
+
+
 }

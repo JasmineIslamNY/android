@@ -11,8 +11,13 @@
     <string name="labelClue_placeholder">No Clue for This Person</string>
     <string name="labelTime_text">Time</string>
     <string name="countTime_text">0:00</string>
-
+    <string name="gamesWon">Games Won: </string>
+    <string name="gameTotal">Games Total: </string>
+    <string name="fastestTime">Fastest Time: </string>
+    <string name="averageTime">Average Time: </string>
+    <string name="slowestTime">Slowest Time: </string>
     <string name="title_activity_test">test</string>
+    <string name="default0">0</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 

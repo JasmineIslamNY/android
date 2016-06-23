@@ -22,17 +22,21 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     Button newGameMain;
-    public TextView countWonTotal;
     private HangmanDAO gameObject;
-    private String gmWonTotal;
     private String[] name;
+    private TextView countWonTotal;
+    private TextView countTotalGames;
+    private TextView fastestTime;
+    private TextView averageTime;
+    private TextView slowestTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         gameObject = new HangmanDAO();
 
@@ -44,11 +48,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
+        countWonTotal.setText(gameObject.statsGamesWon());
+
+        countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
+        countTotalGames.setText(gameObject.statsGamesPlayed());
+
+        fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
+        fastestTime.setText(gameObject.statsFastestTime());
+
+        averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
+        averageTime.setText(gameObject.statsAverageTime());
+
+        slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
+        slowestTime.setText(gameObject.statsSlowestTime());
+
     }
 
     public void newGame (View view) {
         name = gameObject.nextName();
-        String gmWonTotal = gameObject.gamesWonTotal();
+        String gmWonTotal = gameObject.statsGamesWon() + " / " + gameObject.statsGamesPlayed();
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);
         intent.putExtra("gamesWonTotalIntentExtra", gmWonTotal);
@@ -71,11 +90,22 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainActivity", "gameResult returned as: " + gameResult);
             int gameResultInt = Integer.valueOf(gameResult);
             gameObject.gameCompleted(gameResultInt);
-            gmWonTotal = gameObject.gamesWonTotal();
-            Log.i("MainActivity", "Games Completed in MainActivity: " + gmWonTotal);
             showGameResult(gameResult);
-            countWonTotal = (TextView) findViewById(R.id.countWonTotalMain);
-            countWonTotal.setText(gmWonTotal);
+
+            countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
+            countWonTotal.setText(gameObject.statsGamesWon());
+
+            countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
+            countTotalGames.setText(gameObject.statsGamesPlayed());
+
+            fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
+            fastestTime.setText(gameObject.statsFastestTime());
+
+            averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
+            averageTime.setText(gameObject.statsAverageTime());
+
+            slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
+            slowestTime.setText(gameObject.statsSlowestTime());
 
         }
     }
