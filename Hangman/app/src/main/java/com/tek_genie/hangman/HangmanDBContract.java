@@ -15,7 +15,7 @@ public class HangmanDBContract {
     /*CREATE TABLE Statements*/
     public static final String SQL_CREATE_NAMES = String.format(
             "CREATE TABLE %s ( %s TEXT, %s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT )",
-            Names.TABLE_NAME, Names.COLUMN_NAME_FIRST_NAME, Names.COLUMN_NAME_LAST_NAME, Names.COLUMN_NAME_DISPLAYED, Names.COLUMN_NAME_LINK_TO_WIKI, Names.COLUMN_NAME_LINK_TO_IMAGE, Names.COLUMN_NAME_DESCRIPTION, Names.COLUMN_NAME_CLUE);
+            Names.TABLE_NAME, Names.COLUMN_NAME_FIRST_NAME, Names.COLUMN_NAME_LAST_NAME, Names.COLUMN_NAME_DISPLAYEDCOUNT, Names.COLUMN_NAME_LINK_TO_WIKI, Names.COLUMN_NAME_LINK_TO_IMAGE, Names.COLUMN_NAME_DESCRIPTION, Names.COLUMN_NAME_CLUE);
 
     public static final String SQL_CREATE_GAMEINFO = String.format(
             "CREATE TABLE %s ( %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER)",
@@ -35,7 +35,7 @@ public class HangmanDBContract {
         public static final String COLUMN_NAME_ID = "rowid";
         public static final String COLUMN_NAME_FIRST_NAME = "first_name";
         public static final String COLUMN_NAME_LAST_NAME = "last_name";
-        public static final String COLUMN_NAME_DISPLAYED = "displayed";
+        public static final String COLUMN_NAME_DISPLAYEDCOUNT = "displayedcount";
         public static final String COLUMN_NAME_LINK_TO_WIKI = "link_to_wiki";
         public static final String COLUMN_NAME_LINK_TO_IMAGE = "link_to_image";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
