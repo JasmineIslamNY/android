@@ -27,7 +27,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:outlineProvider="bounds" />
+            android:outlineProvider="bounds"
+            android:background="@drawable/border_for_stick" />
 
         <TextView
             android:layout_width="wrap_content"
