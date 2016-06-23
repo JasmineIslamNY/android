@@ -74,7 +74,7 @@ public class HangmanDAO implements Serializable {
         Log.i("HangmanDAO", "segments contents: " + segments[0]);
         Log.i("HangmanDAO", "segments contents: " + segments[1]);
         Integer test = Integer.getInteger(textToConvert);
-        test += 10;
+        test = test + 10;
         Log.i("HangmanDAO", "printing Integer: " + String.valueOf(test));
         // if only minutes and seconds
         if (segments.length == 2){
