@@ -73,6 +73,7 @@ public class HangmanDAO implements Serializable {
         String textToConvert = "8";
         Log.i("HangmanDAO", "segments contents: " + segments[0]);
         Log.i("HangmanDAO", "segments contents: " + segments[1]);
+        /*
         Integer test = Integer.getInteger(textToConvert);
         test = test + 10;
         Log.i("HangmanDAO", "printing Integer: " + String.valueOf(test));
@@ -98,6 +99,7 @@ public class HangmanDAO implements Serializable {
 
             averageTime = ((averageTime * (gamesPlayed -1)) + seconds) / gamesPlayed;
         }
+        */
     }
 
     public String statsGamesWon() {
