@@ -20,7 +20,8 @@
         android:id="@+id/labelGamesWon"
         android:singleLine="true"
         android:layout_below="@+id/labelMain"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
         android:id="@+id/labelGamesTotal"
         android:singleLine="true"
         android:layout_below="@+id/labelGamesWon"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,11 +58,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/lastGameTime"
+        android:id="@+id/labelLastGameTime"
+        android:singleLine="true"
+        android:layout_below="@+id/labelGamesTotal"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/labelLastGameTimeDisplay"
+        android:text="@string/default0"
+        android:singleLine="true"
+        android:layout_below="@+id/labelGamesTotalDisplay"
+        android:layout_toRightOf="@id/labelLastGameTime" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/fastestTime"
         android:id="@+id/labelFastestTime"
         android:singleLine="true"
-        android:layout_below="@+id/labelGamesTotal"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/labelLastGameTime"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +94,7 @@
         android:id="@+id/labelFastestTimeDisplay"
         android:text="@string/default0"
         android:singleLine="true"
-        android:layout_below="@+id/labelGamesTotalDisplay"
+        android:layout_below="@+id/labelLastGameTimeDisplay"
         android:layout_toRightOf="@id/labelFastestTime" />
 
     <TextView
@@ -80,7 +105,8 @@
         android:id="@+id/labelAverageTime"
         android:singleLine="true"
         android:layout_below="@+id/labelFastestTime"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,7 +126,8 @@
         android:id="@+id/labelSlowestTime"
         android:singleLine="true"
         android:layout_below="@+id/labelAverageTime"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:paddingRight="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"

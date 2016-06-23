@@ -475,6 +475,7 @@ public class Hangman extends AppCompatActivity {
             Log.i(TAG, "Timer End: " + timeEnd.toString());
             Intent intent = new Intent();
             intent.putExtra("gameResultIntentExtra", gameWonLostText);
+            intent.putExtra("gameTimeIntentExtra", timeEnd.toString());
             setResult(RESULT_OK, intent);
             finish();
         }

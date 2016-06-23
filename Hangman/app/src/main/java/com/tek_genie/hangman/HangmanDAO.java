@@ -20,6 +20,7 @@ public class HangmanDAO implements Serializable {
     private Integer gamesWon = 0;
     private Integer gamesPlayed = 0;
     private Context context;
+    private int lastGameTime = 0;
     private int fastestTime = 0;
     private int averageTime = 0;
     private int slowestTime = 0;
@@ -63,12 +64,52 @@ public class HangmanDAO implements Serializable {
 
     }
 
+    public void gameTimeProcessor(String gameTime){
+        Integer seconds = 0;
+        Log.i("HangmanDAO", "gameTime contents: " + gameTime);
+        // Split gameTime into segments
+        String [] segments = gameTime.split(":");
+        segments[0] = "01";
+        String textToConvert = "8";
+        Log.i("HangmanDAO", "segments contents: " + segments[0]);
+        Log.i("HangmanDAO", "segments contents: " + segments[1]);
+        Integer test = Integer.getInteger(textToConvert);
+        test += 10;
+        Log.i("HangmanDAO", "printing Integer: " + String.valueOf(test));
+        // if only minutes and seconds
+        if (segments.length == 2){
+            seconds = (60 * Integer.getInteger(segments[0])) + Integer.getInteger(segments[1]);
+        }
+        else if (segments.length == 3) {
+            seconds = (60 * 60 * Integer.getInteger(segments[0])) + (60 * Integer.getInteger(segments[1])) + Integer.getInteger(segments[2]);
+        }
+        else {
+            seconds = 0;
+        }
+
+        if (seconds != null) {
+            lastGameTime = seconds;
+            if (fastestTime > seconds) {
+                fastestTime = seconds;
+            }
+            if (slowestTime < seconds) {
+                slowestTime = seconds;
+            }
+
+            averageTime = ((averageTime * (gamesPlayed -1)) + seconds) / gamesPlayed;
+        }
+    }
+
     public String statsGamesWon() {
         return String.valueOf(this.gamesWon);
     }
 
     public String statsGamesPlayed() {
         return String.valueOf(this.gamesPlayed);
+    }
+
+    public String statsLastGameTime() {
+        return String.valueOf(this.lastGameTime);
     }
 
     public String statsFastestTime() {

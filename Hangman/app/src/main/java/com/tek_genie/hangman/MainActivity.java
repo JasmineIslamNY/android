@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] name;
     private TextView countWonTotal;
     private TextView countTotalGames;
+    private TextView lastGameTime;
     private TextView fastestTime;
     private TextView averageTime;
     private TextView slowestTime;
@@ -48,21 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
-        countWonTotal.setText(gameObject.statsGamesWon());
-
-        countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
-        countTotalGames.setText(gameObject.statsGamesPlayed());
-
-        fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
-        fastestTime.setText(gameObject.statsFastestTime());
-
-        averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
-        averageTime.setText(gameObject.statsAverageTime());
-
-        slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
-        slowestTime.setText(gameObject.statsSlowestTime());
-
+        displayGameStats();
     }
 
     public void newGame (View view) {
@@ -87,27 +74,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gameResult = data.getStringExtra("gameResultIntentExtra");
+            String gameTime = data.getStringExtra("gameTimeIntentExtra");
             Log.i("MainActivity", "gameResult returned as: " + gameResult);
+            Log.i("MainActivity", "gameTime returned as: " + gameTime);
             int gameResultInt = Integer.valueOf(gameResult);
             gameObject.gameCompleted(gameResultInt);
+            gameObject.gameTimeProcessor(gameTime);
             showGameResult(gameResult);
-
-            countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
-            countWonTotal.setText(gameObject.statsGamesWon());
-
-            countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
-            countTotalGames.setText(gameObject.statsGamesPlayed());
-
-            fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
-            fastestTime.setText(gameObject.statsFastestTime());
-
-            averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
-            averageTime.setText(gameObject.statsAverageTime());
-
-            slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
-            slowestTime.setText(gameObject.statsSlowestTime());
-
+            displayGameStats();
         }
+    }
+
+    public void displayGameStats(){
+        countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
+        countWonTotal.setText(gameObject.statsGamesWon());
+
+        countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
+        countTotalGames.setText(gameObject.statsGamesPlayed());
+
+        lastGameTime = (TextView) findViewById(R.id.labelLastGameTimeDisplay);
+        lastGameTime.setText(gameObject.statsLastGameTime());
+
+        fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
+        fastestTime.setText(gameObject.statsFastestTime());
+
+        averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
+        averageTime.setText(gameObject.statsAverageTime());
+
+        slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
+        slowestTime.setText(gameObject.statsSlowestTime());
     }
 
     @Override

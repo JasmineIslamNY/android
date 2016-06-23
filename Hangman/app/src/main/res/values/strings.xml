@@ -13,6 +13,7 @@
     <string name="countTime_text">0:00</string>
     <string name="gamesWon">Games Won: </string>
     <string name="gameTotal">Games Total: </string>
+    <string name="lastGameTime">Last Game Time: </string>
     <string name="fastestTime">Fastest Time: </string>
     <string name="averageTime">Average Time: </string>
     <string name="slowestTime">Slowest Time: </string>
