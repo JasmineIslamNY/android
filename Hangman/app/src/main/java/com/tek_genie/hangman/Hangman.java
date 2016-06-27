@@ -81,12 +81,7 @@ public class Hangman extends AppCompatActivity {
         gameName = new StringBuilder(underscoreName());
         updateGameNameDisplay();
         Log.i(TAG, "gameName in onCreate: " + gameName);
-        //updateNumberOfFailedTries();
 
-        //letters = (TextView) findViewById(R.id.labelLettersTried);
-        //letters.setText("No Letters Tried Yet");
-        //countWonTotal = (TextView) findViewById(R.id.countWonTotal);
-        //countWonTotal.setText(gmWonTotal);
         gameClue = (TextView) findViewById(R.id.labelClue);
         gameClue.setText(nameAndInfo[6]);
 
@@ -97,28 +92,6 @@ public class Hangman extends AppCompatActivity {
 
         new DownloadImageTask()
                 .execute(nameAndInfo[4]);
-
-        /*
-        submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
-        submitLetter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText nextLetter = (EditText) findViewById(R.id.edittextEnterNextLetter);
-                Log.i(TAG, "Entered: " + nextLetter.getText().toString());
-
-                int isLetterFound = checkNameForLetter(nextLetter.getText().toString());
-                if (isLetterFound == 0){
-                    numberOfFailedTries += 1;
-                    //updateNumberOfFailedTries();
-                }
-
-                testForWinOrLoss();
-                updateNumberOfFailedTriesImage();
-                //updateLettersTried(nextLetter.getText().toString());
-                nextLetter.setText("");
-            }
-        });
-        */
 
         newGame = (Button) findViewById(R.id.buttonGameComplete);
         newGame.setOnClickListener(new View.OnClickListener() {
@@ -383,17 +356,6 @@ public class Hangman extends AppCompatActivity {
 
     }
 
-    /*
-    private void updateLettersTried(String nextLetter) {
-        labelLettersTried = (TextView) findViewById(R.id.labelLettersTried);
-        if (labelLettersTried.getText().toString() == "" || labelLettersTried.getText().toString() == "No Letters Tried Yet") {
-            labelLettersTried.setText(nextLetter);
-        } else {
-            labelLettersTried.setText(labelLettersTried.getText().toString() + ", " + nextLetter);
-        }
-    }
-    */
-
     private void processClickedLetter (String s) {
         int isLetterFound = checkNameForLetter(s);
         if (isLetterFound == 0){
@@ -433,13 +395,6 @@ public class Hangman extends AppCompatActivity {
         gameNameLabel = (TextView) findViewById(R.id.labelGameName);
         gameNameLabel.setText(gameName);
     }
-
-    /*
-    private void updateNumberOfFailedTries () {
-        TextView tries = (TextView) findViewById(R.id.labelNumberOfFailedTries);
-        tries.setText(numberOfFailedTries + " Failed Tries");
-    }
-    */
 
     private void updateNumberOfFailedTriesImage () {
         // String temp = "R.drawable.stick" + numberOfFailedTries;

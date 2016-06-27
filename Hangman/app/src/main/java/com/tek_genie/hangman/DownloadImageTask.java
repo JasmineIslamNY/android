@@ -38,37 +38,4 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         Hangman.bmImage = result;
         Log.i("DownloadImageTask.java", "Got the File!!");
     }
-
-        /*
-        String FILENAME = "imageOfPerson";
-
-        File file = new File(FILENAME);
-        if (file.exists()){
-            file.delete();
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(file);
-            result.compress(Bitmap.CompressFormat.PNG, 100, out);
-            // PNG is a lossless format, the compression factor (100) is ignored
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        }
-        */
 }
