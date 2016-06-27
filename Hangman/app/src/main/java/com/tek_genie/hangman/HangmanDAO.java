@@ -69,37 +69,32 @@ public class HangmanDAO implements Serializable {
         Log.i("HangmanDAO", "gameTime contents: " + gameTime);
         // Split gameTime into segments
         String [] segments = gameTime.split(":");
-        segments[0] = "01";
-        String textToConvert = "8";
         Log.i("HangmanDAO", "segments contents: " + segments[0]);
         Log.i("HangmanDAO", "segments contents: " + segments[1]);
-        /*
-        Integer test = Integer.getInteger(textToConvert);
-        test = test + 10;
-        Log.i("HangmanDAO", "printing Integer: " + String.valueOf(test));
+        if (segments.length == 3){
+            Log.i("HangmanDAO", "segments contents: " + segments[2]);
+        }
+
         // if only minutes and seconds
         if (segments.length == 2){
-            seconds = (60 * Integer.getInteger(segments[0])) + Integer.getInteger(segments[1]);
+            seconds = (60 * Integer.valueOf(segments[0])) + Integer.valueOf(segments[1]);
         }
         else if (segments.length == 3) {
-            seconds = (60 * 60 * Integer.getInteger(segments[0])) + (60 * Integer.getInteger(segments[1])) + Integer.getInteger(segments[2]);
-        }
-        else {
-            seconds = 0;
+            seconds = (60 * 60 * Integer.valueOf(segments[0])) + (60 * Integer.valueOf(segments[1])) + Integer.valueOf(segments[2]);
         }
 
         if (seconds != null) {
             lastGameTime = seconds;
-            if (fastestTime > seconds) {
+            if ((fastestTime > seconds && seconds != 0) || fastestTime == 0) {
                 fastestTime = seconds;
             }
-            if (slowestTime < seconds) {
+            if (slowestTime < seconds || slowestTime == 0) {
                 slowestTime = seconds;
             }
 
             averageTime = ((averageTime * (gamesPlayed -1)) + seconds) / gamesPlayed;
         }
-        */
+
     }
 
     public String statsGamesWon() {

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import com.tek_genie.hangman.Hangman.*;
 
 /**
  * Created by jasmineislam on 6/22/16.
@@ -34,6 +35,9 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
+        Hangman.bmImage = result;
+        Log.i("DownloadImageTask.java", "Got the File!!");
+    }
 
         /*
         String FILENAME = "imageOfPerson";
@@ -64,6 +68,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
                 e.printStackTrace();
             }
         }
-        */
+
         }
+        */
 }

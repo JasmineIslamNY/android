@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,6 @@ import android.widget.Chronometer;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -50,7 +50,7 @@ public class Hangman extends AppCompatActivity {
     private int maxFailedTries;
     private Chronometer chronometer;
     private View decorView;
-    private Bitmap bmImage;
+    public static Bitmap bmImage;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,33 +94,9 @@ public class Hangman extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
+
         new DownloadImageTask()
                 .execute(nameAndInfo[4]);
-
-        String FILENAME = "hello_file";
-        String string = "hello world!";
-
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            Log.i("DownLoadImageTask", "fos = openFileOutput(FILENAME, Context.MODE_PRIVATE)");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.write(string.getBytes());
-            Log.i("DownLoadImageTask", "fos.write(string.getByte");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                fos.close();
-                Log.i("DownLoadImageTask", "fos.close()");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
         /*
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
