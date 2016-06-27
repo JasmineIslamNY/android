@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        HangmanDBHelper.getInstance(this).getReadableDatabase();
+
         gameObject = new HangmanDAO();
 
         newGameMain = (Button) findViewById(R.id.buttonNewGameMain);

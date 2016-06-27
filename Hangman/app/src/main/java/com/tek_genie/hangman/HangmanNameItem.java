@@ -8,47 +8,34 @@ import java.util.Calendar;
  */
 public class HangmanNameItem implements Serializable {
     private Long id;
-    private String text;
-    private String status;
-    private Calendar date;
+    private String firstName;
+    private String lastName;
+    private Integer displayedCount;
+    private String linkToWiki;
+    private String linkToImage;
+    private String description;
+    private String clue;
 
-    public HangmanNameItem(Long id, String text, String status, Calendar date){
-        setId(id);
-        setText(text);
-        setStatus(status);
-        setDate(date);
+
+    public HangmanNameItem(Long id, String firstName, String lastName, Integer displayedCount,
+                           String linkToWiki, String linkToImage, String description, String clue){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.displayedCount = displayedCount;
+        this.linkToWiki = linkToWiki;
+        this.linkToImage = linkToImage;
+        this.description = description;
+        this.clue = clue;
     }
 
-    public String getText() {
-            return this.text;
+    public String [] getName() {
+        String [] name = {String.valueOf(Long id), firstName, lastName, String.valueOf(Integer displayedCount),
+                    linkToWiki, linkToImage, description, clue};
+        return name;
         }
 
-    public long getId() {
-            return id;
-        }
 
-    public void setId(Long id) {
-            this.id = id;
-        }
 
-    public void setText(String text) {
-            this.text = text;
-        }
-
-    public String getStatus() {
-            return status;
-        }
-
-    public void setStatus(String status) {
-            this.status = status;
-        }
-
-    public Calendar getDate() {
-            return date;
-        }
-
-    public void setDate(Calendar date) {
-            this.date = date;
-        }
 
 }

@@ -24,6 +24,9 @@ public class HangmanDAO implements Serializable {
     private int fastestTime = 0;
     private int averageTime = 0;
     private int slowestTime = 0;
+    private String displayedCount = 0;
+
+    private Context context;
 
     public HangmanDAO (Context context){
         this.context = context;
@@ -54,6 +57,60 @@ public class HangmanDAO implements Serializable {
             name = names[0];
         }
         return name;
+    }
+
+    public String[] nextNameFromDB (){
+        HangmanDBHelper helper = HangmanDBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String[] projection = {
+                HangmanDBContract.Names.COLUMN_NAME_FIRST_NAME,
+                HangmanDBContract.Names.COLUMN_NAME_LAST_NAME,
+                HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT,
+                HangmanDBContract.Names.COLUMN_NAME_LINK_TO_WIKI,
+                HangmanDBContract.Names.COLUMN_NAME_LINK_TO_IMAGE,
+                HangmanDBContract.Names.COLUMN_NAME_DESCRIPTION,
+                HangmanDBContract.Names.COLUMN_NAME_CLUE};
+        //String sortOrder = HangmanDBContract.Names.COLUMN_NAME_LAST_NAME + " DESC";
+        String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT;
+        String whereClauseValue = displayedCount;
+
+        Cursor c = db.query(
+                HangmanDBContract.Names.TABLE_NAME,       // The table to query
+                projection,                               // The columns to return
+                whereClauseColumn,                        // The columns for the WHERE clause
+                whereClauseValue,                         // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                      // The sort order
+        );
+
+        String [] name;
+
+        c.moveToFirst();
+        long id = c.getLong(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_ID));
+        String fName = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_FIRST_NAME));
+        String lName = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_LAST_NAME));
+        Integer dCount = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT));
+        String lnkWiki = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_LINK_TO_WIKI));
+        String lnkImage = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_LINK_TO_IMAGE));
+        String Desc = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_DESCRIPTION));
+        String Clue = c.getString(c.getColumnIndex(HangmanDBContract.Names.COLUMN_NAME_CLUE));
+
+
+            notes.add(new NoteListItem(id, text, status, date));
+        }
+        Log.i("NOTES", notes.size() + " notes loaded");
+        return notes;
+
+        /*
+        HangmanDBContract.GameInfo.COLUMN_NAME_GAMES_WON,
+                HangmanDBContract.GameInfo.COLUMN_NAME_GAMES_PLAYED,
+                HangmanDBContract.GameInfo.COLUMN_NAME_DB_VERSION,
+                HangmanDBContract.GameInfo.COLUMN_NAME_AVERAGE_TIME,
+                HangmanDBContract.GameInfo.COLUMN_NAME_SHORTEST_TIME,
+                HangmanDBContract.GameInfo.COLUMN_NAME_LONGEST_TIME);
+         */
+
     }
 
     public void gameCompleted (int didYouWin) {
