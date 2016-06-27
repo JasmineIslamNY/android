@@ -1,6 +1,7 @@
 package com.tek_genie.hangman;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Chronometer;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -90,8 +94,34 @@ public class Hangman extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
-        new DownloadImageTask(bmImage)
+        new DownloadImageTask()
                 .execute(nameAndInfo[4]);
+
+        String FILENAME = "hello_file";
+        String string = "hello world!";
+
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            Log.i("DownLoadImageTask", "fos = openFileOutput(FILENAME, Context.MODE_PRIVATE)");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(string.getBytes());
+            Log.i("DownLoadImageTask", "fos.write(string.getByte");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                fos.close();
+                Log.i("DownLoadImageTask", "fos.close()");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         /*
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
         submitLetter.setOnClickListener(new View.OnClickListener() {

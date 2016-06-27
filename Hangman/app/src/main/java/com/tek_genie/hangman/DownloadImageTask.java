@@ -1,11 +1,13 @@
 package com.tek_genie.hangman;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +18,7 @@ import java.io.InputStream;
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     ImageView bmImage;
 
-    public DownloadImageTask(ImageView bmImage) {
-        this.bmImage = bmImage;
-    }
+    public DownloadImageTask() {}
 
     protected Bitmap doInBackground(String... urls) {
         String urldisplay = urls[0];
@@ -34,10 +34,24 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
+
+        /*
+        String FILENAME = "imageOfPerson";
+
+        File file = new File(FILENAME);
+        if (file.exists()){
+            file.delete();
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         FileOutputStream out = null;
         try {
-            out = new FileOutputStream(result);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+            out = new FileOutputStream(file);
+            result.compress(Bitmap.CompressFormat.PNG, 100, out);
             // PNG is a lossless format, the compression factor (100) is ignored
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,5 +64,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
                 e.printStackTrace();
             }
         }
-    }
+        */
+        }
 }
