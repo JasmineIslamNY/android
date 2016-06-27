@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame (View view) {
-        name = gameObject.nextName();
+        HangmanNameItem nameItem = gameObject.nextName();
+        String [] name = nameItem.getName();
         String gmWonTotal = gameObject.statsGamesWon() + " / " + gameObject.statsGamesPlayed();
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);

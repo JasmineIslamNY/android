@@ -18,7 +18,7 @@ public class HangmanNameItem implements Serializable {
 
 
     public HangmanNameItem(Long id, String firstName, String lastName, Integer displayedCount,
-                           String linkToWiki, String linkToImage, String description, String clue){
+                           String linkToWiki, String linkToImage, String description, String clue) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
