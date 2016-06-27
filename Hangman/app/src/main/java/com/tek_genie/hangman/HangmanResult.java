@@ -46,8 +46,10 @@ public class HangmanResult extends AppCompatActivity {
         TextView personInformation = (TextView) findViewById(R.id.labelPersonInformation);
         personInformation.setText(nameAndInfo[5]);
 
+        /*
         new DownloadImageTask((ImageView) findViewById(R.id.imageOfPerson))
                 .execute(nameAndInfo[4]);
+        */
 
         /*
         ImageView personPicture = (ImageView) findViewById(R.id.imageOfPerson);

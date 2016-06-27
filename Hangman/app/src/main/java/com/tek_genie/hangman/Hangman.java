@@ -2,6 +2,8 @@ package com.tek_genie.hangman;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
@@ -44,6 +46,7 @@ public class Hangman extends AppCompatActivity {
     private int maxFailedTries;
     private Chronometer chronometer;
     private View decorView;
+    private Bitmap bmImage;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class Hangman extends AppCompatActivity {
         chronometer.setBase(SystemClock.elapsedRealtime());
         chronometer.start();
 
+        new DownloadImageTask(bmImage)
+                .execute(nameAndInfo[4]);
         /*
         submitLetter = (Button) findViewById(R.id.buttonSubmitLetter);
         submitLetter.setOnClickListener(new View.OnClickListener() {
@@ -473,11 +478,25 @@ public class Hangman extends AppCompatActivity {
             chronometer.stop();
             CharSequence timeEnd = chronometer.getText();
             Log.i(TAG, "Timer End: " + timeEnd.toString());
+
             Intent intent = new Intent();
             intent.putExtra("gameResultIntentExtra", gameWonLostText);
             intent.putExtra("gameTimeIntentExtra", timeEnd.toString());
             setResult(RESULT_OK, intent);
             finish();
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
     }
 }
