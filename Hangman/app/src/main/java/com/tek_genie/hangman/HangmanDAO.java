@@ -98,7 +98,7 @@ public class HangmanDAO implements Serializable {
 
             names.add(new HangmanNameItem(id, fName, lName, dCount, lnkWiki, lnkImage, Desc, Clue));
         }
-        Log.i("HangmanDAO", names.size() + " notes loaded");
+        Log.i("HangmanDAO", names.size() + " names loaded");
         return names;
 
         /*

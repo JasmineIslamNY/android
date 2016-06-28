@@ -3,8 +3,10 @@ package com.tek_genie.hangman;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView fastestTime;
     private TextView averageTime;
     private TextView slowestTime;
-
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,34 +82,51 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gameResult = data.getStringExtra("gameResultIntentExtra");
             String gameTime = data.getStringExtra("gameTimeIntentExtra");
-            Log.i("MainActivity", "gameResult returned as: " + gameResult);
-            Log.i("MainActivity", "gameTime returned as: " + gameTime);
-            int gameResultInt = Integer.valueOf(gameResult);
-            gameObject.gameCompleted(gameResultInt);
-            gameObject.gameTimeProcessor(gameTime);
+
+            new UpdateStatisticsTask(this, gameResult, gameTime).execute();
+
+            //Log.i("MainActivity", "gameResult returned as: " + gameResult);
+            //Log.i("MainActivity", "gameTime returned as: " + gameTime);
+            //int gameResultInt = Integer.valueOf(gameResult);
+            //gameObject.gameCompleted(gameResultInt);
+            //gameObject.gameTimeProcessor(gameTime);
             showGameResult(gameResult);
-            displayGameStats();
         }
     }
 
     public void displayGameStats(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String lastGameTimeString = prefs.getString("LastGameTime", "0");
+        String fastestTimeString = prefs.getString("FastestTime", "0");
+        String slowestTimeString = prefs.getString("SlowestTime", "0");
+        String averageTimeString = prefs.getString("AverageTime", "0");
+        String gamesTotalString = prefs.getString("GamesTotal", "0");
+        String gamesWonString = prefs.getString("GamesWon", "0");
+
+        Log.i("MainActivity", "In displayGameStats: gamesWon " + gamesWonString);
+        Log.i("MainActivity", "In displayGameStats: gamesTotal " + gamesTotalString);
+        Log.i("MainActivity", "In displayGameStats: lastGameTime " + lastGameTimeString);
+        Log.i("MainActivity", "In displayGameStats: fastestTime " + fastestTimeString);
+        Log.i("MainActivity", "In displayGameStats: slowestTime " + slowestTimeString);
+        Log.i("MainActivity", "In displayGameStats: averageTime " + averageTimeString);
+
         countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
-        countWonTotal.setText(gameObject.statsGamesWon());
+        countWonTotal.setText(gamesWonString);
 
         countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
-        countTotalGames.setText(gameObject.statsGamesPlayed());
+        countTotalGames.setText(gamesTotalString);
 
         lastGameTime = (TextView) findViewById(R.id.labelLastGameTimeDisplay);
-        lastGameTime.setText(gameObject.statsLastGameTime());
+        lastGameTime.setText(lastGameTimeString);
 
         fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
-        fastestTime.setText(gameObject.statsFastestTime());
+        fastestTime.setText(fastestTimeString);
 
         averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
-        averageTime.setText(gameObject.statsAverageTime());
+        averageTime.setText(averageTimeString);
 
         slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
-        slowestTime.setText(gameObject.statsSlowestTime());
+        slowestTime.setText(slowestTimeString);
     }
 
     @Override
@@ -130,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onResume() {
+        super.onResume();
+        displayGameStats();
     }
 
 }
