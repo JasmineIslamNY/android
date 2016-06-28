@@ -30,12 +30,40 @@ public class HangmanNameItem implements Serializable {
     }
 
     public String [] getName() {
-        String [] name = {String.valueOf(Long id), firstName, lastName, String.valueOf(Integer displayedCount),
+        String [] name = {String.valueOf(id), firstName, lastName, String.valueOf(displayedCount),
                     linkToWiki, linkToImage, description, clue};
         return name;
         }
 
+    public Long getID () {
+        return id;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Integer getDisplayedCount() {
+        return displayedCount;
+    }
+    public String getLinkToWiki() {
+        return linkToWiki;
+    }
+    public String getLinkToImage() {
+        return linkToImage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getClue() {
+        return clue;
+    }
 
 
 }

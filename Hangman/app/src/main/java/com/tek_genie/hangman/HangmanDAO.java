@@ -36,12 +36,14 @@ public class HangmanDAO implements Serializable {
     }
 
     public HangmanDAO() {
+        /*
         //first name, last name, displayed (0/1), link to wikipedia, link to image, description, clue
         this.names2 = new String[][]{
                 {"Hillary", "Clinton", "0", "https://en.wikipedia.org/wiki/Hillary_Clinton", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hillary_Clinton_official_Secretary_of_State_portrait_crop.jpg", "Hillary Diane Rodham Clinton (born October 26, 1947) is an American politician and a candidate for the Democratic presidential nomination in the 2016 election. She served as the 67th United States Secretary of State from 2009 to 2013, the junior United States Senator representing New York from 2001 to 2009, First Lady of the United States during the presidency of Bill Clinton from 1993 to 2001, and First Lady of Arkansas for twelve years.", "The only US first lady ever to have sought elective office"},
                 {"Bernie", "Sanders", "0", "https://en.wikipedia.org/wiki/Bernie_Sanders", "https://upload.wikimedia.org/wikipedia/commons/d/de/Bernie_Sanders.jpg", "Bernard \"Bernie\" Sanders (born September 8, 1941) is an American politician and the junior United States senator from Vermont. He is a candidate for the Democratic nomination for President of the United States in the 2016 election. A member of the Democratic Party since 2015, Sanders had been the longest-serving independent in U.S. congressional history, though his caucusing with the Democrats entitled him to committee assignments and at times gave Democrats a majority. Sanders became the ranking minority member on the Senate Budget Committee in January 2015; he had previously served for two years as chair of the Senate Veterans' Affairs Committee. A self-proclaimed democratic socialist, Sanders is pro-labor and favors greater economic equality.", "Rose to national prominence following his 2010 filibuster against the proposed extension of the Bush tax cuts."},
                 {"Donald","Trump", "0", "https://en.wikipedia.org/wiki/Donald_Trump", "https://upload.wikimedia.org/wikipedia/commons/d/d2/Donald_Trump_August_19%2C_2015_%28cropped%29.jpg", "Donald John Trump (born June 14, 1946) is an American businessman, politician, television personality, author, and the presumptive nominee of the Republican Party for President of the United States in the 2016 election. Trump is the Chairman and President of The Trump Organization, as well as the founder of the gaming and hotel enterprise Trump Entertainment Resorts (now owned by Carl Icahn).", "First campaigned for the U.S. presidency in 2000, and withdrew before any votes were cast, but afterwards won two Reform Party primaries."}
         };
+        */
 
     }
 
@@ -50,6 +52,8 @@ public class HangmanDAO implements Serializable {
         if (nameReturnedCounter == -1) {
             name = new HangmanNameItem("Hillary", "Clinton", "0", "https://en.wikipedia.org/wiki/Hillary_Clinton", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hillary_Clinton_official_Secretary_of_State_portrait_crop.jpg", "Hillary Diane Rodham Clinton (born October 26, 1947) is an American politician and a candidate for the Democratic presidential nomination in the 2016 election. She served as the 67th United States Secretary of State from 2009 to 2013, the junior United States Senator representing New York from 2001 to 2009, First Lady of the United States during the presidency of Bill Clinton from 1993 to 2001, and First Lady of Arkansas for twelve years.", "The only US first lady ever to have sought elective office");
             nameReturnedCounter = 10;
+            LoadDatabase loadNames = LoadDatabase();
+            loadNames.loadDB();
         }
         else if (nameReturnedCounter > 9) {
             names = nextTenNamesFromDB();
@@ -118,6 +122,39 @@ public class HangmanDAO implements Serializable {
 
     }
 
+    public void saveName(String[] name) {
+        HangmanDBHelper helper = HangmanDBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(HangmanDBContract.Names.COLUMN_NAME_FIRST_NAME, name[0]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_LAST_NAME, name[1]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT, name[2]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_LINK_TO_WIKI, name[3]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_LINK_TO_IMAGE, name[4]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_DESCRIPTION, name[5]);
+        values.put(HangmanDBContract.Names.COLUMN_NAME_CLUE, name[6]);
+
+        db.insert(HangmanDBContract.Names.TABLE_NAME, null, values);
+    }
+
+    public void updateName(Long id, Integer displayedCount){
+        NotesDBHelper helper = NotesDBHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT, displayedCount+1);
+
+        String selection = HangmanDBContract.Names.COLUMN_NAME_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+
+        int count = db.update(
+                HangmanDBContract.Names.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
+
     public void gameCompleted (int didYouWin) {
         this.gamesPlayed++;
         if (didYouWin == 1) {
@@ -125,6 +162,7 @@ public class HangmanDAO implements Serializable {
         }
 
     }
+
 
     public void gameTimeProcessor(String gameTime){
         Integer seconds = 0;
