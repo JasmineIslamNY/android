@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private HangmanDAO gameObject;
     private HangmanNameItem nameItem;
     public Context context;
+    private String gamesTotalString;
+    private String gamesWonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
     public void newGame (View view) {
         nameItem = gameObject.nextName();
         String [] name = nameItem.getNameAndInfo();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String gamesTotalString = prefs.getString("GamesTotal", "0");
-        String gamesWonString = prefs.getString("GamesWon", "0");
         String gmWonTotal = gamesWonString + " / " + gamesTotalString;
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);
@@ -82,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         String fastestTimeString = prefs.getString("FastestTime", "0");
         String slowestTimeString = prefs.getString("SlowestTime", "0");
         String averageTimeString = prefs.getString("AverageTime", "0");
-        String gamesTotalString = prefs.getString("GamesTotal", "0");
-        String gamesWonString = prefs.getString("GamesWon", "0");
+        gamesTotalString = prefs.getString("GamesTotal", "0");
+        gamesWonString = prefs.getString("GamesWon", "0");
 
         Log.i("MainActivity", "In displayGameStats: gamesWon " + gamesWonString);
         Log.i("MainActivity", "In displayGameStats: gamesTotal " + gamesTotalString);
