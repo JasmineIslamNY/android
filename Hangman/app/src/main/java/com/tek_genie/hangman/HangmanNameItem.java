@@ -29,10 +29,10 @@ public class HangmanNameItem implements Serializable {
         this.clue = clue;
     }
 
-    public String [] getName() {
-        String [] name = {String.valueOf(id), firstName, lastName, String.valueOf(displayedCount),
-                    linkToWiki, linkToImage, description, clue};
-        return name;
+    public String [] getNameAndInfo() {
+        String [] nameAndInfo = {firstName, lastName, String.valueOf(displayedCount),
+                    linkToWiki, linkToImage, description, clue, String.valueOf(id)};
+        return nameAndInfo;
         }
 
     public Long getID () {

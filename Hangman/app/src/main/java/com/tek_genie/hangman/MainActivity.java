@@ -24,7 +24,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     Button newGameMain;
     private HangmanDAO gameObject;
-    private String[] name;
+    private HangmanNameItem nameItem;
     private TextView countWonTotal;
     private TextView countTotalGames;
     private TextView lastGameTime;
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void newGame (View view) {
-        HangmanNameItem nameItem = gameObject.nextName();
-        String [] name = nameItem.getName();
+        nameItem = gameObject.nextName();
+        String [] name = nameItem.getNameAndInfo();
         String gmWonTotal = gameObject.statsGamesWon() + " / " + gameObject.statsGamesPlayed();
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showGameResult(String didYouWin) {
+        String [] name = nameItem.getNameAndInfo();
         Intent intent = new Intent(this, HangmanResult.class);
         intent.putExtra("nameIntentExtra", name);
         intent.putExtra("didYouWinIntentExtra", didYouWin);
