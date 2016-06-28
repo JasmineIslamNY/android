@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,23 +13,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.Serializable;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     Button newGameMain;
     private HangmanDAO gameObject;
     private HangmanNameItem nameItem;
-    private TextView countWonTotal;
-    private TextView countTotalGames;
-    private TextView lastGameTime;
-    private TextView fastestTime;
-    private TextView averageTime;
-    private TextView slowestTime;
     public Context context;
 
     @Override
@@ -60,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
     public void newGame (View view) {
         nameItem = gameObject.nextName();
         String [] name = nameItem.getNameAndInfo();
-        String gmWonTotal = gameObject.statsGamesWon() + " / " + gameObject.statsGamesPlayed();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String gamesTotalString = prefs.getString("GamesTotal", "0");
+        String gamesWonString = prefs.getString("GamesWon", "0");
+        String gmWonTotal = gamesWonString + " / " + gamesTotalString;
         Intent intent = new Intent(this, Hangman.class);
         intent.putExtra("nameIntentExtra", name);
         intent.putExtra("gamesWonTotalIntentExtra", gmWonTotal);
@@ -82,14 +71,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gameResult = data.getStringExtra("gameResultIntentExtra");
             String gameTime = data.getStringExtra("gameTimeIntentExtra");
-
             new UpdateStatisticsTask(this, gameResult, gameTime).execute();
-
-            //Log.i("MainActivity", "gameResult returned as: " + gameResult);
-            //Log.i("MainActivity", "gameTime returned as: " + gameTime);
-            //int gameResultInt = Integer.valueOf(gameResult);
-            //gameObject.gameCompleted(gameResultInt);
-            //gameObject.gameTimeProcessor(gameTime);
             showGameResult(gameResult);
         }
     }
@@ -110,22 +92,22 @@ public class MainActivity extends AppCompatActivity {
         Log.i("MainActivity", "In displayGameStats: slowestTime " + slowestTimeString);
         Log.i("MainActivity", "In displayGameStats: averageTime " + averageTimeString);
 
-        countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
+        TextView countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
         countWonTotal.setText(gamesWonString);
 
-        countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
+        TextView countTotalGames = (TextView) findViewById(R.id.labelGamesTotalDisplay);
         countTotalGames.setText(gamesTotalString);
 
-        lastGameTime = (TextView) findViewById(R.id.labelLastGameTimeDisplay);
+        TextView lastGameTime = (TextView) findViewById(R.id.labelLastGameTimeDisplay);
         lastGameTime.setText(lastGameTimeString);
 
-        fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
+        TextView fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
         fastestTime.setText(fastestTimeString);
 
-        averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
+        TextView averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
         averageTime.setText(averageTimeString);
 
-        slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
+        TextView slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
         slowestTime.setText(slowestTimeString);
     }
 

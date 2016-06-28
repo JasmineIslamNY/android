@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import com.tek_genie.hangman.HangmanNameItem;
 import java.util.List;
 
@@ -17,13 +15,7 @@ import java.util.List;
  * Created by jasmineislam on 5/18/16.
  */
 public class HangmanDAO implements Serializable {
-    private Integer gamesWon = 0;
-    private Integer gamesPlayed = 0;
     private Context context;
-    private int lastGameTime = 0;
-    private int fastestTime = 0;
-    private int averageTime = 0;
-    private int slowestTime = 0;
     private String displayedCount = "0";
     private Integer nameReturnedCounter = -1;
     List<HangmanNameItem> names;
@@ -100,16 +92,6 @@ public class HangmanDAO implements Serializable {
         }
         Log.i("HangmanDAO", names.size() + " names loaded");
         return names;
-
-        /*
-        HangmanDBContract.GameInfo.COLUMN_NAME_GAMES_WON,
-                HangmanDBContract.GameInfo.COLUMN_NAME_GAMES_PLAYED,
-                HangmanDBContract.GameInfo.COLUMN_NAME_DB_VERSION,
-                HangmanDBContract.GameInfo.COLUMN_NAME_AVERAGE_TIME,
-                HangmanDBContract.GameInfo.COLUMN_NAME_SHORTEST_TIME,
-                HangmanDBContract.GameInfo.COLUMN_NAME_LONGEST_TIME);
-         */
-
     }
 
     public void saveName(String[] nameArray) {
@@ -152,72 +134,4 @@ public class HangmanDAO implements Serializable {
                 selection,
                 selectionArgs);
     }
-
-    public void gameCompleted (int didYouWin) {
-        this.gamesPlayed++;
-        if (didYouWin == 1) {
-            this.gamesWon++;
-        }
-
-    }
-
-
-    public void gameTimeProcessor(String gameTime){
-        Integer seconds = 0;
-        Log.i("HangmanDAO", "gameTime contents: " + gameTime);
-        // Split gameTime into segments
-        String [] segments = gameTime.split(":");
-        Log.i("HangmanDAO", "segments contents: " + segments[0]);
-        Log.i("HangmanDAO", "segments contents: " + segments[1]);
-        if (segments.length == 3){
-            Log.i("HangmanDAO", "segments contents: " + segments[2]);
-        }
-
-        // if only minutes and seconds
-        if (segments.length == 2){
-            seconds = (60 * Integer.valueOf(segments[0])) + Integer.valueOf(segments[1]);
-        }
-        else if (segments.length == 3) {
-            seconds = (60 * 60 * Integer.valueOf(segments[0])) + (60 * Integer.valueOf(segments[1])) + Integer.valueOf(segments[2]);
-        }
-
-        if (seconds != null) {
-            lastGameTime = seconds;
-            if ((fastestTime > seconds && seconds != 0) || fastestTime == 0) {
-                fastestTime = seconds;
-            }
-            if (slowestTime < seconds || slowestTime == 0) {
-                slowestTime = seconds;
-            }
-
-            averageTime = ((averageTime * (gamesPlayed -1)) + seconds) / gamesPlayed;
-        }
-
-    }
-
-    public String statsGamesWon() {
-        return String.valueOf(this.gamesWon);
-    }
-
-    public String statsGamesPlayed() {
-        return String.valueOf(this.gamesPlayed);
-    }
-
-    public String statsLastGameTime() {
-        return String.valueOf(this.lastGameTime);
-    }
-
-    public String statsFastestTime() {
-        return String.valueOf(this.fastestTime);
-    }
-
-    public String statsAverageTime() {
-        return String.valueOf(this.averageTime);
-    }
-
-    public String statsSlowestTime() {
-        return String.valueOf(this.slowestTime);
-    }
-
-
 }

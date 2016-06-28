@@ -2,14 +2,9 @@ package com.tek_genie.hangman;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.ImageView;
-
-import java.io.InputStream;
 
 /**
  * Created by jasmineislam on 6/27/16.

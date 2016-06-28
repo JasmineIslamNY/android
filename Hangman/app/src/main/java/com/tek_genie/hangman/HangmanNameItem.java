@@ -1,7 +1,6 @@
 package com.tek_genie.hangman;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * Created by jasmineislam on 6/21/16.

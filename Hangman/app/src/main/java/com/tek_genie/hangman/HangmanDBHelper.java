@@ -23,11 +23,9 @@ public class HangmanDBHelper extends SQLiteOpenHelper{
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(HangmanDBContract.SQL_CREATE_NAMES);
-        db.execSQL(HangmanDBContract.SQL_CREATE_GAMEINFO);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(HangmanDBContract.SQL_DELETE_NAMES);
-        db.execSQL(HangmanDBContract.SQL_DELETE_GAMEINFO);
         onCreate(db);
     }
 
