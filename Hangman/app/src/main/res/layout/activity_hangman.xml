@@ -41,23 +41,7 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/buttonE"
             android:layout_toEndOf="@+id/buttonE" />
-        <!--
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/countTime_text"
-            android:id="@+id/countTime"
-            android:layout_below="@+id/labelTime"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textAlignment="center"
-            android:layout_alignLeft="@+id/labelTime"
-            android:layout_alignStart="@+id/labelTime" />
 
-            for chronometer:
-            android:textSize="40sp"
-        -->
 
         <Chronometer
             android:id="@+id/chronometer"
@@ -95,8 +79,14 @@
             android:layout_below="@+id/imageTryNumber"
             android:layout_alignRight="@+id/buttonGameComplete"
             android:layout_alignEnd="@+id/buttonGameComplete"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:textSize="@android:dimen/notification_large_icon_height" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/labelGameName"
+            android:layout_above="@+id/buttonA">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,6 +97,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
             android:layout_toEndOf="@+id/labelGameName" />
+        </ScrollView>
 
         <Button
             style="?android:attr/buttonStyleSmall"

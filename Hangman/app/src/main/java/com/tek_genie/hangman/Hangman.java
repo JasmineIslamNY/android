@@ -379,9 +379,27 @@ public class Hangman extends AppCompatActivity {
         return foundLetter;
     }
 
+    private String gameNameForDisplay (StringBuilder underscoreName){
+        String nameForDisplay = "";
+        for (int i = 0; i < underscoreName.length(); i++) {
+            if (underscoreName.substring(i, i+1).equals(" ")) {
+                nameForDisplay = nameForDisplay + "\n";
+            }
+            else if (underscoreName.substring(i, i+1).equals("_")) {
+                nameForDisplay = nameForDisplay + "\n";
+            }
+            else {
+                nameForDisplay = nameForDisplay + underscoreName.substring(i, i+1);
+            }
+        }
+        return nameForDisplay;
+    }
+
     private void updateGameNameDisplay () {
+        String displayThis = gameNameForDisplay(gameName);
+        Log.i("Hangman.java", "updateGameNameDisplay: "+ displayThis );
         gameNameLabel = (TextView) findViewById(R.id.labelGameName);
-        gameNameLabel.setText(gameName);
+        gameNameLabel.setText(displayThis);
     }
 
     private void updateNumberOfFailedTriesImage () {
@@ -389,22 +407,22 @@ public class Hangman extends AppCompatActivity {
         // int stickPersonNumber = Integer.valueOf(temp);
         ImageView triesImage = (ImageView) findViewById(R.id.imageTryNumber);
         if (numberOfFailedTries == 1) {
-            triesImage.setImageResource(R.drawable.stick1);
+            triesImage.setImageResource(R.drawable.happy1);
         }
         else if (numberOfFailedTries == 2) {
-            triesImage.setImageResource(R.drawable.stick2);
+            triesImage.setImageResource(R.drawable.happy2);
         }
         else if (numberOfFailedTries == 3) {
-            triesImage.setImageResource(R.drawable.stick3);
+            triesImage.setImageResource(R.drawable.happy3);
         }
         else if (numberOfFailedTries == 4) {
-            triesImage.setImageResource(R.drawable.stick4);
+            triesImage.setImageResource(R.drawable.happy4);
         }
         else if (numberOfFailedTries == 5) {
-            triesImage.setImageResource(R.drawable.stick5);
+            triesImage.setImageResource(R.drawable.happy5);
         }
         else if (numberOfFailedTries == 6) {
-            triesImage.setImageResource(R.drawable.stick6);
+            triesImage.setImageResource(R.drawable.happy6);
         }
     }
 
