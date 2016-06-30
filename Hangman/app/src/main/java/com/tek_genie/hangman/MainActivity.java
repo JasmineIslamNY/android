@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         HangmanDBHelper.getInstance(this).getReadableDatabase();
 
-        gameObject = new HangmanDAO();
+        gameObject = new HangmanDAO(this);
 
         newGameMain = (Button) findViewById(R.id.buttonNewGameMain);
         newGameMain.setOnClickListener(new View.OnClickListener() {
