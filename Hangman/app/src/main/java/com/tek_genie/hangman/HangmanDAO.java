@@ -3,8 +3,10 @@ package com.tek_genie.hangman;
 import java.io.Serializable;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.List;
 public class HangmanDAO implements Serializable {
     private Context context;
     private String displayedCount = "0";
-    private Integer nameReturnedCounter = -1;
+    private Integer nameReturnedCounter;
     List<HangmanNameItem> names;
 
 
@@ -30,20 +32,30 @@ public class HangmanDAO implements Serializable {
 
     public HangmanNameItem nextName (){
         HangmanNameItem name = null;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        nameReturnedCounter = Integer.valueOf(prefs.getString("savedNameReturnedCounter", "-1"));
+        SharedPreferences.Editor editor = prefs.edit();
+
         if (nameReturnedCounter == -1) {
             name = new HangmanNameItem(0L, "Hillary", "Clinton", 0, "https://en.wikipedia.org/wiki/Hillary_Clinton", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hillary_Clinton_official_Secretary_of_State_portrait_crop.jpg", "Hillary Diane Rodham Clinton (born October 26, 1947) is an American politician and a candidate for the Democratic presidential nomination in the 2016 election. She served as the 67th United States Secretary of State from 2009 to 2013, the junior United States Senator representing New York from 2001 to 2009, First Lady of the United States during the presidency of Bill Clinton from 1993 to 2001, and First Lady of Arkansas for twelve years.", "The only US first lady ever to have sought elective office.");
-            nameReturnedCounter = 10;
             LoadDatabase loadNames = new LoadDatabase();
             loadNames.loadDB();
+            nameReturnedCounter = 10;
+            editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
+            editor.commit();
         }
         else if (nameReturnedCounter > 9) {
             List<HangmanNameItem> names = nextTenNamesFromDB();
             name = (HangmanNameItem) names.get(0);
             nameReturnedCounter = 1;
+            editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
+            editor.commit();
         }
         else if (nameReturnedCounter < 10) {
             name = (HangmanNameItem) names.get(nameReturnedCounter);
             nameReturnedCounter++;
+            editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
+            editor.commit();
         }
 
         return name;
