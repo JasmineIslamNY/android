@@ -386,7 +386,7 @@ public class Hangman extends AppCompatActivity {
                 nameForDisplay = nameForDisplay + "\n";
             }
             else if (underscoreName.substring(i, i+1).equals("_")) {
-                nameForDisplay = nameForDisplay + "\n";
+                nameForDisplay = nameForDisplay + "_ ";
             }
             else {
                 nameForDisplay = nameForDisplay + underscoreName.substring(i, i+1);
@@ -397,7 +397,6 @@ public class Hangman extends AppCompatActivity {
 
     private void updateGameNameDisplay () {
         String displayThis = gameNameForDisplay(gameName);
-        Log.i("Hangman.java", "updateGameNameDisplay: "+ displayThis );
         gameNameLabel = (TextView) findViewById(R.id.labelGameName);
         gameNameLabel.setText(displayThis);
     }

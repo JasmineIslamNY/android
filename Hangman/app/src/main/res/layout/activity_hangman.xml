@@ -80,7 +80,7 @@
             android:layout_alignRight="@+id/buttonGameComplete"
             android:layout_alignEnd="@+id/buttonGameComplete"
             android:layout_marginTop="10dp"
-            android:textSize="@android:dimen/notification_large_icon_height" />
+            android:textSize="@dimen/abc_text_size_display_2_material" />
 
         <ScrollView
             android:layout_width="match_parent"
