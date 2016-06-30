@@ -48,14 +48,10 @@ public class HangmanDAO implements Serializable {
             List<HangmanNameItem> names = nextTenNamesFromDB();
             name = (HangmanNameItem) names.get(0);
             nameReturnedCounter = 1;
-            editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
-            editor.commit();
         }
         else if (nameReturnedCounter < 10) {
             name = (HangmanNameItem) names.get(nameReturnedCounter);
             nameReturnedCounter++;
-            editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
-            editor.commit();
         }
 
         return name;
