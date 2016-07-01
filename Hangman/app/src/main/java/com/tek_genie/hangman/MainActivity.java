@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 1) {
             String gameResult = data.getStringExtra("gameResultIntentExtra");
             String gameTime = data.getStringExtra("gameTimeIntentExtra");
-            new UpdateStatisticsTask(this, gameResult, gameTime).execute();
+            new UpdateStatisticsTask(this, gameResult, gameTime, nameItem.getID(), nameItem.getDisplayedCount()).execute();
             showGameResult(gameResult);
         }
     }

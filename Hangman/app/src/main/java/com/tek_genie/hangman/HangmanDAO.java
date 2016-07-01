@@ -48,8 +48,8 @@ public class HangmanDAO implements Serializable {
         }
         else if (nameReturnedCounter > 9) {
             Log.i("HangmanDAO", "Running : nameReturnedCounter > 9");
-            List<HangmanNameItem> names = nextTenNamesFromDB();
-            name = (HangmanNameItem) names.get(0);
+            names = nextTenNamesFromDB();
+            name = names.get(0);
             nameReturnedCounter = 1;
         }
         else if (nameReturnedCounter < 10) {

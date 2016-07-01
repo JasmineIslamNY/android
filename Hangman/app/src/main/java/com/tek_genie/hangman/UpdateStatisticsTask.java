@@ -13,11 +13,15 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
     private Context context;
     private String gameResult;
     private String gameTime;
+    private Long id;
+    private Integer displayedCount;
 
-    public UpdateStatisticsTask(Context context, String gameResult, String gameTime) {
+    public UpdateStatisticsTask(Context context, String gameResult, String gameTime, Long id, Integer displayedCount) {
         this.context = context;
         this.gameResult = gameResult;
         this.gameTime = gameTime;
+        this.id = id;
+        this.displayedCount = displayedCount;
     }
 
     @Override
@@ -80,6 +84,9 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         Log.i("UpdateStatisticsTask", "In doInBackground: fastestTime " + fastestTime);
         Log.i("UpdateStatisticsTask", "In doInBackground: slowestTime " + slowestTime);
         Log.i("UpdateStatisticsTask", "In doInBackground: averageTime " + averageTime);
+
+        HangmanDAO dao = new HangmanDAO(context);
+        dao.updateName(id, displayedCount);
 
         return null;
     }
