@@ -22,14 +22,12 @@ public class HangmanDAO implements Serializable {
     private Integer nameReturnedCounter;
     private List<HangmanNameItem> names;
     private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
 
 
     public HangmanDAO (Context context){
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         nameReturnedCounter = Integer.valueOf(prefs.getString("savedNameReturnedCounter", "-1"));
-        editor = prefs.edit();
     }
 
     //public HangmanDAO() {}
@@ -44,6 +42,7 @@ public class HangmanDAO implements Serializable {
             //loadNames.loadDB();
             this.loadDB();
             nameReturnedCounter = 10;
+            SharedPreferences.Editor editor = prefs.edit();
             editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
             editor.commit();
         }
