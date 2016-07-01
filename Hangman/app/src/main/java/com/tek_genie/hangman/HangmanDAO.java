@@ -76,18 +76,21 @@ public class HangmanDAO implements Serializable {
                 HangmanDBContract.Names.COLUMN_NAME_DESCRIPTION,
                 HangmanDBContract.Names.COLUMN_NAME_CLUE};
         //String sortOrder = HangmanDBContract.Names.COLUMN_NAME_LAST_NAME + " DESC";
-        String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT;
-        String [] whereClauseValue = {displayedCount};
+        String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT+ " = ?";
+        //String whereClauseColumn = displayedcount;
+        String [] whereClauseValue = {HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT};
         String limit = "10";
 
         Cursor c = db.query(
+                false,
                 HangmanDBContract.Names.TABLE_NAME,       // The table to query
                 projection,                               // The columns to return
-                null, //whereClauseColumn,                        // The columns for the WHERE clause
-                null, //whereClauseValue,                         // The values for the WHERE clause
+                whereClauseColumn,                        // The columns for the WHERE clause
+                whereClauseValue,       //whereClauseValue,                         // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
-                null //,                                      // The sort order
+                null,
+                null                                         // The sort order
                 //limit                                      // The limit
         );
 
