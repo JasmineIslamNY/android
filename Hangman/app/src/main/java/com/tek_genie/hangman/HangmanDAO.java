@@ -78,7 +78,7 @@ public class HangmanDAO implements Serializable {
         //String sortOrder = HangmanDBContract.Names.COLUMN_NAME_LAST_NAME + " DESC";
         String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT+ " = ?";
         //String whereClauseColumn = displayedcount;
-        String [] whereClauseValue = {HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT};
+        String [] whereClauseValue = {"0"};
         String limit = "10";
 
         Cursor c = db.query(
