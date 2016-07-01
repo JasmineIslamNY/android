@@ -25,7 +25,7 @@ public class LoadDatabase {
     }
 
     public void loadDB() {
-        HangmanDAO dao = new HangmanDAO();
+        //HangmanDAO dao = new HangmanDAO();
         for (int i=0; i < names.length; i++) {
             Log.i("LoadDatabase", "In loadDB: name[0] " + names[i][0]);
             Log.i("LoadDatabase", "In loadDB: name[1] " + names[i][1]);
@@ -34,7 +34,7 @@ public class LoadDatabase {
             Log.i("LoadDatabase", "In loadDB: name[4] " + names[i][4]);
             Log.i("LoadDatabase", "In loadDB: name[5] " + names[i][5]);
             Log.i("LoadDatabase", "In loadDB: name[6] " + names[i][6]);
-            dao.saveName(names[i]);
+            //dao.saveName(names[i]);
         }
 
     }
