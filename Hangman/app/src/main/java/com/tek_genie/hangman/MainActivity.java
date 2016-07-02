@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            returnTime = "More than 1 Hour";
+            returnTime = "More than 1 Hour!!";
         }
 
         return returnTime;

@@ -45,7 +45,9 @@ public class HangmanDAO implements Serializable {
             name = new HangmanNameItem(0L, "Hillary", "Clinton", 0, "https://en.wikipedia.org/wiki/Hillary_Clinton", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hillary_Clinton_official_Secretary_of_State_portrait_crop.jpg", "Hillary Diane Rodham Clinton (born October 26, 1947) is an American politician and a candidate for the Democratic presidential nomination in the 2016 election. She served as the 67th United States Secretary of State from 2009 to 2013, the junior United States Senator representing New York from 2001 to 2009, First Lady of the United States during the presidency of Bill Clinton from 1993 to 2001, and First Lady of Arkansas for twelve years.", "The only US first lady ever to have sought elective office.");
             //LoadDatabase loadNames = new LoadDatabase();
             //loadNames.loadDB();
-            this.loadDB();
+            //this.loadDB();
+            //new UpdateStatisticsTask(this, gameResult, gameTime, nameItem.getID(), nameItem.getDisplayedCount()).execute();
+            new LoadDatabaseTask(context).execute();
             nameReturnedCounter = 10;
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
@@ -169,6 +171,7 @@ public class HangmanDAO implements Serializable {
                 selectionArgs);
     }
 
+    /*
     public void loadDB() {
         String [][] names = new String[][]{
                 {"One", "Clinton", "1", "https://en.wikipedia.org/wiki/Hillary_Clinton", "https://upload.wikimedia.org/wikipedia/commons/2/27/Hillary_Clinton_official_Secretary_of_State_portrait_crop.jpg", "Hillary Diane Rodham Clinton (born October 26, 1947) is an American politician and a candidate for the Democratic presidential nomination in the 2016 election. She served as the 67th United States Secretary of State from 2009 to 2013, the junior United States Senator representing New York from 2001 to 2009, First Lady of the United States during the presidency of Bill Clinton from 1993 to 2001, and First Lady of Arkansas for twelve years.", "The only US first lady ever to have sought elective office"},
@@ -220,4 +223,5 @@ public class HangmanDAO implements Serializable {
         }
 
     }
+    */
 }
