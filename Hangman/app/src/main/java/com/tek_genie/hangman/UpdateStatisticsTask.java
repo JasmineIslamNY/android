@@ -35,6 +35,7 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         String averageTime = prefs.getString("AverageTime", "0");
         String gamesTotal = prefs.getString("GamesTotal", "0");
         String gamesWon = prefs.getString("GamesWon", "0");
+        Integer namesDisplayedSoFarCounter = Integer.valueOf(prefs.getString("savedNamesDisplayedSoFarCounter", "0"));
 
         // Split gameTime into segments
         String [] segments = gameTime.split(":");
@@ -67,7 +68,7 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
 
         gamesTotal = String.valueOf(Integer.valueOf(gamesTotal) + 1);
         gamesWon = String.valueOf(Integer.valueOf(gamesWon) + Integer.valueOf(gameResult));
-
+        namesDisplayedSoFarCounter += 1;
 
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("GamesWon", gamesWon);
@@ -76,6 +77,7 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         editor.putString("FastestTime", fastestTime);
         editor.putString("SlowestTime", slowestTime);
         editor.putString("AverageTime", averageTime);
+        editor.putString("savedNamesDisplayedSoFarCounter", String.valueOf(namesDisplayedSoFarCounter));
         editor.commit();
 
         Log.i("UpdateStatisticsTask", "In doInBackground: gamesWon " + gamesWon);
@@ -84,6 +86,7 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         Log.i("UpdateStatisticsTask", "In doInBackground: fastestTime " + fastestTime);
         Log.i("UpdateStatisticsTask", "In doInBackground: slowestTime " + slowestTime);
         Log.i("UpdateStatisticsTask", "In doInBackground: averageTime " + averageTime);
+        Log.i("UpdateStatisticsTask", "In doInBackground: namesDisplayedSoFarCounter " + namesDisplayedSoFarCounter);
 
         HangmanDAO dao = new HangmanDAO(context);
         dao.updateName(id, displayedCount);
