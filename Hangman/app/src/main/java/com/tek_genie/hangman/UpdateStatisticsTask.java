@@ -94,9 +94,6 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         return null;
     }
 
-    protected void onPostExecute() {
-
-    }
 }
 
 
