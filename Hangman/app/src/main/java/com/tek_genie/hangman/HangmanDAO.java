@@ -23,6 +23,7 @@ public class HangmanDAO implements Serializable {
     private SharedPreferences prefs;
     private Integer displayedCountForWhereClause;
     private Integer namesDisplayedSoFarCounter;
+    private Integer numberOfNames = 13;
 
 
     public HangmanDAO (Context context){
@@ -48,20 +49,20 @@ public class HangmanDAO implements Serializable {
             //this.loadDB();
             //new UpdateStatisticsTask(this, gameResult, gameTime, nameItem.getID(), nameItem.getDisplayedCount()).execute();
             new LoadDatabaseTask(context).execute();
-            nameReturnedCounter = 13;
+            nameReturnedCounter = numberOfNames;
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
             editor.putString("savedDisplayedCountForWhereClause", String.valueOf(displayedCountForWhereClause));
             editor.putString("savedNamesDisplayedSoFarCounter", String.valueOf(namesDisplayedSoFarCounter));
             editor.commit();
         }
-        else if (nameReturnedCounter > 12) {
+        else if (nameReturnedCounter > (numberOfNames -1)) {
             Log.i("HangmanDAO", "Running : nameReturnedCounter > 9");
             names = nextTenNamesFromDB();
             name = names.get(0);
             nameReturnedCounter = 1;
         }
-        else if (nameReturnedCounter < 13) {
+        else if (nameReturnedCounter < numberOfNames) {
             Log.i("HangmanDAO", "Running : nameReturnedCounter < 10");
             name = names.get(nameReturnedCounter);
             Log.i("HangmanDAO", "Counter: " + nameReturnedCounter);
@@ -75,7 +76,7 @@ public class HangmanDAO implements Serializable {
     public List<HangmanNameItem> nextTenNamesFromDB () {
         displayedCountForWhereClause = Integer.valueOf(prefs.getString("savedDisplayedCountForWhereClause", "1"));
         namesDisplayedSoFarCounter = Integer.valueOf(prefs.getString("savedNamesDisplayedSoFarCounter", "0"));
-        if (namesDisplayedSoFarCounter >= 13) {
+        if (namesDisplayedSoFarCounter >= numberOfNames) {
             displayedCountForWhereClause += 1;
             namesDisplayedSoFarCounter = 0;
             SharedPreferences.Editor editor = prefs.edit();
@@ -98,7 +99,7 @@ public class HangmanDAO implements Serializable {
                 HangmanDBContract.Names.COLUMN_NAME_CLUE};
         String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT+ " < ?";
         String [] whereClauseValue = {String.valueOf(displayedCountForWhereClause)};
-        String limit = "13";
+        String limit = String.valueOf(numberOfNames);
 
         Cursor c = db.query(
                 false,                                      //bool for distinct
