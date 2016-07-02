@@ -88,8 +88,10 @@ public class UpdateStatisticsTask extends AsyncTask<String, Void, Void> {
         Log.i("UpdateStatisticsTask", "In doInBackground: averageTime " + averageTime);
         Log.i("UpdateStatisticsTask", "In doInBackground: namesDisplayedSoFarCounter " + namesDisplayedSoFarCounter);
 
-        HangmanDAO dao = new HangmanDAO(context);
-        dao.updateName(id, displayedCount);
+        if (Integer.valueOf(gamesTotal) > 1) {
+            HangmanDAO dao = new HangmanDAO(context);
+            dao.updateName(id, displayedCount);
+        }
 
         return null;
     }

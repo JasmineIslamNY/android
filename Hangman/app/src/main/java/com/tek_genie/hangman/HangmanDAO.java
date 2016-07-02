@@ -48,20 +48,20 @@ public class HangmanDAO implements Serializable {
             //this.loadDB();
             //new UpdateStatisticsTask(this, gameResult, gameTime, nameItem.getID(), nameItem.getDisplayedCount()).execute();
             new LoadDatabaseTask(context).execute();
-            nameReturnedCounter = 10;
+            nameReturnedCounter = 13;
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("savedNameReturnedCounter", String.valueOf(nameReturnedCounter));
             editor.putString("savedDisplayedCountForWhereClause", String.valueOf(displayedCountForWhereClause));
             editor.putString("savedNamesDisplayedSoFarCounter", String.valueOf(namesDisplayedSoFarCounter));
             editor.commit();
         }
-        else if (nameReturnedCounter > 9) {
+        else if (nameReturnedCounter > 12) {
             Log.i("HangmanDAO", "Running : nameReturnedCounter > 9");
             names = nextTenNamesFromDB();
             name = names.get(0);
             nameReturnedCounter = 1;
         }
-        else if (nameReturnedCounter < 10) {
+        else if (nameReturnedCounter < 13) {
             Log.i("HangmanDAO", "Running : nameReturnedCounter < 10");
             name = names.get(nameReturnedCounter);
             Log.i("HangmanDAO", "Counter: " + nameReturnedCounter);
@@ -75,7 +75,7 @@ public class HangmanDAO implements Serializable {
     public List<HangmanNameItem> nextTenNamesFromDB () {
         displayedCountForWhereClause = Integer.valueOf(prefs.getString("savedDisplayedCountForWhereClause", "1"));
         namesDisplayedSoFarCounter = Integer.valueOf(prefs.getString("savedNamesDisplayedSoFarCounter", "0"));
-        if (namesDisplayedSoFarCounter >= 10) {
+        if (namesDisplayedSoFarCounter >= 13) {
             displayedCountForWhereClause += 1;
             namesDisplayedSoFarCounter = 0;
             SharedPreferences.Editor editor = prefs.edit();
@@ -98,7 +98,7 @@ public class HangmanDAO implements Serializable {
                 HangmanDBContract.Names.COLUMN_NAME_CLUE};
         String whereClauseColumn = HangmanDBContract.Names.COLUMN_NAME_DISPLAYEDCOUNT+ " < ?";
         String [] whereClauseValue = {String.valueOf(displayedCountForWhereClause)};
-        String limit = "10";
+        String limit = "13";
 
         Cursor c = db.query(
                 false,                                      //bool for distinct
