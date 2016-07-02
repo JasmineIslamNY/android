@@ -77,21 +77,54 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private String convertSecondsForDisplay (Integer seconds) {
+        String returnTime;
+        if (seconds < 10) {
+            returnTime = "00:0" + seconds;
+        }
+        else if (seconds < 60) {
+            returnTime = "00:" + seconds;
+        }
+        else if (seconds < 600) {
+            returnTime = "0" + seconds/60 + ":";
+            if ((seconds % 60) < 10) {
+                returnTime = returnTime + "0" + (seconds % 60);
+            }
+            else {
+                returnTime = returnTime + (seconds % 60);
+            }
+        }
+        else if (seconds < 3600){
+            returnTime = seconds/60 + ":";
+            if ((seconds % 60) < 10) {
+                returnTime = returnTime + "0" + (seconds % 60);
+            }
+            else {
+                returnTime = returnTime + (seconds % 60);
+            }
+        }
+        else {
+            returnTime = "More than 1 Hour";
+        }
+
+        return returnTime;
+    }
+
     public void displayGameStats(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String lastGameTimeString = prefs.getString("LastGameTime", "0");
-        String fastestTimeString = prefs.getString("FastestTime", "0");
-        String slowestTimeString = prefs.getString("SlowestTime", "0");
-        String averageTimeString = prefs.getString("AverageTime", "0");
+        Integer lastGameTimeInteger = Integer.valueOf(prefs.getString("LastGameTime", "0"));
+        Integer fastestTimeInteger = Integer.valueOf(prefs.getString("FastestTime", "0"));
+        Integer slowestTimeInteger = Integer.valueOf(prefs.getString("SlowestTime", "0"));
+        Integer averageTimeInteger = Integer.valueOf(prefs.getString("AverageTime", "0"));
         gamesTotalString = prefs.getString("GamesTotal", "0");
         gamesWonString = prefs.getString("GamesWon", "0");
 
         Log.i("MainActivity", "In displayGameStats: gamesWon " + gamesWonString);
         Log.i("MainActivity", "In displayGameStats: gamesTotal " + gamesTotalString);
-        Log.i("MainActivity", "In displayGameStats: lastGameTime " + lastGameTimeString);
-        Log.i("MainActivity", "In displayGameStats: fastestTime " + fastestTimeString);
-        Log.i("MainActivity", "In displayGameStats: slowestTime " + slowestTimeString);
-        Log.i("MainActivity", "In displayGameStats: averageTime " + averageTimeString);
+        Log.i("MainActivity", "In displayGameStats: lastGameTime " + lastGameTimeInteger);
+        Log.i("MainActivity", "In displayGameStats: fastestTime " + fastestTimeInteger);
+        Log.i("MainActivity", "In displayGameStats: slowestTime " + slowestTimeInteger);
+        Log.i("MainActivity", "In displayGameStats: averageTime " + averageTimeInteger);
 
         TextView countWonTotal = (TextView) findViewById(R.id.labelGamesWonDisplay);
         countWonTotal.setText(gamesWonString);
@@ -100,16 +133,16 @@ public class MainActivity extends AppCompatActivity {
         countTotalGames.setText(gamesTotalString);
 
         TextView lastGameTime = (TextView) findViewById(R.id.labelLastGameTimeDisplay);
-        lastGameTime.setText(lastGameTimeString);
+        lastGameTime.setText(convertSecondsForDisplay(lastGameTimeInteger));
 
         TextView fastestTime = (TextView) findViewById(R.id.labelFastestTimeDisplay);
-        fastestTime.setText(fastestTimeString);
+        fastestTime.setText(convertSecondsForDisplay(fastestTimeInteger));
 
         TextView averageTime = (TextView) findViewById(R.id.labelAverageTimeDisplay);
-        averageTime.setText(averageTimeString);
+        averageTime.setText(convertSecondsForDisplay(averageTimeInteger));
 
         TextView slowestTime = (TextView) findViewById(R.id.labelSlowestTimeDisplay);
-        slowestTime.setText(slowestTimeString);
+        slowestTime.setText(convertSecondsForDisplay(slowestTimeInteger));
     }
 
     @Override
