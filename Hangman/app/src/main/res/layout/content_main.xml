@@ -19,7 +19,6 @@
         android:text="@string/gamesWon"
         android:id="@+id/labelGamesWon"
         android:singleLine="true"
-        android:layout_below="@+id/labelMain"
         android:layout_alignParentLeft="true"
         android:paddingRight="10dp"/>
 
@@ -30,7 +29,6 @@
         android:id="@+id/labelGamesWonDisplay"
         android:text="@string/default0"
         android:singleLine="true"
-        android:layout_below="@+id/labelMain"
         android:layout_toRightOf="@id/labelGamesWon" />
 
     <TextView
