@@ -9,7 +9,7 @@ public class HangmanDBContract {
     private HangmanDBContract() {}
 
     /*When you change the schema you need to update the version number*/
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "hangmandb";
 
     /*CREATE TABLE Statements*/
