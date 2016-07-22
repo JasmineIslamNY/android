@@ -28,6 +28,10 @@ public class HangmanNameItem implements Serializable {
         this.clue = clue;
     }
 
+    public HangmanNameItem () {
+
+    }
+
     public String [] getNameAndInfo() {
         String [] nameAndInfo = {firstName, lastName, String.valueOf(displayedCount),
                     linkToWiki, linkToImage, description, clue, String.valueOf(id)};

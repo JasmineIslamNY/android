@@ -23,7 +23,8 @@ public class HangmanDAO implements Serializable {
     private SharedPreferences prefs;
     private Integer displayedCountForWhereClause;
     private Integer namesDisplayedSoFarCounter;
-    private Integer numberOfNames = 13;
+    private Integer numberOfNames = 10;
+    private Integer namesInDB = 28;
 
 
     public HangmanDAO (Context context){
@@ -76,7 +77,7 @@ public class HangmanDAO implements Serializable {
         nameReturnedCounter = 1;
         displayedCountForWhereClause = Integer.valueOf(prefs.getString("savedDisplayedCountForWhereClause", "1"));
         namesDisplayedSoFarCounter = Integer.valueOf(prefs.getString("savedNamesDisplayedSoFarCounter", "0"));
-        if (namesDisplayedSoFarCounter >= numberOfNames) {
+        if (namesDisplayedSoFarCounter >= namesInDB) {
             displayedCountForWhereClause += 1;
             namesDisplayedSoFarCounter = 0;
             SharedPreferences.Editor editor = prefs.edit();
@@ -129,8 +130,11 @@ public class HangmanDAO implements Serializable {
         }
         Log.i("HangmanDAO", names.size() + " names loaded");
         if (names.size() == 0){
-            displayedCountForWhereClause = 1;
-            namesDisplayedSoFarCounter = numberOfNames;
+            //this will be increased to 1 in nextTenNamesFromDB()
+            displayedCountForWhereClause = 0;
+            //this will make the if statement in nextTenNamesFromDB() true so displayedCountForWhereClause and namesDisplayedSoFarCounter are reset
+            namesDisplayedSoFarCounter = namesInDB;
+            //this will make nextName() method call's if (nameReturnedCounter > (numberOfNames -1)) statement true so nextTenNamesFromDB() is called the next time
             nameReturnedCounter = numberOfNames;
             names.add(new HangmanNameItem(0L, "Khaleda", "Zia", 0, "https://en.wikipedia.org/wiki/Khaleda_Zia", "https://upload.wikimedia.org/wikipedia/commons/8/8b/Khaleda_Zia_former_Prime_Minister_of_Bangladesh_cropped.jpg", "Begum Khaleda Zia (born 15 August 1945) is a Bangladeshi politician who was the Prime Minister of Bangladesh from 1991 to 1996 and again from 2001 to 2006. When she took office in 1991, she was the first woman in the country's history and second in the Muslim world (after Benazir Bhutto of Pakistan in 1988–1990) to head a democratic government as prime minister. Zia was the First Lady of Bangladesh during the presidency of her husband Ziaur Rahman. She is the chairperson and leader of the Bangladesh Nationalist Party (BNP) which was founded by Rahman in the late 1970s.\n After a military coup in 1982, led by Army Chief General Hussain Muhammad Ershad, Zia helped lead the continuing movement for democracy until the fall of military dictator Ershad in 1990. Khaleda became prime minister following the victory of the BNP in the 1991 general election. She also served briefly in the short-lived government in 1996, when other parties had boycotted the first election. In the next round of general elections of 1996, the Awami League came to power. Her party came to power again in 2001. She has been elected to five separate parliamentary constituencies in the general elections of 1991, 1996 and 2001.\n In its list of the 100 Most Powerful Women in the World, Forbes magazine ranked Zia at number 14 in 2004, number 29 in 2005, and number 33 in 2006.\n Following her government's term end in 2006, the scheduled January 2007 elections were delayed due to political violence and in-fighting, resulting in a bloodless military takeover of the caretaker government. During its interim rule, it charged Zia and her two sons with corruption.\n For the better part of the last two decades, Khaleda's chief rival has been Awami League leader Sheikh Hasina. The two women have alternated as non-interim prime ministers since 1991.","Second woman in the Muslim world to head a democratic government as prime minister."));
             new LoadDatabaseTask(context).execute();
@@ -139,6 +143,14 @@ public class HangmanDAO implements Serializable {
             editor.putString("savedDisplayedCountForWhereClause", String.valueOf(displayedCountForWhereClause));
             editor.putString("savedNamesDisplayedSoFarCounter", String.valueOf(namesDisplayedSoFarCounter));
             editor.commit();
+        }
+        else if (names.size() <  numberOfNames){
+            int countToIncrease = numberOfNames - names.size();
+            for (int i =0; i < countToIncrease; i++) {
+                names.add(0, new HangmanNameItem());
+            }
+            nameReturnedCounter = countToIncrease;
+
         }
         return names;
     }
